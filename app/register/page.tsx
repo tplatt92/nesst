@@ -1,13 +1,11 @@
-'use client'
+"use client";
 
-import React from "react"
-
-export default function Register (){
-    return(
-        <>
-        <div>
+export default function Register() {
+  return (
+    <>
+      <div>
         <h1>Register</h1>
-        </div>
-        </>
-    )
+      </div>
+    </>
+  );
 }
