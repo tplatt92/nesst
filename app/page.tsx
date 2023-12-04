@@ -1,30 +1,14 @@
-import Link from "next/link";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import AuthForm from "./components/AuthForm";
 
 export default function Home() {
   return (
-    <div className="row">
-      <div className="col-6">
-        <h1 className="header">Supabase Auth + Storage</h1>
-        <p className="">
-          Experience our Auth and Storage through a simple profile management
-          example. Create a user profile and upload an avatar image. Fast,
-          simple, secure.
-        </p>
-      </div>
-      <div className="col-6 auth-widget">
+    <div className=" h-screen flex flex-col justify-center bg-black ">
+      <div className="col p-16 text-gray-500">
         <AuthForm />
+        <h1 className="header">Supabase Auth + Storage</h1>
+        <p className="">N e s s t</p>
       </div>
+      <div className="col-6 auth-widget"></div>
     </div>
   );
 }
