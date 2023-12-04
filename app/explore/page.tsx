@@ -14,7 +14,7 @@ import {
 
 
 
-export default function Home() {
+export default function Explore() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
@@ -23,7 +23,6 @@ export default function Home() {
         <Link href="/profile">Profile</Link>
         <Link href="/register">Register</Link>
         <Link href="/signIn">Sign In</Link>
-        <Link href="/explore">Explore</Link>
       </div>
       <div>
         <h1 className="bg-nesstYellow text-white p-1 text-1xl font-serif font-bold font-montserrat">
@@ -36,6 +35,19 @@ export default function Home() {
           Hello
         </h1>
       </div>
+      <Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Card Content</p>
+  </CardContent>
+  <CardFooter>
+    <p>Card Footer</p>
+  </CardFooter>
+</Card>
+
     </main>
   );
 }
