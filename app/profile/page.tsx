@@ -1,17 +1,14 @@
-"use client";
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { Database } from '@/types/supabase'
+import AccountForm from './account-form'
 
-import Link from "next/link";
+export default async function Account() {
+  const supabase = createServerComponentClient<Database>({ cookies })
 
-export default function Profile() {
-  return (
-    <>
-      <div>
-        <Link href="/">Home</Link>
-        <Link href="/messages">Messages</Link>
-        <Link href="/profile">Profile</Link>
-        <Link href="/register">Register</Link>
-        <Link href="/signIn">Sign In</Link>
-      </div>
-    </>
-  );
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  return <AccountForm session={session} />
 }
