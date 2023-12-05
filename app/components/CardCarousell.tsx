@@ -24,7 +24,7 @@ const Carousel = ({ images }) => {
       <img
         key={currentIndex}
         src={images[currentIndex]}
-        className="w-full h-full object-cover border-2 border-red-500 rounded-lg"
+        className="w-full h-full object-cover border-2 border-white rounded-lg"
         alt={`Slide ${currentIndex + 1}`}
       />
 
@@ -73,12 +73,12 @@ const Carousel = ({ images }) => {
         </div>
       </div>
 
-      <div className="carousel-indicator flex justify-center mt-4">
+      <div className="carousel-indicator flex justify-center mt-4 absolute bottom-2 w-full">
         {images.map((_, index) => (
           <div
             key={index}
             className={`dot bg-gray-700 w-4 h-4 rounded-full mx-1 ${
-              currentIndex === index ? "active bg-red-600" : ""
+              currentIndex === index ? "active bg-white" : ""
             }`}
             onClick={() => handleDotClick(index)}
           ></div>
