@@ -1,6 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 
 const Carousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,7 +28,7 @@ const Carousel = ({ images }) => {
         alt={`Slide ${currentIndex + 1}`}
       />
 
-      <div className="flex justify-between absolute top-0 bottom-0 m-auto">
+      <div className="flex justify-between top-0 bottom-0 m-auto">
         <div
           className=" bg-red-600 text-white p-2 rounded-full cursor-pointer absolute top-0 bottom-0 m-auto h-10 w-10 left-0"
           onClick={handlePrevious}
@@ -35,7 +36,7 @@ const Carousel = ({ images }) => {
           {/* Add your SVG for the left arrow */}
         </div>
         <div
-          className="right bg-red-600 text-white p-2 rounded-full cursor-pointer absolute top-0 bottom-0 m-auto h-20 w-10 right-0"
+          className="bg-black p-2 rounded-full cursor-pointer m-auto h-10 w-10 absolute right-0 top-0 bottom-0"
           onClick={handleNext}
         >
           {/* Add your SVG for the right arrow */}
