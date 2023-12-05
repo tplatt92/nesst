@@ -90,7 +90,7 @@ export default function Explore() {
         <Link href="/register">Register</Link>
         <Link href="/signIn">Sign In</Link>
       </div>
-      <div className="grid grid-col-1 gap-4">
+      <div className="grid grid-col-1 gap-4" data-testid="card-id">
         {osloDummyData.map((item, index) => (
           <Card key={index}>
             <CardHeader className="relative">

@@ -2,7 +2,6 @@ import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import Explore from "@/app/explore/page";
-import Footer from "@/app/components/Footer";
 
 afterEach(() => {
   cleanup();
@@ -13,10 +12,15 @@ describe("Explore", () => {
     render(<Explore />);
   });
 
+  it("renders the card", () => {
+    render(<Explore />);
+    const card = screen.getByTestId("card-id");
+    expect(card).toBeInTheDocument();
+  });
 
-// it("renders footer", () => {
-//   render(<Explore />);
-//   const footer= screen.getByTestId("footer");
-//   expect(footer).toBeInTheDocument();
-});
+  it("renders footer", () => {
+    render(<Explore />);
+    const footer = screen.getByTestId("footer-id");
+    expect(footer).toBeInTheDocument();
+  });
 });
