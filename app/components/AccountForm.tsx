@@ -100,7 +100,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
   return (
     <div className="form-widget flex flex-col items-center justify-evenly h-screen overflow-y-scroll bg-black text-white">
       <div className="flex mt-16">
-      <Image
+        <Image
           src="/logos/emptyegg.png"
           alt="Nesst Logo"
           width={40}
@@ -108,33 +108,40 @@ export default function AccountForm({ session }: { session: Session | null }) {
           className="mr-4"
         />
         <h1 className="text-5xl tracking-[0.4em]">NESST</h1>
-        </div>
-      <div className="w-5/6 " >
-        
-        <input id="email" type="text" value={session?.user.email} disabled className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
-        placeholder="Email" />
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
+        <input
+          id="email"
+          type="text"
+          value={session?.user.email}
+          disabled
+          className="w-full p-2 pl-4 border border-white rounded-full mt-2 bg-black placeholder-white"
+          placeholder="Email"
+        />
+      </div>
+      <div className="w-5/6 ">
         {/* <label htmlFor="firstName">First Name</label> */}
         <input
-        placeholder="First Name"
+          placeholder="First Name"
           id="firstName"
           type="text"
           value={firstName || ""}
-          onChange={(e) => setFirstName(e.target.value)} className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
+          onChange={(e) => setFirstName(e.target.value)}
+          className="w-full p-2 pl-4 border border-white rounded-full mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
         {/* <label htmlFor="lastName">Last Name</label> */}
         <input
           id="lastName"
           placeholder="Last Name"
           type="text"
           value={lastName || ""}
-          onChange={(e) => setLastName(e.target.value)} className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
+          onChange={(e) => setLastName(e.target.value)}
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
         {/* <label htmlFor="username">Username</label> */}
         <input
           id="username"
@@ -142,21 +149,20 @@ export default function AccountForm({ session }: { session: Session | null }) {
           type="text"
           value={username || ""}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
         {/* <label htmlFor="bio">Bio</label> */}
         <textarea
           id="Bio"
           placeholder="Bio"
-          type="text"
           value={bio || ""}
           onChange={(e) => setBio(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
         {/* <label htmlFor="avatarUrl">Avatar URL</label> */}
         <input
           id="avatarUrl"
@@ -164,40 +170,44 @@ export default function AccountForm({ session }: { session: Session | null }) {
           type="url"
           value={avatar_url || ""}
           onChange={(e) => setAvatarUrl(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
         {/* <label htmlFor="drinker">What are your drinking habits?</label> */}
         <select
           id="drinker"
           placeholder="Drinking habits"
           value={drinker || ""}
           onChange={(e) => setDrinker(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         >
-          <option value="" disabled selected>Drinking habits</option>
+          <option value="" disabled selected>
+            Drinking habits
+          </option>
           <option value="social">Social</option>
           <option value="light">Light</option>
           <option value="heavy">Heavy</option>
           <option value="non">Non</option>
         </select>
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
         {/* <label htmlFor="smoker">Smoker</label> */}
         <select
           id="smoker"
           placeholder="Smoker"
           value={smoker || ""}
-
-          onChange={(e) => setSmoker(e.target.value)} 
-          className="w-full p-2 px-4 border border-white rounded-full  mt-2 bg-black">
-          <option value="" disabled selected>Smoker</option>
+          onChange={(e) => setSmoker(e.target.value)}
+          className="w-full p-2 px-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
+        >
+          <option value="" disabled selected>
+            Smoker
+          </option>
           <option value="true">Yes</option>
           <option value="false">No</option>
-          </select>
+        </select>
       </div>
-      <div className="w-5/6 " >
+      <div className="w-5/6 ">
         <button
           className="bg-[#d9a66d] w-full py-2 rounded-full"
           onClick={() =>
