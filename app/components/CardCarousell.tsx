@@ -1,7 +1,6 @@
-"use client"
+"use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-
 
 const Carousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,35 +19,36 @@ const Carousel = ({ images }) => {
     setCurrentIndex(index);
   };
   return (
-    <div className="carousel">
-      <img key={currentIndex} src={images[currentIndex]} />
-      <div className="slide_direction">
-        <div className="left" onClick={handlePrevious}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="20"
-            viewBox="0 96 960 960"
-            width="20"
-          >
-            <path d="M400 976 0 576l400-400 56 57-343 343 343 343-56 57Z" />
-          </svg>
+    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden">
+      <img
+        key={currentIndex}
+        src={images[currentIndex]}
+        className="w-full h-full object-cover border-2 border-red-500 rounded-lg"
+        alt={`Slide ${currentIndex + 1}`}
+      />
+
+      <div className="flex justify-between absolute top-0 bottom-0 m-auto">
+        <div
+          className=" bg-red-600 text-white p-2 rounded-full cursor-pointer absolute top-0 bottom-0 m-auto h-10 w-10 left-0"
+          onClick={handlePrevious}
+        >
+          {/* Add your SVG for the left arrow */}
         </div>
-        <div className="right" onClick={handleNext}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="20"
-            viewBox="0 96 960 960"
-            width="20"
-          >
-            <path d="m304 974-56-57 343-343-343-343 56-57 400 400-400 400Z" />
-          </svg>
+        <div
+          className="right bg-red-600 text-white p-2 rounded-full cursor-pointer absolute top-0 bottom-0 m-auto h-20 w-10 right-0"
+          onClick={handleNext}
+        >
+          {/* Add your SVG for the right arrow */}
         </div>
       </div>
-      <div className="indicator">
+
+      <div className="carousel-indicator flex justify-center mt-4">
         {images.map((_, index) => (
           <div
             key={index}
-            className={`dot ${currentIndex === index ? "active" : ""}`}
+            className={`dot bg-gray-700 w-4 h-4 rounded-full mx-1 ${
+              currentIndex === index ? "active bg-red-600" : ""
+            }`}
             onClick={() => handleDotClick(index)}
           ></div>
         ))}
