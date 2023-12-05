@@ -1,11 +1,11 @@
-"use client";
+import AuthForm from "../components/AuthForm";
 
-export default function SignIn() {
+export default function Login() {
   return (
-    <>
-      <div>
-        <h1>Sign In</h1>
+    <div className=" h-screen flex flex-col justify-center bg-black ">
+      <div className="col p-16 text-gray-500">
+        <AuthForm />
       </div>
-    </>
+    </div>
   );
 }
