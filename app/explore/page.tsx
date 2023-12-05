@@ -73,10 +73,6 @@ export default function Explore() {
         {osloDummyData.map((item, index) => (
           <Card key={index}>
             <CardHeader className="relative">
-              <button className="material-symbols-outlined absolute top-5 right-4 mt-4 mr-4 text-black text-4xl font-extrabold cursor-pointer focus:text-red-700 bg-white rounded-full bg-opacity-50">
-                Favorite
-              </button>
-
               <Image
                 src={item.imageURL}
                 alt="property photo"
@@ -117,4 +113,10 @@ export default function Explore() {
   Hello
 </h1>
 </div> */
+}
+
+{
+  /* <button className="material-symbols-outlined absolute top-5 right-4 mt-4 mr-4 text-black text-4xl font-extrabold cursor-pointer focus:text-red-700 bg-white rounded-full bg-opacity-50">
+                Favorite
+              </button> */
 }
