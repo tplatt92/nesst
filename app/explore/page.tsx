@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import photo1 from "C:UsersyusraDownloadsDesktopjob preposlo.jpg";
 
 import {
   Card,
@@ -18,46 +17,50 @@ const osloDummyData = [
     id: 1,
     name: "Oslo Central Apartment",
     description: "A modern apartment in the heart of Oslo.",
-    imageURL: { photo1 },
+    imageURL: "/imagesTest/photo1.webp",
     location: "Oslo Central",
     bedrooms: 6,
     bathrooms: 3,
     price: "$200 per night",
+    date: "15/03-15/05",
   },
   {
     id: 2,
     name: "Scenic View Studio",
     description: "A studio with a beautiful view of Oslo.",
-    imageURL: { photo1 },
+    imageURL: "/imagesTest/photo2.webp",
     location: "Oslo Waterfront",
     bedrooms: 4,
     bathrooms: 2,
     price: "$150 per night",
+    date: "10/10-10/12",
   },
   {
     id: 3,
     name: "Cozy Loft in Oslo",
     description: "A cozy loft apartment in a quiet area of Oslo.",
-    imageURL: { photo1 },
+    imageURL: "/imagesTest/photo3.webp",
     location: "Quiet Oslo Neighborhood",
     bedrooms: 5,
     bathrooms: 3,
     price: "$180 per night",
+    date: "05/01-05/03",
   },
   {
     id: 4,
     name: "Oslo Lakeside Retreat",
     description: "A peaceful retreat by the lakeside in Oslo.",
-    imageURL: { photo1 },
+    imageURL: "/imagesTest/photo4.webp",
     location: "Oslo Lakeside",
     bedrooms: 6,
     bathrooms: 4,
     price: "$250 per night",
+    date: "10/10-04/12",
   },
 ];
 export default function Explore() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-10">
       <div>
         <Link href="/">Home</Link>
         <Link href="/messages">Messages</Link>
@@ -65,23 +68,32 @@ export default function Explore() {
         <Link href="/register">Register</Link>
         <Link href="/signIn">Sign In</Link>
       </div>
-      <div>
+      <div className="grid grid-col-1 gap-4">
         {osloDummyData.map((item, index) => (
           <Card key={index}>
-            <CardHeader>
-              <CardTitle>{item.name}</CardTitle>
-              <CardDescription>{item.location}</CardDescription>
-            </CardHeader>
-            <CardContent>
+            <CardHeader className="relative">
+              <button className="material-symbols-outlined absolute top-5 right-4 mt-4 mr-4 text-black text-4xl font-extrabold cursor-pointer focus:text-red-700 bg-white rounded-full bg-opacity-50">
+                Favorite
+              </button>
               <Image
                 src={item.imageURL}
                 alt="property photo"
-                width={500}
-                height={500}
+                width={360}
+                height={330}
+                className="rounded-lg"
               />
+            </CardHeader>
+            <CardContent>
+              <CardTitle className="text-xl font-monserrat font-semibold">
+                {item.name}
+              </CardTitle>
+              <CardDescription className="text-yellow-600 text-base font-medium">
+                {item.location}
+              </CardDescription>
             </CardContent>
-            <CardFooter>
-              <p>{item.price}</p>
+            <CardFooter className="flex justify-between">
+              <p className="font-medium">{item.price}</p>
+              <p className="text-gray-400 ">{item.date}</p>
             </CardFooter>
           </Card>
         ))}
