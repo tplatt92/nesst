@@ -5,6 +5,7 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
+import Image from "next/image";
 
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
@@ -97,81 +98,108 @@ export default function AccountForm({ session }: { session: Session | null }) {
   }
 
   return (
-    <div className="form-widget flex flex-col">
-      <div className="bg-yellow-500">
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session?.user.email} disabled />
+    <div className="form-widget flex flex-col items-center justify-evenly h-screen overflow-y-scroll bg-black text-white">
+      <div className="flex mt-16">
+      <Image
+          src="/logos/emptyegg.png"
+          alt="Nesst Logo"
+          width={40}
+          height={20}
+          className="mr-4"
+        />
+        <h1 className="text-5xl tracking-[0.4em]">NESST</h1>
+        </div>
+      <div className="w-5/6 " >
+        
+        <input id="email" type="text" value={session?.user.email} disabled className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
+        placeholder="Email" />
       </div>
-      <div>
-        <label htmlFor="firstName">First Name</label>
+      <div className="w-5/6 " >
+        {/* <label htmlFor="firstName">First Name</label> */}
         <input
+        placeholder="First Name"
           id="firstName"
           type="text"
           value={firstName || ""}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => setFirstName(e.target.value)} className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
         />
       </div>
-      <div>
-        <label htmlFor="lastName">Last Name</label>
+      <div className="w-5/6 " >
+        {/* <label htmlFor="lastName">Last Name</label> */}
         <input
           id="lastName"
+          placeholder="Last Name"
           type="text"
           value={lastName || ""}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={(e) => setLastName(e.target.value)} className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
         />
       </div>
-      <div>
-        <label htmlFor="username">Username</label>
+      <div className="w-5/6 " >
+        {/* <label htmlFor="username">Username</label> */}
         <input
           id="username"
+          placeholder="Username"
           type="text"
           value={username || ""}
           onChange={(e) => setUsername(e.target.value)}
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
         />
       </div>
-      <div>
-        <label htmlFor="bio">Bio</label>
-        <input
+      <div className="w-5/6 " >
+        {/* <label htmlFor="bio">Bio</label> */}
+        <textarea
           id="Bio"
+          placeholder="Bio"
           type="text"
           value={bio || ""}
           onChange={(e) => setBio(e.target.value)}
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
         />
       </div>
-      <div>
-        <label htmlFor="avatarUrl">Avatar URL</label>
+      <div className="w-5/6 " >
+        {/* <label htmlFor="avatarUrl">Avatar URL</label> */}
         <input
           id="avatarUrl"
+          placeholder="Avatar URL"
           type="url"
           value={avatar_url || ""}
           onChange={(e) => setAvatarUrl(e.target.value)}
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
         />
       </div>
-      <div>
-        <label htmlFor="drinker">What are your drinking habits?</label>
+      <div className="w-5/6 " >
+        {/* <label htmlFor="drinker">What are your drinking habits?</label> */}
         <select
           id="drinker"
+          placeholder="Drinking habits"
           value={drinker || ""}
           onChange={(e) => setDrinker(e.target.value)}
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black"
         >
+          <option value="" disabled selected>Drinking habits</option>
           <option value="social">Social</option>
           <option value="light">Light</option>
           <option value="heavy">Heavy</option>
           <option value="non">Non</option>
         </select>
       </div>
-      <div>
-        <label htmlFor="smoker">Smoker</label>
-        <input
+      <div className="w-5/6 " >
+        {/* <label htmlFor="smoker">Smoker</label> */}
+        <select
           id="smoker"
-          type="radio"
+          placeholder="Smoker"
           value={smoker || ""}
-          onChange={(e) => setSmoker(e.target.value)}
-        />
+
+          onChange={(e) => setSmoker(e.target.value)} 
+          className="w-full p-2 px-4 border border-white rounded-full  mt-2 bg-black">
+          <option value="" disabled selected>Smoker</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+          </select>
       </div>
-      <div>
+      <div className="w-5/6 " >
         <button
-          className="button primary block"
+          className="bg-[#d9a66d] w-full py-2 rounded-full"
           onClick={() =>
             updateProfile({
               firstName,
@@ -185,7 +213,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
           }
           disabled={loading}
         >
-          {loading ? "Loading ..." : "Update"}
+          {loading ? "Loading ..." : "Submit"}
         </button>
       </div>
 
