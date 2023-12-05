@@ -21,7 +21,7 @@ export default function Home() {
         <p className="text-sm">And find your perfect nest</p>
       </div>
       <div className="flex flex-col items-center justify-center w-screen gap-3 pb-16">
-        <Link href="/signIn" className="w-screen flex justify-center">
+        <Link href="/register" className="w-screen flex justify-center">
           <button className="bg-[#d9a66d] w-5/6 py-2 rounded-full">
             Register
           </button>

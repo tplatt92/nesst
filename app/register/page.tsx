@@ -1,11 +1,35 @@
 "use client";
+import React from "react";
+import { Auth } from "@supabase/auth-ui-react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/types/supabase";
 
-export default function Register() {
+export default function SignUp() {
+  const supabase = createClientComponentClient<Database>();
+
+  const customTheme = {
+    default: {
+      colors: {
+        brand: "#d9a66d",
+        brandButtonText: "#FFF",
+      },
+    },
+  };
   return (
     <>
-      <div>
-        <h1>Register</h1>
-      </div>
+      <Auth
+        supabaseClient={supabase}
+        view="sign_up"
+        appearance={{
+          theme: customTheme,
+          style: {
+            container: { background: "black" },
+          },
+        }}
+        showLinks={true}
+        providers={["google", "apple", "facebook"]}
+        redirectTo="http://localhost:3000/auth/callback"
+      />
     </>
   );
 }
