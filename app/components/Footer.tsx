@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (<> 
-  <div className="flex items-center justify-between py-4 border-t border-gray-200 border-solid" >
+  <div className="flex items-center justify-between py-4 border-t border-gray-200 border-solid sticky bottom-0 bg-white" >
       <Link href="/explore" className="flex-1 text-center">
         <MagnifyingGlassIcon className="h-12 text-gray-400 px-8" />
       </Link>
