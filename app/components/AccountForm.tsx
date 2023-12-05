@@ -12,7 +12,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
   const [firstName, setFirstName] = useState<string | null>(null);
   const [lastName, setLastName] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
-  const [age, setAge] = useState<number | null>(null);
+  // const [age, setAge] = useState<number | null>(null);
   const [bio, setBio] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [drinker, setDrinker] = useState<string | null>(null);
@@ -39,7 +39,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setUsername(data.username);
-        setAge(data.age);
+        // setAge(data.age);
         setBio(data.bio);
         setDrinker(data.drinker);
         setSmoker(data.smoker);
@@ -97,8 +97,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
   }
 
   return (
-    <div className="form-widget">
-      <div>
+    <div className="form-widget flex flex-col">
+      <div className="bg-yellow-500">
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session?.user.email} disabled />
       </div>
