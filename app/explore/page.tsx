@@ -61,7 +61,7 @@ const osloDummyData = [
 ];
 export default function Explore() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-10">
+    <main className="flex min-h-screen flex-col items-center justify-between p-10 pb-20">
       <div>
         <Link href="/">Home</Link>
         <Link href="/messages">Messages</Link>
