@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "../components/Footer";
+import Carousel from "../components/CardCarousell";
 
 import {
   Card,
@@ -18,7 +19,12 @@ const osloDummyData = [
     id: 1,
     name: "Oslo Central Apartment",
     description: "A modern apartment in the heart of Oslo.",
-    imageURL: "/imagesTest/photo1.webp",
+    imageURL: [
+      "/imagesTest/photo1.webp",
+      "/imagesTest/photo2.webp",
+      "/imagesTest/photo3.webp",
+      "/imagesTest/photo4.webp",
+    ],
     location: "Oslo Central",
     bedrooms: 6,
     bathrooms: 3,
@@ -29,7 +35,12 @@ const osloDummyData = [
     id: 2,
     name: "Scenic View Studio",
     description: "A studio with a beautiful view of Oslo.",
-    imageURL: "/imagesTest/photo2.webp",
+    imageURL: [
+      "/imagesTest/photo1.webp",
+      "/imagesTest/photo2.webp",
+      "/imagesTest/photo3.webp",
+      "/imagesTest/photo4.webp",
+    ],
     location: "Oslo Waterfront",
     bedrooms: 4,
     bathrooms: 2,
@@ -40,7 +51,12 @@ const osloDummyData = [
     id: 3,
     name: "Cozy Loft in Oslo",
     description: "A cozy loft apartment in a quiet area of Oslo.",
-    imageURL: "/imagesTest/photo3.webp",
+    imageURL: [
+      "/imagesTest/photo1.webp",
+      "/imagesTest/photo2.webp",
+      "/imagesTest/photo3.webp",
+      "/imagesTest/photo4.webp",
+    ],
     location: "Quiet Oslo Neighborhood",
     bedrooms: 5,
     bathrooms: 3,
@@ -51,7 +67,12 @@ const osloDummyData = [
     id: 4,
     name: "Oslo Lakeside Retreat",
     description: "A peaceful retreat by the lakeside in Oslo.",
-    imageURL: "/imagesTest/photo4.webp",
+    imageURL: [
+      "/imagesTest/photo1.webp",
+      "/imagesTest/photo2.webp",
+      "/imagesTest/photo3.webp",
+      "/imagesTest/photo4.webp",
+    ],
     location: "Oslo Lakeside",
     bedrooms: 6,
     bathrooms: 4,
@@ -73,13 +94,14 @@ export default function Explore() {
         {osloDummyData.map((item, index) => (
           <Card key={index}>
             <CardHeader className="relative">
-              <Image
+              {/* <Image
                 src={item.imageURL}
                 alt="property photo"
                 width={360}
                 height={330}
                 className="rounded-lg"
-              />
+              /> */}
+              <Carousel images={item.imageURL} />
             </CardHeader>
             <CardContent>
               <CardTitle className="text-xl font-monserrat font-semibold">

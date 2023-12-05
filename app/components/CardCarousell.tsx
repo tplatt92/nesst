@@ -1,54 +1,60 @@
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import Image from "next/image";
+"use client"
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
-// export default function PictureCarousel() {
-//   const settings = {
-//     dots: true,
-//     infinite: true,
-//     speed: 500,
-//     slidesToShow: 1,
-//     slidesToScroll: 1,
-//     autoplay: true,
-//     autoplaySpeed: 2000,
-//   };
 
-//   return (
-//     <Slider {...settings}>
-//       <div>
-//         <Image src="/imagesTest/photo2.webp" alt="Image 1" />
-//       </div>
-//       <div>
-//         <Image src="/imagesTest/photo3.webp" alt="Image 2" />
-//       </div>
-//     </Slider>
-//   );
-// }
+const Carousel = ({ images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-import Image from "next/image";
-
-export default function NextJsCarousel() {
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 1 === images.length ? 0 : prevIndex + 1
+    );
+  };
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+  const handleDotClick = (index) => {
+    setCurrentIndex(index);
+  };
   return (
-    <div>
-      <h2>NextJs Carousel - GeeksforGeeks</h2>
-      <Carousel>
-        <div>
-          <Image src="/imagesTest/photo1.webp" alt="image1" />
-          <p className="legend">Image 1</p>
+    <div className="carousel">
+      <img key={currentIndex} src={images[currentIndex]} />
+      <div className="slide_direction">
+        <div className="left" onClick={handlePrevious}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="20"
+            viewBox="0 96 960 960"
+            width="20"
+          >
+            <path d="M400 976 0 576l400-400 56 57-343 343 343 343-56 57Z" />
+          </svg>
         </div>
-        <div>
-          <Image src="/imagesTest/photo2.webp" alt="image2" />
-          <p className="legend">Image 2</p>
+        <div className="right" onClick={handleNext}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="20"
+            viewBox="0 96 960 960"
+            width="20"
+          >
+            <path d="m304 974-56-57 343-343-343-343 56-57 400 400-400 400Z" />
+          </svg>
         </div>
-        <div>
-          <Image src="/imagesTest/photo3.webp" alt="image3" />
-          <p className="legend">Image 3</p>
-        </div>
-        <div></div>
-      </Carousel>
+      </div>
+      <div className="indicator">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            className={`dot ${currentIndex === index ? "active" : ""}`}
+            onClick={() => handleDotClick(index)}
+          ></div>
+        ))}
+      </div>
     </div>
   );
-}
+};
+
+export default Carousel;
