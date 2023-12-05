@@ -1,14 +1,14 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { Database } from "@/types/supabase";
-import AccountForm from "../components/AccountForm";
+// fetch profile data
+// display in fields.
+import Link from "next/link";
 
-export default async function Account() {
-  const supabase = createServerComponentClient<Database>({ cookies });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  return <AccountForm session={session} />;
+export default async function Profile() {
+  return (
+    <>
+      <div>
+        <h1>Profile</h1>
+        <Link href={"/profile/edit"}>Edit</Link>
+      </div>
+    </>
+  );
 }
