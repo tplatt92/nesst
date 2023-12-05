@@ -118,7 +118,7 @@ export default function Explore() {
           </Card>
         ))}
       </div>
-      <Footer />
+      <Footer data-testid="footer" />
     </main>
   );
 }
