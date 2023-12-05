@@ -26,7 +26,7 @@ export default function Home() {
             Register
           </button>
         </Link>
-        <Link href="/signIn" className="w-screen flex justify-center">
+        <Link href="/register" className="w-screen flex justify-center">
           <button className="border border-white w-5/6 py-2 rounded-full">
             Log in
           </button>
