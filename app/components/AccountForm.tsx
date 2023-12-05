@@ -1,75 +1,98 @@
-'use client'
-import { useCallback, useEffect, useState } from 'react'
-import { Database } from '@/types/supabase'
-import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+"use client";
+import { useCallback, useEffect, useState } from "react";
+import { Database } from "@/types/supabase";
+import {
+  Session,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
 
 export default function AccountForm({ session }: { session: Session | null }) {
-  const supabase = createClientComponentClient<Database>()
-  const [loading, setLoading] = useState(true)
-  const [fullname, setFullname] = useState<string | null>(null)
-  const [username, setUsername] = useState<string | null>(null)
-  const [website, setWebsite] = useState<string | null>(null)
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null)
-  const user = session?.user
+  const supabase = createClientComponentClient<Database>();
+  const [loading, setLoading] = useState(true);
+  const [firstName, setFirstName] = useState<string | null>(null);
+  const [lastName, setLastName] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
+  const [age, setAge] = useState<number | null>(null);
+  const [bio, setBio] = useState<string | null>(null);
+  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+  const [drinker, setDrinker] = useState<string | null>(null);
+  const [smoker, setSmoker] = useState<string | null>(null);
+  const user = session?.user;
 
   const getProfile = useCallback(async () => {
     try {
-      setLoading(true)
+      setLoading(true);
 
       const { data, error, status } = await supabase
-        .from('profiles')
-        .select(`full_name, username, website, avatar_url`)
-        .eq('id', user?.id)
-        .single()
+        .from("profiles")
+        .select(
+          `first_name, last_name, username, age, avatar_url, bio, drinker, smoker`
+        )
+        .eq("id", user?.id)
+        .single();
 
       if (error && status !== 406) {
-        throw error
+        throw error;
       }
 
       if (data) {
-        setFullname(data.full_name)
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        setFirstName(data.first_name);
+        setLastName(data.last_name);
+        setUsername(data.username);
+        setAge(data.age);
+        setBio(data.bio);
+        setDrinker(data.drinker);
+        setSmoker(data.smoker);
+        setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      alert('Error loading user data!')
+      alert("Error loading user data!");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [user, supabase])
+  }, [user, supabase]);
 
   useEffect(() => {
-    getProfile()
-  }, [user, getProfile])
+    getProfile();
+  }, [user, getProfile]);
 
   async function updateProfile({
+    firstName,
+    lastName,
     username,
-    website,
+    bio,
     avatar_url,
+    smoker,
+    drinker,
   }: {
-    username: string | null
-    fullname: string | null
-    website: string | null
-    avatar_url: string | null
+    username: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    bio: string | null;
+    avatar_url: string | null;
+    smoker: string | null;
+    drinker: string | null;
   }) {
     try {
-      setLoading(true)
+      setLoading(true);
 
-      const { error } = await supabase.from('profiles').upsert({
+      const { error } = await supabase.from("profiles").upsert({
         id: user?.id as string,
-        full_name: fullname,
+        first_name: firstName,
+        last_name: lastName,
         username,
-        website,
+        bio,
         avatar_url,
+        smoker,
+        drinker,
         updated_at: new Date().toISOString(),
-      })
-      if (error) throw error
-      alert('Profile updated!')
+      });
+      if (error) throw error;
+      alert("Profile updated!");
     } catch (error) {
-      alert('Error updating the data!')
+      alert("Error updating the data!");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -80,12 +103,21 @@ export default function AccountForm({ session }: { session: Session | null }) {
         <input id="email" type="text" value={session?.user.email} disabled />
       </div>
       <div>
-        <label htmlFor="fullName">Full Name</label>
+        <label htmlFor="firstName">First Name</label>
         <input
-          id="fullName"
+          id="firstName"
           type="text"
-          value={fullname || ''}
-          onChange={(e) => setFullname(e.target.value)}
+          value={firstName || ""}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="lastName">Last Name</label>
+        <input
+          id="lastName"
+          type="text"
+          value={lastName || ""}
+          onChange={(e) => setLastName(e.target.value)}
         />
       </div>
       <div>
@@ -93,27 +125,67 @@ export default function AccountForm({ session }: { session: Session | null }) {
         <input
           id="username"
           type="text"
-          value={username || ''}
+          value={username || ""}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="website">Website</label>
+        <label htmlFor="bio">Bio</label>
         <input
-          id="website"
-          type="url"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
+          id="Bio"
+          type="text"
+          value={bio || ""}
+          onChange={(e) => setBio(e.target.value)}
         />
       </div>
-
+      <div>
+        <label htmlFor="avatarUrl">Avatar URL</label>
+        <input
+          id="avatarUrl"
+          type="url"
+          value={avatar_url || ""}
+          onChange={(e) => setAvatarUrl(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="drinker">What are your drinking habits?</label>
+        <select
+          id="drinker"
+          value={drinker || ""}
+          onChange={(e) => setDrinker(e.target.value)}
+        >
+          <option value="social">Social</option>
+          <option value="light">Light</option>
+          <option value="heavy">Heavy</option>
+          <option value="non">Non</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="smoker">Smoker</label>
+        <input
+          id="smoker"
+          type="radio"
+          value={smoker || ""}
+          onChange={(e) => setSmoker(e.target.value)}
+        />
+      </div>
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ fullname, username, website, avatar_url })}
+          onClick={() =>
+            updateProfile({
+              firstName,
+              lastName,
+              username,
+              bio,
+              smoker,
+              drinker,
+              avatar_url,
+            })
+          }
           disabled={loading}
         >
-          {loading ? 'Loading ...' : 'Update'}
+          {loading ? "Loading ..." : "Update"}
         </button>
       </div>
 
@@ -125,5 +197,5 @@ export default function AccountForm({ session }: { session: Session | null }) {
         </form>
       </div>
     </div>
-  )
+  );
 }
