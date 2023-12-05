@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 
-const Carousel = ({ images }) => {
+type CarouselImageProps = {
+  images: string[];
+};
+
+const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
@@ -16,7 +20,10 @@ const Carousel = ({ images }) => {
       prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
     );
   };
-  const handleDotClick = (index) => {
+
+  type index = number;
+
+  const handleDotClick = (index: index) => {
     setCurrentIndex(index);
   };
   return (
@@ -40,7 +47,7 @@ const Carousel = ({ images }) => {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              className="w-6 h-6"
             >
               <path
                 stroke-linecap="round"
@@ -61,7 +68,7 @@ const Carousel = ({ images }) => {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              className="w-6 h-6"
             >
               <path
                 stroke-linecap="round"
