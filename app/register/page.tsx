@@ -17,19 +17,23 @@ export default function SignUp() {
   };
   return (
     <>
-      <Auth
-        supabaseClient={supabase}
-        view="sign_up"
-        appearance={{
-          theme: customTheme,
-          style: {
-            container: { background: "black" },
-          },
-        }}
-        showLinks={true}
-        providers={["google", "apple", "facebook"]}
-        redirectTo="http://localhost:3000/auth/callback"
-      />
+      <div className=" h-screen flex flex-col justify-center bg-black ">
+        <div className="col p-16 text-gray-500">
+          <Auth
+            supabaseClient={supabase}
+            view="sign_up"
+            appearance={{
+              theme: customTheme,
+              style: {
+                container: { background: "black" },
+              },
+            }}
+            showLinks={true}
+            providers={["google", "apple", "facebook"]}
+            redirectTo="http://localhost:3000/auth/callback"
+          />
+        </div>
+      </div>
     </>
   );
 }
