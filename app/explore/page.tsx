@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "../components/Footer";
 
 import {
   Card,
@@ -75,6 +76,7 @@ export default function Explore() {
               <button className="material-symbols-outlined absolute top-5 right-4 mt-4 mr-4 text-black text-4xl font-extrabold cursor-pointer focus:text-red-700 bg-white rounded-full bg-opacity-50">
                 Favorite
               </button>
+
               <Image
                 src={item.imageURL}
                 alt="property photo"
@@ -98,6 +100,7 @@ export default function Explore() {
           </Card>
         ))}
       </div>
+      <Footer />
     </main>
   );
 }
