@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "../components/Footer";
 import Carousel from "../components/CardCarousell";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 import {
   Card,
@@ -83,14 +84,16 @@ const osloDummyData = [
 export default function Explore() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-10 pb-20">
-      <div>
-        <Link href="/">Home</Link>
-        <Link href="/messages">Messages</Link>
-        <Link href="/profile">Profile</Link>
-        <Link href="/register">Register</Link>
-        <Link href="/signIn">Sign In</Link>
-      </div>
-      <div className="grid grid-col-1 gap-4" data-testid="card-id">
+      <nav className="flex flex-row relative justify-between my-4">
+        <form className="flex items-center">
+          <div className="flex bg-white p-2 border-solid border-2 border-gray-300 rounded-full left-0 h-16 items-center">
+            <input className="h-12 items-center rounded-l-full" type="text" placeholder="Search Destinations" />
+            <button type="button"><MagnifyingGlassIcon className="h-12 text-white ml-3 bg-yellow-600 p-2 rounded-full" /></button>
+          </div>
+          <button className="pl-4 mr-2" type="button">Filter</button>
+        </form>
+      </nav>
+            <div className="grid grid-col-1 gap-4" data-testid="card-id">
         {osloDummyData.map((item, index) => (
           <Card key={index}>
             <CardHeader className="relative">
