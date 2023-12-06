@@ -35,13 +35,13 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState("left");
   const handleNext = () => {
-    setDirection("right");
+    setDirection("left");
     setCurrentIndex((prevIndex) =>
       prevIndex + 1 === images.length ? 0 : prevIndex + 1
     );
   };
   const handlePrevious = () => {
-    setDirection("left");
+    setDirection("right");
     setCurrentIndex((prevIndex) =>
       prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
     );
@@ -54,7 +54,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
     setDirection(index > currentIndex ? "right" : "left");
   };
   return (
-    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden">
+    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden h-80">
       <AnimatePresence>
         <motion.img
           key={currentIndex}
