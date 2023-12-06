@@ -1,47 +1,72 @@
 // fetch profile data
 // display in fields.
+
+// import Link from "next/link";
+// import { supabase } from "../components/AuthForm";
+// import { notFound } from "next/navigation";
+
+// import Footer from "../components/Footer";
+
+// export const revalidate = 0;
+
+// export async function generateStaticParams() {
+//   const { data: profiles } = await supabase
+//     .from("profiles")
+//     .select("id, bio, username, avatarUrl, age");
+//   console.log(profiles);
+//   return profiles;
+// }
+
+// export default async function Profiles({
+//   params: { userId },
+// }: {
+//   params: { userId: string };
+// }) {
+//   const { data: profiles } = await supabase
+//     .from("profiles")
+//     .select()
+//     .match({ userId })
+//     .single();
+
+//   if (!profiles) {
+//     notFound();
+//   }
+
+//   const data = JSON.stringify(profiles, null, 2);
+
+//   return (
+//     <>
+//       <div>
+//         <h1>Profile</h1>
+//         <Link href={"/profile/edit"}>Edit</Link>
+//         <Footer />
+//       </div>
+//     </>
+//   );
+// }
+
 "use client";
-import Link from "next/link";
-import { supabase } from "../components/AuthForm";
+
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Footer from "../components/Footer";
+import { supabase } from "../utils/supabase.tsx";
 
-export default async function Profile() {
-  const router = useRouter();
-  // const { userId } = router.query;
-  // const [userData, setUserData] = useState(null);
+export default function ClientPosts() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [profiles, setProfiles] = useState<any>([]);
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     // Fetch data for the specific user when the component mounts
-  //     fetchUserData(userId as string);
-  //   }
-  // }, [userId]);
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      const { data } = await supabase.from("profiles").select();
+      setProfiles(data);
+      setIsLoading(false);
+    };
 
-  // async function getProfile() {
-  //   const { data, error, status } = await supabase
-  //     .from("profiles")
-  //     .select()
-  //     .eq("id", user.id)
-  //     // .single();
+    fetchProfiles();
+  }, []);
 
-  //   if (error && status !== 406) {
-  //     throw error;
-  //   }
-
-  //   return data;
-
-  // }
-  //   const profile = await getProfile();
-  //   console.log(profile);
-  return (
-    <>
-      <div>
-        <h1>Profile</h1>
-        <Link href={"/profile/edit"}>Edit</Link>
-        <Footer />
-      </div>
-    </>
+  return isLoading ? (
+    <p>Loading</p>
+  ) : (
+    <pre>{JSON.stringify(profiles, null, 2)}</pre>
   );
 }
