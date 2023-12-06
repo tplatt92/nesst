@@ -61,7 +61,7 @@ export default function Favourite() {
         </form>
       </nav>
       <div className="grid grid-col-1 gap-4" data-testid="card-id">
-        {properties.map((properties) => (
+        {properties?.map((properties) => (
           <Card key={properties.id}>
             <CardHeader className="relative">
               <Carousel images={properties.image} />
