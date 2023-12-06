@@ -79,7 +79,7 @@ export default function Avatar({
           height={size}
           src={avatarUrl}
           alt="Avatar"
-          className="avatar image rounded-r-full rounded-b-full"
+          className="avatar image object-cover rounded-r-full rounded-b-full"
           style={{ height: size, width: size }}
         />
       ) : (
