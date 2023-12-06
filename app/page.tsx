@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className=" h-screen flex flex-col justify-center text-white overflow-hidden bg-[url('/backgroundImages/home2.jpg')] bg-cover">
+    <div className=" h-screen flex flex-col items-center justify-center text-white overflow-hidden bg-[url('/backgroundImages/home2.jpg')]  bg-cover">
       <div className="flex items-center pb-16 px-10 pt-60">
         <Image
           src="/logos/emptyegg.png"
@@ -22,12 +22,12 @@ export default function Home() {
       </div>
       <div className="flex flex-col items-center justify-center w-screen gap-3 pb-16">
         <Link href="/register" className="w-screen flex justify-center">
-          <button className="bg-[#d9a66d] w-5/6 py-2 rounded-full">
+          <button className="bg-[#d9a66d] w-5/6 md:w-1/2 py-2 rounded-full">
             Register
           </button>
         </Link>
         <Link href="/login" className="w-screen flex justify-center">
-          <button className="border border-white w-5/6 py-2 rounded-full">
+          <button className="border border-white w-5/6 md:w-1/2 py-2 rounded-full">
             Log in
           </button>
         </Link>
