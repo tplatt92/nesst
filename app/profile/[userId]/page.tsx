@@ -43,33 +43,33 @@
 //       </div>
 //     </>
 //   );
+// // }
+
+// import { supabase } from "../../components/AuthForm";
+// import { notFound } from "next/navigation";
+
+// export const revalidate = 0;
+
+// export async function generateStaticParams() {
+//   const { data: profiles } = await supabase.from("profiles").select("id");
+
+//   return profiles;
 // }
 
-import { supabase } from "../../components/AuthForm";
-import { notFound } from "next/navigation";
+// export default async function Profiles({
+//   params: { userId },
+// }: {
+//   params: { userId: string };
+// }) {
+//   const { data: post } = await supabase
+//     .from("profiles")
+//     .select()
+//     .match({ userId })
+//     .single();
 
-export const revalidate = 0;
+//   if (!post) {
+//     notFound();
+//   }
 
-export async function generateStaticParams() {
-  const { data: profiles } = await supabase.from("profiles").select("id");
-
-  return profiles;
-}
-
-export default async function Profiles({
-  params: { userId },
-}: {
-  params: { userId: string };
-}) {
-  const { data: post } = await supabase
-    .from("profiles")
-    .select()
-    .match({ userId })
-    .single();
-
-  if (!post) {
-    notFound();
-  }
-
-  return <pre>{JSON.stringify(post, null, 2)}</pre>;
-}
+//   return <pre>{JSON.stringify(post, null, 2)}</pre>;
+// }

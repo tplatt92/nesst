@@ -1,46 +1,19 @@
-"use client";
-import { useCallback, useEffect, useState } from "react";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
-import {
-  Session,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
-import Image from "next/image";
-import Avatar from "../components/Avatar";
+import AccountForm from "../components/AccountForm";
+import Profile from "@/app/components/Profile";
 
-export default function Profile({ session }: { session: Session | null }) {
-  const supabase = createClientComponentClient<Database>();
-  const [loading, setLoading] = useState(true);
-  const user = session?.user;
+export default async function EditProfile() {
+  const supabase = createServerComponentClient<Database>({ cookies });
 
-  const getProfile = useCallback(async () => {
-    try {
-      setLoading(true);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-      const { data, error, status } = await supabase
-        .from("profiles")
-        .select(
-          `first_name, last_name, username, age, avatar_url, bio, drinker, smoker`
-        )
-        .eq("id", user?.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        console.log(data);
-        return data;
-      }
-    } catch (error) {
-      alert("Error loading user data!");
-    } finally {
-      setLoading(false);
-    }
-  }, [user, supabase]);
-
-  useEffect(() => {
-    getProfile();
-  }, [user, getProfile]);
+  return (
+    <div className="w-screen">
+      <Profile session={session} />
+    </div>
+  );
 }

@@ -20,6 +20,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
   const [drinker, setDrinker] = useState<string | null>(null);
   const [smoker, setSmoker] = useState<string | null>(null);
   const user = session?.user;
+  console.log(`session is ${user} `);
   const router = useRouter();
 
   const getProfile = useCallback(async () => {
