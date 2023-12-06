@@ -5,6 +5,8 @@ import { UserIcon } from "@heroicons/react/24/solid";
 
 import Link from "next/link";
 
+import Image from "next/image"; // Add this import statement
+
 export default function Footer() {
   return (
     <>
@@ -19,6 +21,14 @@ export default function Footer() {
         <Link href="/favourites" className="flex-1 text-center">
           <HeartIcon className="h-10 text-gray-400 px-8" />
         </Link>
+
+        <Image
+          alt="NESST"
+          src="/logos/emptyegg.png" // Use forward slashes instead of backslashes
+          className="flex-1 text-center"
+          width={40}
+          height={40}
+        />
 
         <Link href="/messages" className="flex-1 text-center">
           <ChatBubbleLeftEllipsisIcon className="h-10 text-gray-400 px-8" />
