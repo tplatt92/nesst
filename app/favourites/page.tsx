@@ -1,5 +1,6 @@
 // import NextJsCarousel from "../components/CardCarousell";
 import Carousel from "../components/CardCarousell";
+import Footer from "../components/Footer";
 
 const images = [
   "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -15,6 +16,7 @@ export default function Favourites() {
     <>
       <p>This is the Favourites page</p>
       <Carousel images={images} />
+      <Footer />
     </>
   );
 }
