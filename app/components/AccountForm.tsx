@@ -6,6 +6,7 @@ import {
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
+import Avatar from "./Avatar";
 
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
@@ -13,7 +14,6 @@ export default function AccountForm({ session }: { session: Session | null }) {
   const [firstName, setFirstName] = useState<string | null>(null);
   const [lastName, setLastName] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
-  // const [age, setAge] = useState<number | null>(null);
   const [bio, setBio] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [drinker, setDrinker] = useState<string | null>(null);
@@ -40,7 +40,6 @@ export default function AccountForm({ session }: { session: Session | null }) {
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setUsername(data.username);
-        // setAge(data.age);
         setBio(data.bio);
         setDrinker(data.drinker);
         setSmoker(data.smoker);
@@ -98,7 +97,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
   }
 
   return (
-    <div className="form-widget flex flex-col items-center justify-evenly h-screen overflow-y-scroll bg-black text-white">
+    <div className="form-widget flex flex-col items-center justify-evenly h-screen overflow-x-hidden overflow-y-scroll bg-black text-white">
       <div className="flex mt-16">
         <Image
           src="/logos/emptyegg.png"
@@ -108,6 +107,16 @@ export default function AccountForm({ session }: { session: Session | null }) {
           className="mr-4"
         />
         <h1 className="text-5xl tracking-[0.4em]">NESST</h1>
+      </div>
+      <div>
+        <Avatar
+          uid={user.id}
+          url={avatar_url}
+          size={150}
+          onUpload={(url) => {
+            setAvatarUrl(url);
+          }}
+        />
       </div>
       <div className="w-5/6 ">
         <input
@@ -120,7 +129,6 @@ export default function AccountForm({ session }: { session: Session | null }) {
         />
       </div>
       <div className="w-5/6 ">
-        {/* <label htmlFor="firstName">First Name</label> */}
         <input
           placeholder="First Name"
           id="firstName"
@@ -131,7 +139,6 @@ export default function AccountForm({ session }: { session: Session | null }) {
         />
       </div>
       <div className="w-5/6 ">
-        {/* <label htmlFor="lastName">Last Name</label> */}
         <input
           id="lastName"
           placeholder="Last Name"
@@ -142,7 +149,6 @@ export default function AccountForm({ session }: { session: Session | null }) {
         />
       </div>
       <div className="w-5/6 ">
-        {/* <label htmlFor="username">Username</label> */}
         <input
           id="username"
           placeholder="Username"
@@ -153,7 +159,6 @@ export default function AccountForm({ session }: { session: Session | null }) {
         />
       </div>
       <div className="w-5/6 ">
-        {/* <label htmlFor="bio">Bio</label> */}
         <textarea
           id="Bio"
           placeholder="Bio"
@@ -162,8 +167,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 ">
-        {/* <label htmlFor="avatarUrl">Avatar URL</label> */}
+      {/* <div className="w-5/6 ">
+      
         <input
           id="avatarUrl"
           placeholder="Avatar URL"
@@ -172,9 +177,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           onChange={(e) => setAvatarUrl(e.target.value)}
           className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
-      </div>
+      </div> */}
       <div className="w-5/6 ">
-        {/* <label htmlFor="drinker">What are your drinking habits?</label> */}
         <select
           id="drinker"
           placeholder="Drinking habits"

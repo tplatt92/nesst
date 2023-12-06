@@ -10,5 +10,9 @@ export default async function EditProfile() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  return <AccountForm session={session} />;
+  return (
+    <div className="w-screen">
+      <AccountForm session={session} />
+    </div>
+  );
 }
