@@ -54,7 +54,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
     setDirection(index > currentIndex ? "right" : "left");
   };
   return (
-    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden h-80">
+    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden h-60">
       <AnimatePresence>
         <motion.img
           key={currentIndex}
