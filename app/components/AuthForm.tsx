@@ -6,10 +6,9 @@ import {
   // Import predefined theme
   ThemeSupa,
 } from "@supabase/auth-ui-shared";
-
+export const supabase = createClientComponentClient<Database>();
 export default function AuthForm() {
-  const supabase = createClientComponentClient<Database>();
-
+ 
   return (
     <Auth
       supabaseClient={supabase}
