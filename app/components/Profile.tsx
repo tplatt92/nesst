@@ -63,20 +63,26 @@ export default function Profile({ session }: { session: Session | null }) {
   return (
     <>
       <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-100 ">
-        <div className="pb-4">
-          <AvatarProfile uid={user.id} url={avatar_url} size={150} />
-        </div>
-        <h1>
-          {firstName} {lastName}
-        </h1>
-        <h2>{username}</h2>
         <div>
-          <Link href="/messages">Link</Link>
+          <Link href="/edit">Edit</Link>
         </div>
-        <div>
-          <h3>About Me</h3>
-          <p>{bio}</p>
+        <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen">
+          <div className="pb-4">
+            <AvatarProfile uid={user.id} url={avatar_url} size={150} />
+          </div>
+          <h1 className="text-white text-4xl py-4">
+            {firstName} {lastName}
+          </h1>
+          <h2 className="text-2xl text-white">{username}</h2>
+          <div>
+            <Link href="/messages">Link</Link>
+          </div>
+          <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute -bottom-12 px-4 text-white">
+            <h3 className="py-2">About Me</h3>
+            <p className="py-2">{bio}</p>
+          </div>
         </div>
+
         <div>
           <h3>Connections</h3>
           <div></div>
