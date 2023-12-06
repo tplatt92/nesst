@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { Database } from "@/types/supabase";
+import { useRouter } from "next/navigation";
 import {
   Session,
   createClientComponentClient,
@@ -19,6 +20,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
   const [drinker, setDrinker] = useState<string | null>(null);
   const [smoker, setSmoker] = useState<string | null>(null);
   const user = session?.user;
+  const router = useRouter();
 
   const getProfile = useCallback(async () => {
     try {
@@ -89,6 +91,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
       });
       if (error) throw error;
       alert("Profile updated!");
+      router.refresh();
+      router.push("/profile");
     } catch (error) {
       alert("Error updating the data!");
     } finally {
@@ -97,8 +101,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
   }
 
   return (
-    <div className="form-widget flex flex-col items-center justify-evenly h-screen overflow-x-hidden overflow-y-scroll bg-black text-white">
-      <div className="flex mt-16">
+    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white">
+      <div className="flex mt-16 pb-4">
         <Image
           src="/logos/emptyegg.png"
           alt="Nesst Logo"
@@ -108,7 +112,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
         />
         <h1 className="text-5xl tracking-[0.4em]">NESST</h1>
       </div>
-      <div>
+      <div className="pb-4">
         <Avatar
           uid={user.id}
           url={avatar_url}
@@ -118,7 +122,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           }}
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="text"
@@ -128,7 +133,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           placeholder="Email"
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4 ">
+        <label htmlFor="firstName">First Name</label>
         <input
           placeholder="First Name"
           id="firstName"
@@ -138,7 +144,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           className="w-full p-2 pl-4 border border-white rounded-full mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="lastName">Last Name</label>
         <input
           id="lastName"
           placeholder="Last Name"
@@ -148,7 +155,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="username">Username</label>
         <input
           id="username"
           placeholder="Username"
@@ -158,7 +166,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="bio">Bio</label>
         <textarea
           id="Bio"
           placeholder="Bio"
@@ -167,7 +176,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="drinking habits">Drinking Habits</label>
         <select
           id="drinker"
           placeholder="Drinking habits"
@@ -184,8 +194,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           <option value="non">Non</option>
         </select>
       </div>
-      <div className="w-5/6 ">
-        {/* <label htmlFor="smoker">Smoker</label> */}
+      <div className="w-5/6 pb-8">
+        <label htmlFor="smoker">Do you Smoke?</label>
         <select
           id="smoker"
           placeholder="Smoker"
@@ -200,9 +210,9 @@ export default function AccountForm({ session }: { session: Session | null }) {
           <option value="false">No</option>
         </select>
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
         <button
-          className="bg-[#d9a66d] w-full py-2 rounded-full"
+          className="bg-[#d9a66d] w-full py-2 rounded-full "
           onClick={() =>
             updateProfile({
               firstName,
@@ -216,11 +226,11 @@ export default function AccountForm({ session }: { session: Session | null }) {
           }
           disabled={loading}
         >
-          {loading ? "Loading ..." : "Submit"}
+          {loading ? "Loading ..." : "Update"}
         </button>
       </div>
 
-      <div>
+      <div className="pb-16 pt-4">
         <form action="/auth/signout" method="post">
           <button className="button block" type="submit">
             Sign out

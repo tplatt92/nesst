@@ -50,7 +50,7 @@ export default function SignUp() {
             }}
             showLinks={true}
             providers={["google", "apple", "facebook"]}
-            redirectTo="http://localhost:3000/auth/callback"
+            redirectTo="http://localhost:3000/auth/register"
           />
         </div>
       </div>
