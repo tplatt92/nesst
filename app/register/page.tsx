@@ -30,7 +30,7 @@ export default function SignUp() {
               theme: ThemeSupa,
               style: {
                 button: { borderRadius: "9999px" },
-                input: { borderRadius: "9999px" },
+                input: { borderRadius: "9999px", color: "white" },
               },
               variables: {
                 default: {
