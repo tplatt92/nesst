@@ -84,7 +84,7 @@ export default function Avatar({
         />
       ) : (
         <div
-          className="avatar no-image bg-gray-900"
+          className="avatar no-image bg-gray-900 rounded-r-full rounded-b-full"
           style={{ height: size, width: size }}
         />
       )}
