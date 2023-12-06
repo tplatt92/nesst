@@ -83,13 +83,6 @@ const osloDummyData = [
 export default function Explore() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-10 pb-20">
-      <div>
-        <Link href="/">Home</Link>
-        <Link href="/messages">Messages</Link>
-        <Link href="/profile">Profile</Link>
-        <Link href="/register">Register</Link>
-        <Link href="/signIn">Sign In</Link>
-      </div>
       <div className="grid grid-col-1 gap-4" data-testid="card-id">
         {osloDummyData.map((item, index) => (
           <Card key={index}>

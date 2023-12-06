@@ -64,7 +64,7 @@ export default function Profile({ session }: { session: Session | null }) {
 
   return (
     <>
-      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-100 ">
+      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 ">
         <div className="absolute right-8 top-8 z-50 w-6">
           <Link href="/edit">
             <svg
@@ -94,7 +94,7 @@ export default function Profile({ session }: { session: Session | null }) {
           <div className="pt-4 flex">
             <Link href="/messages">
               <Image
-                src="/logos/instagram.png"
+                src="/logos/instagramCircle.png"
                 height={40}
                 width={40}
                 alt="Instagram Logo"
@@ -105,22 +105,52 @@ export default function Profile({ session }: { session: Session | null }) {
             </Link>
             <Link href="/messages">
               <Image
-                src="/logos/facebook.png"
+                src="/logos/linkedinCircle.png"
                 height={40}
                 width={40}
                 alt="Facebook Logo"
               />
             </Link>
           </div>
-          <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute -bottom-32 px-4 text-white">
-            <h3 className="py-2">About Me</h3>
-            <p className="py-2">{bio}</p>
+          <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  -bottom-[17%] px-4 text-white">
+            <h3 className="py-2 font-semibold">About Me</h3>
+            <p className="pb-2">{bio}</p>
           </div>
         </div>
 
-        <div>
-          <h3>Connections</h3>         
-          <div></div>
+        <div className="w-11/12 bg-white rounded-lg mt-24 px-4 ">
+          <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
+          <div className="flex justify-evenly py-2">
+            <Image
+              src="/userPhotos/user5.png"
+              height={50}
+              width={50}
+              alt="user 1 Photo"
+              className="rounded-r-full object-cover rounded-b-full"
+            />
+
+            <Image
+              src="/userPhotos/user6.png"
+              height={50}
+              width={50}
+              alt="user 2 Photo"
+              className="rounded-r-full object-cover rounded-b-full"
+            />
+            <Image
+              src="/userPhotos/user7.png"
+              height={50}
+              width={50}
+              alt="user 3 Photo"
+              className="rounded-r-full object-cover rounded-b-full"
+            />
+            <Image
+              src="/userPhotos/user8.png"
+              height={50}
+              width={50}
+              alt="user 4 Photo"
+              className="rounded-r-full object-cover rounded-b-full"
+            />
+          </div>
         </div>
         <Footer />
       </div>
