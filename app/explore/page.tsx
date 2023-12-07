@@ -45,12 +45,12 @@ export default function Explore() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 pb-20">
-      <nav className="flex flex-row relative justify-between my-4 w-full">
-        <form className="flex items-center">
-          <div className="flex bg-white px-2 border-solid border-2 border-gray-300 rounded-full left-0 h-14 items-center">
+    <main className="flex min-h-screen flex-col items-center justify-between p-4 pb-28">
+      <nav className="flex flex-row relative my-4 w-full">
+        <form className="flex items-center w-full justify-between">
+          <div className="flex flex-1 bg-white px-2 border-solid border-2 border-gray-300 rounded-full left-0 h-14 items-center">
             <input
-              className="h-12 items-center rounded-l-full "
+              className="h-12 items-center flex-1 rounded-l-full "
               type="text"
               placeholder="Search Destinations"
             />
@@ -90,24 +90,4 @@ export default function Explore() {
       <Footer />
     </main>
   );
-}
-
-{
-  /* <div>
-<h1 className="bg-nesstYellow text-white p-1 text-1xl font-serif font-bold font-montserrat">
-  Hello
-</h1>
-<h1 className="bg-nesstLightGrey text-white p-2 text-2xl font-sans hover:underline font-montserrat">
-  Hello
-</h1>
-<h1 className="bg-nesstDarkGrey text-white p-3 text-3xl font-mono underline border-solid border-white border-4 text-center font-montserrat">
-  Hello
-</h1>
-</div> */
-}
-
-{
-  /* <button className="material-symbols-outlined absolute top-5 right-4 mt-4 mr-4 text-black text-4xl font-extrabold cursor-pointer focus:text-red-700 bg-white rounded-full bg-opacity-50">
-                Favorite
-              </button> */
 }
