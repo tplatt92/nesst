@@ -43,10 +43,11 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
             alt="NESST"
             src="/logos/fullegg.png" // Use forward slashes instead of backslashes
             className="flex-1 text-center absolute bottom-5 "
+            priority={true}
             width={60}
             height={60}
           />
-          <p className="text-xs">My Nesst</p>
+          <p className="text-xs text-gray-400">My Nesst</p>
         </div>
 
         <div
