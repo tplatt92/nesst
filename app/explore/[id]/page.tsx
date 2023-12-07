@@ -23,6 +23,7 @@
 import React from "react";
 import supabase from "../../config/SuperbaseClient";
 import { useEffect, useState } from "react";
+import Footer from "@/app/components/Footer";
 import Carousel from "../../components/CardCarousell";
 import {
   Card,
@@ -242,6 +243,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           </CardFooter>
         </Card>
       ))}
+      <Footer />
     </>
   );
 };
