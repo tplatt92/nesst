@@ -54,12 +54,12 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
     setDirection(index > currentIndex ? "right" : "left");
   };
   return (
-    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden h-60">
+    <div className="carousel-images relative rounded-lg mx-auto max-w-md overflow-hidden h-60">
       <AnimatePresence>
         <motion.img
           key={currentIndex}
           src={images[currentIndex]}
-          className="w-full h-full object-cover border-2 border-white rounded-lg"
+          className="w-full h-full object-cover rounded-lg"
           alt={`Slide ${currentIndex + 1}`}
           variants={slideVariants}
           initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
@@ -100,7 +100,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
-              stroke="currentColor"
+              stroke="white"
               className="w-6 h-6"
             >
               <path
@@ -117,7 +117,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
         {images.map((_, index) => (
           <div
             key={index}
-            className={`dot bg-gray-700 w-4 h-4 rounded-full mx-1 ${
+            className={`dot bg-nesstLightGrey w-2 h-2 rounded-full mx-1 ${
               currentIndex === index ? "active bg-white" : ""
             }`}
             onClick={() => handleDotClick(index)}
