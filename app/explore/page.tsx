@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/card";
 
 export default function Explore() {
-  const [availibility, setAvailibility] = useState<null | any[]>(null);
+  const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
@@ -29,9 +29,7 @@ export default function Explore() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase
-          .from("properties")
-          .select("*, availability(*)");
+        const { data, error } = await supabase.from("properties").select("*");
 
         if (error) {
           setFetchError("error fetching properties");
@@ -39,7 +37,7 @@ export default function Explore() {
           console.error(error);
         }
         if (data) {
-          setProperties((prevProperties) => [...prevProperties, ...data]);
+          setProperties(data);
           setFetchError(null);
         }
       } catch (error) {
@@ -47,26 +45,28 @@ export default function Explore() {
       }
     };
     fetchProperties();
-    console.log(properties);
   }, []);
 
-  // useEffect(() => {
-  //   const fetchAvailibility = async () => {
-  //     try {
-  //       const { data, error } = await supabase
-  //         .from("properties")
-  //         .select("availibility");
+  useEffect(() => {
+    const fetchAvailability = async () => {
+      try {
+        const { data, error } = await supabase.from("availability").select("*");
 
-  //       if (error) {
-  //         setFetchError("error fetching properties");
-  //         setProperties(null);
-  //         console.error(error);
-  //       }
-  //       if (data) {
-  //         setAvailibility(data);
-  //         setFetchError(null);
-  //       }
-  //     } catch (error) {
+        if (error) {
+          setFetchError("error fetching properties");
+          setAvailability(null);
+          console.error(error);
+        }
+        if (data) {
+          setAvailability(data);
+          setFetchError(null);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchAvailability();
+  }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 pb-28">
       <nav className="flex flex-row relative my-4 w-full">
