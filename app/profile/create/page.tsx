@@ -76,7 +76,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
-import Profile from "@/app/components/Profile";
 import CreateAccountForm from "@/app/components/CreateAccountForm";
 
 export default async function EditProfile() {
