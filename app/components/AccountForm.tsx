@@ -8,6 +8,7 @@ import {
 } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import Avatar from "./Avatar";
+import { Switch } from "@/components/ui/switch";
 
 export default function AccountForm({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
@@ -18,10 +19,11 @@ export default function AccountForm({ session }: { session: Session | null }) {
   const [bio, setBio] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [drinker, setDrinker] = useState<string | null>(null);
-  const [smoker, setSmoker] = useState<string | null>(null);
+  const [smoker, setSmoker] = useState<boolean>(false);
   const user = session?.user;
   console.log(`session is ${user} `);
   const router = useRouter();
+  console.log(smoker);
 
   const getProfile = useCallback(async () => {
     try {
@@ -73,7 +75,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
     lastName: string | null;
     bio: string | null;
     avatar_url: string | null;
-    smoker: string | null;
+    smoker: boolean;
     drinker: string | null;
   }) {
     try {
@@ -102,7 +104,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
   }
 
   return (
-    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white">
+    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl">
       <div className="flex mt-16 pb-4">
         <Image
           src="/logos/emptyegg.png"
@@ -174,19 +176,20 @@ export default function AccountForm({ session }: { session: Session | null }) {
           placeholder="Bio"
           value={bio || ""}
           onChange={(e) => setBio(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
+          className="w-full p-2 pl-4 border border-white rounded-3xl mt-2 bg-black placeholder-white overflow-auto scrollbar-none h-32"
         />
       </div>
-      <div className="w-5/6 pb-4">
+      <div className="w-5/6 pb-8">
         <label htmlFor="drinking habits">Drinking Habits</label>
         <select
+          defaultValue={"Drinking Habits"}
           id="drinker"
           placeholder="Drinking habits"
           value={drinker || ""}
           onChange={(e) => setDrinker(e.target.value)}
           className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
         >
-          <option value="" disabled selected>
+          <option value="" disabled>
             Drinking habits
           </option>
           <option value="social">Social</option>
@@ -195,21 +198,13 @@ export default function AccountForm({ session }: { session: Session | null }) {
           <option value="non">Non</option>
         </select>
       </div>
-      <div className="w-5/6 pb-8">
+      <div className="w-5/6 pb-8 flex justify-between items-center">
         <label htmlFor="smoker">Do you Smoke?</label>
-        <select
+        <Switch
           id="smoker"
-          placeholder="Smoker"
-          value={smoker || ""}
-          onChange={(e) => setSmoker(e.target.value)}
-          className="w-full p-2 px-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
-        >
-          <option value="" disabled selected>
-            Smoker
-          </option>
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
+          checked={smoker}
+          onCheckedChange={(e) => setSmoker(!smoker)}
+        />
       </div>
       <div className="w-5/6 pb-4">
         <button
