@@ -73,3 +73,22 @@
 
 //   return <pre>{JSON.stringify(post, null, 2)}</pre>;
 // }
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { Database } from "@/types/supabase";
+import Profile from "@/app/components/Profile";
+import CreateAccountForm from "@/app/components/CreateAccountForm";
+
+export default async function EditProfile() {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  return (
+    <div className="w-screen">
+      <CreateAccountForm session={session} />
+    </div>
+  );
+}

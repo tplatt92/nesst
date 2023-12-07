@@ -1,28 +1,29 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { Database } from "@/types/supabase";
+import { useRouter } from "next/navigation";
 import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import Avatar from "./Avatar";
+import { Switch } from "@/components/ui/switch";
 
-export default function CreateAccountForm({
-  session,
-}: {
-  session: Session | null;
-}) {
+export default function CreateAccountForm({ session }: {  session: Session | null;}) {
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(true);
   const [firstName, setFirstName] = useState<string | null>(null);
   const [lastName, setLastName] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
+  const [age, setAge] = useState<number | null>(null);
   const [bio, setBio] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [drinker, setDrinker] = useState<string | null>(null);
-  const [smoker, setSmoker] = useState<string | null>(null);
+  const [smoker, setSmoker] = useState<boolean>(false);
   const user = session?.user;
+  const router = useRouter();
+
 
   const getProfile = useCallback(async () => {
     try {
@@ -44,6 +45,7 @@ export default function CreateAccountForm({
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setUsername(data.username);
+        setAge(data.age);
         setBio(data.bio);
         setDrinker(data.drinker);
         setSmoker(data.smoker);
@@ -64,17 +66,19 @@ export default function CreateAccountForm({
     firstName,
     lastName,
     username,
+    age,
     bio,
     avatar_url,
     smoker,
     drinker,
   }: {
-    username: string | null;
     firstName: string | null;
     lastName: string | null;
+    username: string | null;
+    age: number | null;
     bio: string | null;
     avatar_url: string | null;
-    smoker: string | null;
+    smoker: boolean;
     drinker: string | null;
   }) {
     try {
@@ -85,6 +89,7 @@ export default function CreateAccountForm({
         first_name: firstName,
         last_name: lastName,
         username,
+        age,
         bio,
         avatar_url,
         smoker,
@@ -93,8 +98,11 @@ export default function CreateAccountForm({
       });
       if (error) throw error;
       alert("Profile updated!");
+      router.refresh();
+      router.push("/profile");
     } catch (error) {
       alert("Error updating the data!");
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -163,6 +171,16 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 ">
+        <input
+          id="age"
+          placeholder="Age"
+          type="number"
+          value={age || ""}
+          onChange={(e) => setAge(parseInt(e.target.value))}
+          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
+        />
+      </div>
+      <div className="w-5/6 ">
         <textarea
           id="Bio"
           placeholder="Bio"
@@ -188,21 +206,13 @@ export default function CreateAccountForm({
           <option value="non">Non</option>
         </select>
       </div>
-      <div className="w-5/6 ">
-        {/* <label htmlFor="smoker">Smoker</label> */}
-        <select
+      <div className="w-5/6 pb-8 flex justify-between items-center">
+        <label htmlFor="smoker">Do you Smoke?</label>
+        <Switch
           id="smoker"
-          placeholder="Smoker"
-          value={smoker || ""}
-          onChange={(e) => setSmoker(e.target.value)}
-          className="w-full p-2 px-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
-        >
-          <option value="" disabled selected>
-            Smoker
-          </option>
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
+          checked={smoker}
+          onCheckedChange={(e) => setSmoker(!smoker)}
+        />
       </div>
       <div className="w-5/6 ">
         <button
@@ -212,6 +222,7 @@ export default function CreateAccountForm({
               firstName,
               lastName,
               username,
+              age,
               bio,
               smoker,
               drinker,
