@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import supabase from "../config/SuperbaseClient";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Carousel from "../components/CardCarousell";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 import {
   Card,
@@ -14,99 +17,69 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const osloDummyData = [
-  {
-    id: 1,
-    name: "Oslo Central Apartment",
-    description: "A modern apartment in the heart of Oslo.",
-    imageURL: [
-      "/imagesTest/photo1.webp",
-      "/imagesTest/photo2.webp",
-      "/imagesTest/photo3.webp",
-      "/imagesTest/photo4.webp",
-    ],
-    location: "Oslo Central",
-    bedrooms: 6,
-    bathrooms: 3,
-    price: "$200 per night",
-    date: "15/03-15/05",
-  },
-  {
-    id: 2,
-    name: "Scenic View Studio",
-    description: "A studio with a beautiful view of Oslo.",
-    imageURL: [
-      "/imagesTest/photo1.webp",
-      "/imagesTest/photo2.webp",
-      "/imagesTest/photo3.webp",
-      "/imagesTest/photo4.webp",
-    ],
-    location: "Oslo Waterfront",
-    bedrooms: 4,
-    bathrooms: 2,
-    price: "$150 per night",
-    date: "10/10-10/12",
-  },
-  {
-    id: 3,
-    name: "Cozy Loft in Oslo",
-    description: "A cozy loft apartment in a quiet area of Oslo.",
-    imageURL: [
-      "/imagesTest/photo1.webp",
-      "/imagesTest/photo2.webp",
-      "/imagesTest/photo3.webp",
-      "/imagesTest/photo4.webp",
-    ],
-    location: "Quiet Oslo Neighborhood",
-    bedrooms: 5,
-    bathrooms: 3,
-    price: "$180 per night",
-    date: "05/01-05/03",
-  },
-  {
-    id: 4,
-    name: "Oslo Lakeside Retreat",
-    description: "A peaceful retreat by the lakeside in Oslo.",
-    imageURL: [
-      "/imagesTest/photo1.webp",
-      "/imagesTest/photo2.webp",
-      "/imagesTest/photo3.webp",
-      "/imagesTest/photo4.webp",
-    ],
-    location: "Oslo Lakeside",
-    bedrooms: 6,
-    bathrooms: 4,
-    price: "$250 per night",
-    date: "10/10-04/12",
-  },
-];
 export default function Explore() {
+  const [properties, setProperties] = useState<null | any[]>(null);
+  const [fetchError, setFetchError] = useState<string | null>(
+    "error fetching properties"
+  );
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const { data, error } = await supabase.from("properties").select("*");
+
+        if (error) {
+          setFetchError("error fetching properties");
+          setProperties(null);
+          console.error(error);
+        }
+        if (data) {
+          setProperties(data);
+          setFetchError(null);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchProperties();
+  }, []);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-10 pb-20">
+      <nav className="flex flex-row relative justify-between my-4 w-full">
+        <form className="flex items-center">
+          <div className="flex bg-white p-2 border-solid border-2 border-gray-300 rounded-full left-0 h-16 items-center">
+            <input
+              className="h-12 items-center rounded-l-full "
+              type="text"
+              placeholder="Search Destinations"
+            />
+            <button type="button">
+              <MagnifyingGlassIcon className="h-12 text-white ml-3 bg-yellow-600 p-2 rounded-full" />
+            </button>
+          </div>
+          <button className="pl-4 mr-2" type="button">
+            Filter
+          </button>
+        </form>
+      </nav>
       <div className="grid grid-col-1 gap-4" data-testid="card-id">
-        {osloDummyData.map((item, index) => (
-          <Card key={index}>
+        {properties?.map((properties) => (
+          <Card key={properties.id}>
             <CardHeader className="relative">
-              {/* <Image
-                src={item.imageURL}
-                alt="property photo"
-                width={360}
-                height={330}
-                className="rounded-lg"
-              /> */}
-              <Carousel images={item.imageURL} />
+              <Carousel images={properties.image} />
             </CardHeader>
             <CardContent>
               <CardTitle className="text-xl font-monserrat font-semibold">
-                {item.name}
+                {properties.name}
               </CardTitle>
               <CardDescription className="text-yellow-600 text-base font-medium">
-                {item.location}
+                {properties.location}
               </CardDescription>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <p className="font-medium">{item.price}</p>
-              <p className="text-gray-400 ">{item.date}</p>
+              <p className="font-medium">{properties.price}</p>
+              <p className="text-gray-400 ">{properties.date}</p>
             </CardFooter>
           </Card>
         ))}

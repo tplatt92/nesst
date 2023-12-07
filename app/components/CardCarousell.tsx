@@ -3,19 +3,45 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 
+const slideVariants = {
+  hiddenRight: {
+    x: "100%",
+    opacity: 0,
+  },
+  hiddenLeft: {
+    x: "-100%",
+    opacity: 0,
+  },
+  visible: {
+    x: "0",
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.8,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 type CarouselImageProps = {
   images: string[];
 };
 
 const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [direction, setDirection] = useState("left");
   const handleNext = () => {
+    setDirection("left");
     setCurrentIndex((prevIndex) =>
       prevIndex + 1 === images.length ? 0 : prevIndex + 1
     );
   };
   const handlePrevious = () => {
+    setDirection("right");
     setCurrentIndex((prevIndex) =>
       prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
     );
@@ -25,15 +51,22 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
 
   const handleDotClick = (index: index) => {
     setCurrentIndex(index);
+    setDirection(index > currentIndex ? "right" : "left");
   };
   return (
-    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden">
-      <img
-        key={currentIndex}
-        src={images[currentIndex]}
-        className="w-full h-full object-cover border-2 border-white rounded-lg"
-        alt={`Slide ${currentIndex + 1}`}
-      />
+    <div className="carousel-images relative border rounded-lg mx-auto max-w-md overflow-hidden h-60">
+      <AnimatePresence>
+        <motion.img
+          key={currentIndex}
+          src={images[currentIndex]}
+          className="w-full h-full object-cover border-2 border-white rounded-lg"
+          alt={`Slide ${currentIndex + 1}`}
+          variants={slideVariants}
+          initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
+          animate="visible"
+          exit="exit"
+        />
+      </AnimatePresence>
 
       <div className="flex justify-between top-0 bottom-0 m-auto">
         <div
