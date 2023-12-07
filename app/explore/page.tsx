@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card";
 
 export default function Explore() {
+  const [availibility, setAvailibility] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
@@ -28,7 +29,9 @@ export default function Explore() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase.from("properties").select("*");
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*, availability(*)");
 
         if (error) {
           setFetchError("error fetching properties");
@@ -36,7 +39,7 @@ export default function Explore() {
           console.error(error);
         }
         if (data) {
-          setProperties(data);
+          setProperties((prevProperties) => [...prevProperties, ...data]);
           setFetchError(null);
         }
       } catch (error) {
@@ -44,8 +47,26 @@ export default function Explore() {
       }
     };
     fetchProperties();
+    console.log(properties);
   }, []);
 
+  // useEffect(() => {
+  //   const fetchAvailibility = async () => {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from("properties")
+  //         .select("availibility");
+
+  //       if (error) {
+  //         setFetchError("error fetching properties");
+  //         setProperties(null);
+  //         console.error(error);
+  //       }
+  //       if (data) {
+  //         setAvailibility(data);
+  //         setFetchError(null);
+  //       }
+  //     } catch (error) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 pb-28">
       <nav className="flex flex-row relative my-4 w-full">
