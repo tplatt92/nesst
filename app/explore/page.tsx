@@ -63,7 +63,10 @@ export default function Explore() {
           </button>
         </form>
       </nav>
-      <div className="grid grid-col-1 gap-4" data-testid="card-id">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        data-testid="card-id"
+      >
         {properties?.map((properties) => (
           <Card key={properties.id}>
             <CardHeader className="relative">
