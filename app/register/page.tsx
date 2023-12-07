@@ -7,6 +7,7 @@ import {
   // Import predefined theme
   ThemeSupa,
 } from "@supabase/auth-ui-shared";
+import Link from "next/link";
 
 export default function SignUp() {
   const supabase = createClientComponentClient<Database>();
@@ -21,7 +22,7 @@ export default function SignUp() {
   };
   return (
     <>
-      <div className=" h-screen flex flex-col justify-center bg-black ">
+      <div className=" h-screen flex flex-col justify-center items-center bg-black ">
         <div className="col p-16 text-gray-500">
           <Auth
             supabaseClient={supabase}
@@ -43,15 +44,21 @@ export default function SignUp() {
             }}
             localization={{
               variables: {
-                sign_in: {
-                  social_provider_text: "Sign in",
+                sign_up: {
+                  social_provider_text: "Sign up",
                 },
               },
             }}
-            showLinks={true}
+            showLinks={false}
             providers={["google", "apple", "facebook"]}
             redirectTo="http://localhost:3000/auth/register"
           />
+          <Link
+            className="hover:underline focus:underline text-sm"
+            href="/login"
+          >
+            Already have an account? Sign in.
+          </Link>
         </div>
       </div>
     </>

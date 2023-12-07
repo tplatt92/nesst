@@ -19,6 +19,8 @@ import {
   // Import predefined theme
   ThemeSupa,
 } from "@supabase/auth-ui-shared";
+import link from "next/link";
+import Link from "next/link";
 
 export default function Login() {
   const supabase = createClientComponentClient<Database>();
@@ -32,7 +34,7 @@ export default function Login() {
   };
 
   return (
-    <div className=" h-screen flex flex-col justify-center bg-black ">
+    <div className=" h-screen flex flex-col justify-center items-center bg-black ">
       <div className="col p-16 text-gray-500">
         <Auth
           supabaseClient={supabase}
@@ -59,10 +61,11 @@ export default function Login() {
               },
             },
           }}
-          showLinks={true}
+          showLinks={false}
           providers={["google", "apple", "facebook"]}
           redirectTo="http://localhost:3000/auth/login"
         />
+        <Link className="hover:underline focus:underline text-sm"  href="/register">Don&#39;t have an account? Sign up!</Link>
       </div>
     </div>
   );
