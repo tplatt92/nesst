@@ -1,7 +1,7 @@
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Messages from "@/app/page";
+import Messages from "@/app/messages/page";
 
 //Cleanup
 afterEach(() => {
@@ -13,9 +13,9 @@ describe("messeges", () => {
     render(<Messages />);
   });
 
-//   it("renders footer", () => {
-//     render(<Messages />);
-//     const footer = screen.getByTestId("footer-id");
-//     expect(footer).toBeInTheDocument();
-//   });
+  it("renders footer", () => {
+    render(<Messages />);
+    const footer = screen.getByTestId("footer-id");
+    expect(footer).toBeInTheDocument();
+  });
 });

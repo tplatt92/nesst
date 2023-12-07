@@ -10,7 +10,11 @@ import Image from "next/image";
 import Avatar from "./Avatar";
 import { Switch } from "@/components/ui/switch";
 
-export default function CreateAccountForm({ session }: {  session: Session | null;}) {
+export default function CreateAccountForm({
+  session,
+}: {
+  session: Session | null;
+}) {
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(true);
   const [firstName, setFirstName] = useState<string | null>(null);
@@ -23,7 +27,6 @@ export default function CreateAccountForm({ session }: {  session: Session | nul
   const [smoker, setSmoker] = useState<boolean>(false);
   const user = session?.user;
   const router = useRouter();
-
 
   const getProfile = useCallback(async () => {
     try {
@@ -109,7 +112,10 @@ export default function CreateAccountForm({ session }: {  session: Session | nul
   }
 
   return (
-    <div className="form-widget flex flex-col items-center justify-evenly h-screen overflow-x-hidden overflow-y-scroll bg-black text-white">
+    <div
+      className="form-widget flex flex-col items-center justify-evenly h-screen overflow-x-hidden overflow-y-scroll bg-black text-white"
+      data-testid="CreateAccForm-id"
+    >
       <div className="flex mt-16">
         <Image
           src="/logos/emptyegg.png"
