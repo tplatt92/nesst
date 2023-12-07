@@ -7,23 +7,35 @@ import Link from "next/link";
 
 import Image from "next/image"; // Add this import statement
 
-export default function Footer() {
+type FooterProps = {
+  pathnameUrl: string;
+};
+
+const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
   return (
     <>
       <div
-        className="flex items-center justify-between py-4 border-t fixed border-gray-200 border-solid bottom-0 w-full bg-white"
+        className="flex items-center justify-evenly py-4 border-t fixed border-gray-200 border-solid bottom-0 w-full bg-white"
         data-testid="footer-id"
       >
-        <div>
+        <div
+          className={`${
+            pathnameUrl === "/explore" ? "text-nesstYellow" : "text-gray-400"
+          } `}
+        >
           <Link href="/explore" className="flex-1 text-center">
-            <MagnifyingGlassIcon className="h-8 text-gray-400 px-4" />
-            <p className="text-gray-400 text-xs">Explore</p>
+            <MagnifyingGlassIcon className="h-8  px-4" />
+            <p className=" text-xs">Explore</p>
           </Link>
         </div>
-        <div>
+        <div
+          className={`${
+            pathnameUrl === "/favourites" ? "text-nesstYellow" : "text-gray-400"
+          } `}
+        >
           <Link href="/favourites" className="flex-1 text-center">
-            <HeartIcon className="h-8 text-gray-400 px-4" />
-            <p className="text-gray-400 text-xs">Favourites</p>
+            <HeartIcon className="h-8  px-4" />
+            <p className=" text-xs">Favourites</p>
           </Link>
         </div>
         <div className="relative self-end">
@@ -34,27 +46,39 @@ export default function Footer() {
             width={60}
             height={60}
           />
-          <p className="text-gray-400 text-xs">My Nesst</p>
+          <p className="text-xs">My Nesst</p>
         </div>
 
-        <div>
+        <div
+          className={`${
+            pathnameUrl === "/messages" ? "text-nesstYellow" : "text-gray-400"
+          } `}
+        >
           <Link href="/messages" className="flex-1 text-center">
-            <ChatBubbleLeftEllipsisIcon className="h-8 text-gray-400 px-4" />
-            <p className="text-gray-400 text-xs ">Messages</p>
+            <ChatBubbleLeftEllipsisIcon className="h-8  px-4" />
+            <p className=" text-xs ">Messages</p>
           </Link>
         </div>
-        <div>
+        <div
+          className={`${
+            pathnameUrl === "/profile" ? "text-nesstYellow" : "text-gray-400"
+          } `}
+        >
           <Link href="/profile" className="flex-1 text-center">
-            <UserIcon className="h-8 text-gray-400 px-4" />
-            <p className="text-gray-400 text-xs">Profile</p>
+            <UserIcon className="h-8  px-4" />
+            <p className=" text-xs">Profile</p>
           </Link>
         </div>
       </div>
     </>
   );
-}
+};
 
+export default Footer;
 /*
 flex w-3/4 border-solid p-4
 
-<Link href="/messages"><ChatBubbleLeftEllipsisIcon className="h-6 w-1/4 text-gray-400"/></Link>*/
+<Link href="/messages"><ChatBubbleLeftEllipsisIcon className="h-6 w-1/4 "/></Link>*/
+
+{
+}

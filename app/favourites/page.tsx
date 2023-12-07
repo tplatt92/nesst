@@ -1,6 +1,8 @@
 // import NextJsCarousel from "../components/CardCarousell";
+"use client";
 import Carousel from "../components/CardCarousell";
 import Footer from "../components/Footer";
+import { usePathname } from "next/navigation";
 
 const images = [
   "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -12,11 +14,12 @@ const images = [
 ];
 
 export default function Favourites() {
+  const pathname = usePathname();
   return (
     <>
       <p>This is the Favourites page</p>
       <Carousel images={images} />
-      <Footer />
+      <Footer pathnameUrl={pathname} />
     </>
   );
 }

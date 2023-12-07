@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Carousel from "../components/CardCarousell";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { usePathname } from "next/navigation";
 
 import {
   Card,
@@ -22,6 +23,7 @@ export default function Explore() {
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -87,7 +89,7 @@ export default function Explore() {
           </Card>
         ))}
       </div>
-      <Footer />
+      <Footer pathnameUrl={pathname} />
     </main>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { Database } from "@/types/supabase";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   Session,
   createClientComponentClient,
@@ -23,8 +23,9 @@ export default function Profile({ session }: { session: Session | null }) {
   const [drinker, setDrinker] = useState<string | null>(null);
   const [smoker, setSmoker] = useState<string | null>(null);
   const user = session?.user;
-  console.log(`session is ${user} `);
+
   const router = useRouter();
+  const pathname = usePathname();
 
   const getProfile = useCallback(async () => {
     try {
@@ -152,7 +153,7 @@ export default function Profile({ session }: { session: Session | null }) {
             />
           </div>
         </div>
-        <Footer />
+        <Footer pathnameUrl={pathname} />
       </div>
     </>
   );
