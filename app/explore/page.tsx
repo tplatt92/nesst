@@ -46,27 +46,27 @@ export default function Explore() {
     };
     fetchProperties();
   }, []);
+  //for propertty page
+  // useEffect(() => {
+  //   const fetchAvailability = async () => {
+  //     try {
+  //       const { data, error } = await supabase.from("availability").select("*");
 
-  useEffect(() => {
-    const fetchAvailability = async () => {
-      try {
-        const { data, error } = await supabase.from("availability").select("*");
-
-        if (error) {
-          setFetchError("error fetching properties");
-          setAvailability(null);
-          console.error(error);
-        }
-        if (data) {
-          setAvailability(data);
-          setFetchError(null);
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
-      }
-    };
-    fetchAvailability();
-  }, []);
+  //       if (error) {
+  //         setFetchError("error fetching properties");
+  //         setAvailability(null);
+  //         console.error(error);
+  //       }
+  //       if (data) {
+  //         setAvailability(data);
+  //         setFetchError(null);
+  //       }
+  //     } catch (error) {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   };
+  //   fetchAvailability();
+  // }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 pb-28">
       <nav className="flex flex-row relative my-4 w-full">
@@ -105,7 +105,9 @@ export default function Explore() {
             </CardContent>
             <CardFooter className="flex justify-between">
               <p className="font-medium">£{properties.price}/month</p>
-              <p className="text-gray-400 ">{properties.date}</p>
+              <p className="text-gray-400 ">
+                {properties.available ? "Available" : "Unavailable"}
+              </p>
             </CardFooter>
           </Card>
         ))}
