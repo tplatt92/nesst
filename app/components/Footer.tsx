@@ -26,11 +26,11 @@ export default function Footer() {
             <p className="text-gray-400 text-xs">Favourites</p>
           </Link>
         </div>
-        <div className="relative">
+        <div className="relative self-end">
           <Image
             alt="NESST"
             src="/logos/fullegg.png" // Use forward slashes instead of backslashes
-            className="flex-1 text-center absolute bottom-2 "
+            className="flex-1 text-center absolute bottom-5 "
             width={60}
             height={60}
           />

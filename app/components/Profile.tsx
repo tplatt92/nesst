@@ -112,7 +112,7 @@ export default function Profile({ session }: { session: Session | null }) {
               />
             </Link>
           </div>
-          <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  -bottom-[17%] px-4 text-white">
+          <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  top-[87%] -bottom-[17%] px-4 text-white overflow-y-scroll">
             <h3 className="py-2 font-semibold">About Me</h3>
             <p className="pb-2">{bio}</p>
           </div>
