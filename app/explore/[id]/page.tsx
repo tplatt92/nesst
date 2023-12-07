@@ -65,7 +65,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     fetchProperties();
-  }, []);
+  }, [id]);
   return (
     <>
       {properties?.map((property) => (

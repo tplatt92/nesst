@@ -46,6 +46,7 @@ export default function Explore() {
     };
     fetchProperties();
   }, []);
+  console.log(properties);
   //for propertty page
   // useEffect(() => {
   //   const fetchAvailability = async () => {
@@ -105,6 +106,7 @@ export default function Explore() {
             </CardContent>
             <CardFooter className="flex justify-between">
               <p className="font-medium">£{properties.price}/month</p>
+              <p>beds:{properties.beds}</p>
               <p className="text-gray-400 ">
                 {properties.available ? "Available" : "Unavailable"}
               </p>
