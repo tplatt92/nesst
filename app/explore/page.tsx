@@ -45,17 +45,17 @@ export default function Explore() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-10 pb-20">
+    <main className="flex min-h-screen flex-col items-center justify-between p-4 pb-20">
       <nav className="flex flex-row relative justify-between my-4 w-full">
         <form className="flex items-center">
-          <div className="flex bg-white p-2 border-solid border-2 border-gray-300 rounded-full left-0 h-16 items-center">
+          <div className="flex bg-white px-2 border-solid border-2 border-gray-300 rounded-full left-0 h-14 items-center">
             <input
               className="h-12 items-center rounded-l-full "
               type="text"
               placeholder="Search Destinations"
             />
             <button type="button">
-              <MagnifyingGlassIcon className="h-12 text-white ml-3 bg-yellow-600 p-2 rounded-full" />
+              <MagnifyingGlassIcon className="h-10 text-white ml-3 bg-nesstYellow p-2 rounded-full" />
             </button>
           </div>
           <button className="pl-4 mr-2" type="button">
@@ -81,7 +81,7 @@ export default function Explore() {
               </CardDescription>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <p className="font-medium">{properties.price}</p>
+              <p className="font-medium">£{properties.price}/month</p>
               <p className="text-gray-400 ">{properties.date}</p>
             </CardFooter>
           </Card>
