@@ -69,17 +69,17 @@ export default function Explore() {
   //   fetchAvailability();
   // }, []);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 pb-28">
+    <main className="flex min-h-screen flex-col items-center justify-between p-4 lg:px-8 pb-28">
       <nav className="flex flex-row relative my-4 w-full">
-        <form className="flex items-center w-full justify-between">
-          <div className="flex flex-1 bg-white px-2 border-solid border-2 border-gray-300 rounded-full left-0 h-14 items-center">
+        <form className="flex items-center w-full  justify-between">
+          <div className="flex flex-1 bg-white px-2 border-solid border-2 border-gray-300 rounded-full left-0 h-14 lg:h-8 items-center lg:max-w-xs">
             <input
-              className="h-12 items-center flex-1 rounded-l-full "
+              className="h-12 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs "
               type="text"
               placeholder="Search Destinations"
             />
             <button type="button">
-              <MagnifyingGlassIcon className="h-10 text-white ml-3 bg-nesstYellow p-2 rounded-full" />
+              <MagnifyingGlassIcon className="h-10 lg:h-6 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
             </button>
           </div>
           <button className="pl-4 mr-2" type="button">
@@ -88,27 +88,29 @@ export default function Explore() {
         </form>
       </nav>
       <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
         data-testid="card-id"
       >
         {properties?.map((properties) => (
           <Card key={properties.id}>
-            <CardHeader className="relative">
+            <CardHeader className="relative lg:h-40">
               <Carousel images={properties.image} />
             </CardHeader>
             <CardContent>
-              <CardTitle className="text-xl font-monserrat font-semibold flex justify-between">
+              <CardTitle className="text-xl lg:text-[10px] font-monserrat font-semibold flex justify-between items-center">
                 {properties.name}
-                <p className="text-sm">beds:{properties.beds}</p>
+                <p className="text-sm lg:text-[10px]">beds:{properties.beds}</p>
               </CardTitle>
-              <CardDescription className="text-yellow-600 text-base font-medium">
+              <CardDescription className="text-yellow-600 text-sm lg:text-[10px] font-medium">
                 {properties.location}
               </CardDescription>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <p className="font-medium">£{properties.price}/month</p>
+              <p className="font-medium lg:text-[10px]">
+                £{properties.price}/month
+              </p>
 
-              <p className="text-gray-400 ">
+              <p className="text-gray-400 lg:text-[10px]">
                 {properties.available ? "Available" : "Unavailable"}
               </p>
             </CardFooter>
