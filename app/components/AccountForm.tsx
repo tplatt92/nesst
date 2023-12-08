@@ -115,7 +115,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
       </div>
       <div className="pb-4">
         <Avatar
-          uid={user.id}
+          uid={user?.id ?? ""}
           url={avatar_url}
           size={150}
           onUpload={(url) => {
