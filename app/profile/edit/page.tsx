@@ -1,10 +1,10 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
-import Profile from "../components/AccountForm";
-import AccountForm from "../components/AccountForm";
+import Profile from "../../components/AccountForm";
+import AccountForm from "../../components/AccountForm";
 
-export default async function ViewProfile() {
+export default async function EditProfile() {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {

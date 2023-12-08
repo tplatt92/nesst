@@ -78,7 +78,7 @@ import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
 import CreateAccountForm from "@/app/components/CreateAccountForm";
 
-export default async function EditProfile() {
+export default async function CreateProfile() {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
