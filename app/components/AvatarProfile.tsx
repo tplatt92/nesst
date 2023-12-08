@@ -4,7 +4,11 @@ import { Database } from "@/types/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 
-type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
+type Profiles = Database["public"] extends {
+  Tables: { profiles: { Row: infer R } };
+}
+  ? R
+  : never;
 
 export default function AvatarProfile({
   uid,
@@ -16,7 +20,10 @@ export default function AvatarProfile({
   size: number;
 }) {
   const supabase = createClientComponentClient<Database>();
-  const [avatarUrl, setAvatarUrl] = useState<Profiles["avatar_url"]>(url);
+  const [avatarUrl, setAvatarUrl] = useState<string>(
+    url ??
+      "/https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
+  );
 
   useEffect(() => {
     async function downloadImage(path: string) {
