@@ -26,7 +26,7 @@ export default function SignUp() {
         <div className="col p-16 text-gray-500">
           <Auth
             supabaseClient={supabase}
-            view="sign_up"
+            view="magic_link"
             appearance={{
               theme: ThemeSupa,
               style: {

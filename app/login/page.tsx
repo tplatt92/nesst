@@ -38,7 +38,7 @@ export default function Login() {
       <div className="col p-16 text-gray-500">
         <Auth
           supabaseClient={supabase}
-          view="sign_in"
+          view="magic_link"
           appearance={{
             theme: ThemeSupa,
             style: {
@@ -65,7 +65,12 @@ export default function Login() {
           providers={["google", "apple", "facebook"]}
           redirectTo="http://localhost:3000/auth/login"
         />
-        <Link className="hover:underline focus:underline text-sm"  href="/register">Don&#39;t have an account? Sign up!</Link>
+        <Link
+          className="hover:underline focus:underline text-sm"
+          href="/register"
+        >
+          Don&#39;t have an account? Sign up!
+        </Link>
       </div>
     </div>
   );
