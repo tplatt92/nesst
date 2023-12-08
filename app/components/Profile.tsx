@@ -118,7 +118,7 @@ export default function Profile({ session }: { session: Session | null }) {
           <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  top-[87%] -bottom-[17%] px-4 text-white overflow-y-scroll">
             <div className=" flex flex-row justify-between">
               <h3 className="py-2 font-semibold">About Me</h3>
-              <h3 className="py-2 font-semibold">My Age: {age}</h3>
+              <h3 className="py-2 font-semibold">{age} y/o</h3>
             </div>
             <p className="pb-2">{bio}</p>
           </div>
