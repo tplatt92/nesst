@@ -18,6 +18,7 @@ export default function Profile({ session }: { session: Session | null }) {
   const [firstName, setFirstName] = useState<string | null>(null);
   const [lastName, setLastName] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
+  const [age, setAge] = useState<number | null>(null); // [age, setAge
   const [bio, setBio] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [drinker, setDrinker] = useState<string | null>(null);
@@ -47,6 +48,7 @@ export default function Profile({ session }: { session: Session | null }) {
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setUsername(data.username);
+        setAge(data.age);
         setBio(data.bio);
         setDrinker(data.drinker);
         setSmoker(data.smoker);
@@ -114,7 +116,10 @@ export default function Profile({ session }: { session: Session | null }) {
             </Link>
           </div>
           <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  top-[87%] -bottom-[17%] px-4 text-white overflow-y-scroll">
-            <h3 className="py-2 font-semibold">About Me</h3>
+            <div className=" flex flex-row justify-between">
+              <h3 className="py-2 font-semibold">About Me</h3>
+              <h3 className="py-2 font-semibold">My Age: {age}</h3>
+            </div>
             <p className="pb-2">{bio}</p>
           </div>
         </div>

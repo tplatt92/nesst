@@ -1,7 +1,7 @@
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Favourites from "@/app/page";
+import Favourites from "@/app/favourites/page";
 
 //Cleanup
 afterEach(() => {
@@ -13,9 +13,9 @@ describe("favourites", () => {
     render(<Favourites />);
   });
 
-//   it("renders footer", () => {
-//     render(<Favourites />);
-//     const footer = screen.getByTestId("footer-id");
-//     expect(footer).toBeInTheDocument();
-//   });
+  it("renders the footer", () => {
+    render(<Favourites />);
+    const footer = screen.getByTestId("footer-id");
+    expect(footer).toBeInTheDocument();
+  });
 });

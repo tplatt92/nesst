@@ -10,7 +10,7 @@ import Image from "next/image";
 import Avatar from "./Avatar";
 import { Switch } from "@/components/ui/switch";
 
-export default function AccountForm({ session }: { session: Session | null }) {
+export default function AccountForm({session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(true);
   const [firstName, setFirstName] = useState<string | null>(null);
