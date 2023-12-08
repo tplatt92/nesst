@@ -97,8 +97,9 @@ export default function Explore() {
               <Carousel images={properties.image} />
             </CardHeader>
             <CardContent>
-              <CardTitle className="text-xl font-monserrat font-semibold">
+              <CardTitle className="text-xl font-monserrat font-semibold flex justify-between">
                 {properties.name}
+                <p className="text-sm">beds:{properties.beds}</p>
               </CardTitle>
               <CardDescription className="text-yellow-600 text-base font-medium">
                 {properties.location}
@@ -106,7 +107,7 @@ export default function Explore() {
             </CardContent>
             <CardFooter className="flex justify-between">
               <p className="font-medium">£{properties.price}/month</p>
-              <p>beds:{properties.beds}</p>
+
               <p className="text-gray-400 ">
                 {properties.available ? "Available" : "Unavailable"}
               </p>
