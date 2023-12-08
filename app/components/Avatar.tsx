@@ -8,7 +8,7 @@ type Profiles = Database["public"] extends {
   Tables: { profiles: { Row: infer R } };
 }
   ? R
-  : never;
+  : any | never;
 
 export default function Avatar({
   uid,
@@ -22,10 +22,7 @@ export default function Avatar({
   onUpload: (url: string) => void;
 }) {
   const supabase = createClientComponentClient<Database>();
-  const [avatarUrl, setAvatarUrl] = useState<string>(
-    url ??
-      "/https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
-  );
+  const [avatarUrl, setAvatarUrl] = useState<Profiles["avatar_url"]>(url);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {

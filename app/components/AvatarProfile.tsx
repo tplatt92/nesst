@@ -8,7 +8,7 @@ type Profiles = Database["public"] extends {
   Tables: { profiles: { Row: infer R } };
 }
   ? R
-  : never;
+  : any | never;
 
 export default function AvatarProfile({
   uid,
