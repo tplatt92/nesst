@@ -88,7 +88,7 @@ export default function Profile({ session }: { session: Session | null }) {
         </div>
         <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen">
           <div className="pb-4">
-            <AvatarProfile uid={user.id} url={avatar_url} size={150} />
+            <AvatarProfile uid={user?.id ?? ""} url={avatar_url} size={150} />
           </div>
           <h1 className="text-white text-4xl py-4">
             {firstName} {lastName}
