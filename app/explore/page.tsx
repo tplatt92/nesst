@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Carousel from "../components/CardCarousell";
 import { usePathname } from "next/navigation";
-import Search from "../components/Search";
-
+import ExploreNav from "../components/ExploreNav";
 import {
   Card,
   CardContent,
@@ -15,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 
 export default function Explore() {
   const [properties, setProperties] = useState<null | any[]>(null);
@@ -46,7 +46,7 @@ export default function Explore() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-28">
-      <Search setProperties={setProperties} />
+      <ExploreNav setProperties={setProperties} />
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
         data-testid="card-id"

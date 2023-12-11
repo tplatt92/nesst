@@ -64,9 +64,6 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             <MagnifyingGlassIcon className="h-10 lg:h-7 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
           </button>
         </div>
-        <button className="pl-4 mr-2" type="button">
-          Filter
-        </button>
       </form>
     </nav>
   );
