@@ -129,7 +129,7 @@ export default function CreateAccountForm({
       <div>
         <Avatar
           uid={user?.id ?? ""}
-          url={avatar_url}
+          url={avatar_url ?? null}
           size={150}
           onUpload={(url) => {
             setAvatarUrl(url);

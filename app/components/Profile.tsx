@@ -69,7 +69,7 @@ export default function Profile({ session }: { session: Session | null }) {
     <>
       <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 ">
         <div className="absolute right-8 top-8 z-50 w-6">
-          <Link href="/edit">
+          <Link href="/profile/edit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -88,7 +88,7 @@ export default function Profile({ session }: { session: Session | null }) {
         </div>
         <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen">
           <div className="pb-4">
-            <AvatarProfile uid={user.id} url={avatar_url} size={150} />
+            <AvatarProfile uid={user?.id ?? ""} url={avatar_url} size={150} />
           </div>
           <h1 className="text-white text-4xl py-4">
             {firstName} {lastName}
