@@ -169,17 +169,20 @@ export default function CreateAccountForm({
       <div className="w-5/6 ">
         <input
           id="username"
-          placeholder="Username"
+          placeholder="Username minimum 2 characters"
           type="text"
+          onError={(e) => alert("Username must be at least 3 characters")}
           value={username || ""}
           onChange={(e) => setUsername(e.target.value)}
           className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
+          required
         />
       </div>
       <div className="w-5/6 ">
         <input
           id="age"
           placeholder="Age"
+          required
           type="number"
           value={age || ""}
           onChange={(e) => setAge(parseInt(e.target.value))}
