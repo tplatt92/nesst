@@ -5,7 +5,7 @@ type ExploreNavProps = {
 };
 const ExploreNav: React.FC<ExploreNavProps> = ({ setProperties }) => {
   return (
-    <nav className="flex flex-row relative my-4 w-full">
+    <nav className="flex flex-row items-center gap-4 relative my-4 w-full">
       <Search setProperties={setProperties} />
       <FilterSheet />
     </nav>
