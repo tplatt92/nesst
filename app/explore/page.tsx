@@ -93,6 +93,7 @@ export default function Explore() {
       >
         {properties?.map((properties) => (
           <Card key={properties.id}>
+            <Link href={`/explore/${properties.id}`}>
             <CardHeader className="relative lg:h-40">
               <Carousel images={properties.image} />
             </CardHeader>
@@ -114,6 +115,8 @@ export default function Explore() {
                 {properties.available ? "Available" : "Unavailable"}
               </p>
             </CardFooter>
+
+        </Link>
           </Card>
         ))}
       </div>
