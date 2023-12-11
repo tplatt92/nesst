@@ -21,19 +21,24 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     e.preventDefault();
     const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase
-          .from("properties")
-          .select("*")
-          .ilike("location", location);
-
-        if (error) {
-          setFetchError("error fetching properties");
-          setProperties(null);
-          console.error(error);
-        }
-        if (data) {
+        if (location == "") {
+          const { data, error } = await supabase.from("properties").select("*")
           setProperties(data);
-          setFetchError(null);
+        } else {
+          const { data, error } = await supabase
+            .from("properties")
+            .select("*")
+            .ilike("location", location);
+
+          if (error) {
+            setFetchError("error fetching properties");
+            setProperties(null);
+            console.error(error);
+          }
+          if (data) {
+            setProperties(data);
+            setFetchError(null);
+          }
         }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
