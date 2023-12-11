@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import Carousel from "../components/CardCarousell";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
+import Search from "../components/Search";
 
 import {
   Card,
@@ -46,7 +47,7 @@ export default function Explore() {
     };
     fetchProperties();
   }, []);
-  console.log(properties);
+  // console.log(properties);
   //for propertty page
   // useEffect(() => {
   //   const fetchAvailability = async () => {
@@ -70,23 +71,7 @@ export default function Explore() {
   // }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 lg:px-8 pb-28">
-      <nav className="flex flex-row relative my-4 w-full">
-        <form className="flex items-center w-full  justify-between">
-          <div className="flex flex-1 bg-white px-2 border-solid border-2 border-gray-300 rounded-full left-0 h-14 lg:h-8 items-center lg:max-w-xs">
-            <input
-              className="h-12 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs "
-              type="text"
-              placeholder="Search Destinations"
-            />
-            <button type="button">
-              <MagnifyingGlassIcon className="h-10 lg:h-6 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
-            </button>
-          </div>
-          <button className="pl-4 mr-2" type="button">
-            Filter
-          </button>
-        </form>
-      </nav>
+     <Search setProperties={setProperties} />
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
         data-testid="card-id"
