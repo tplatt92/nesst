@@ -1,12 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import supabase from "../config/SuperbaseClient";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Carousel from "../components/CardCarousell";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
 import Search from "../components/Search";
 
@@ -20,7 +17,6 @@ import {
 } from "@/components/ui/card";
 
 export default function Explore() {
-  const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
@@ -30,7 +26,7 @@ export default function Explore() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase.from("properties").select("*")
+        const { data, error } = await supabase.from("properties").select("*");
 
         if (error) {
           setFetchError("error fetching properties");
@@ -47,31 +43,10 @@ export default function Explore() {
     };
     fetchProperties();
   }, []);
-  // console.log(properties);
-  //for propertty page
-  // useEffect(() => {
-  //   const fetchAvailability = async () => {
-  //     try {
-  //       const { data, error } = await supabase.from("availability").select("*");
 
-  //       if (error) {
-  //         setFetchError("error fetching properties");
-  //         setAvailability(null);
-  //         console.error(error);
-  //       }
-  //       if (data) {
-  //         setAvailability(data);
-  //         setFetchError(null);
-  //       }
-  //     } catch (error) {
-  //       console.error("An unexpected error occurred:", error);
-  //     }
-  //   };
-  //   fetchAvailability();
-  // }, []);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 lg:px-8 pb-28">
-     <Search setProperties={setProperties} />
+    <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-28">
+      <Search setProperties={setProperties} />
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
         data-testid="card-id"
@@ -102,6 +77,7 @@ export default function Explore() {
           </Card>
         ))}
       </div>
+      {properties?.length == 0 && <p>No items match your search.</p>}
       <Footer pathnameUrl={pathname} />
     </main>
   );
