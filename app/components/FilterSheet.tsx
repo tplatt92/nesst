@@ -7,6 +7,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { Slider } from "@/components/ui/slider";
+
 export default function FilterSheet() {
   return (
     <Sheet>
@@ -27,6 +29,7 @@ export default function FilterSheet() {
           <SheetTitle>Filters</SheetTitle>
         </SheetHeader>
         <div className="p-4">Test</div>
+        <Slider defaultValue={[33]} max={100} step={1} />
       </SheetContent>
     </Sheet>
   );
