@@ -22,7 +22,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     const fetchProperties = async () => {
       try {
         if (location == "") {
-          const { data, error } = await supabase.from("properties").select("*")
+          const { data, error } = await supabase.from("properties").select("*");
           setProperties(data);
         } else {
           const { data, error } = await supabase
@@ -52,16 +52,16 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
         className="flex items-center w-full  justify-between"
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-1 bg-white px-2 border-solid border-2 border-gray-300 rounded-full left-0 h-14 lg:h-8 items-center lg:max-w-xs">
+        <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-14 lg:h-10 items-center lg:max-w-xs shadow">
           <input
-            className="h-12 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs "
+            className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
             type="text"
             placeholder="Search Destinations"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
           <button type="submit">
-            <MagnifyingGlassIcon className="h-10 lg:h-6 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
+            <MagnifyingGlassIcon className="h-10 lg:h-7 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
           </button>
         </div>
         <button className="pl-4 mr-2" type="button">
