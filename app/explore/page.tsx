@@ -29,7 +29,7 @@ export default function Explore() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const { data, error } = await supabase.from("properties").select("*");
+        const { data, error } = await supabase.from("properties").select("*")
 
         if (error) {
           setFetchError("error fetching properties");
