@@ -1,24 +1,3 @@
-//  for propertty page
-//   useEffect(() => {
-//     const fetchAvailability = async () => {
-//       try {
-//         const { data, error } = await supabase.from("availability").select("*");
-
-//         if (error) {
-//           setFetchError("error fetching properties");
-//           setAvailability(null);
-//           console.error(error);
-//         }
-//         if (data) {
-//           setAvailability(data);
-//           setFetchError(null);
-//         }
-//       } catch (error) {
-//         console.error("An unexpected error occurred:", error);
-//       }
-//     };
-//     fetchAvailability();
-//   }, []);
 "use client";
 import React from "react";
 import supabase from "../../config/SuperbaseClient";
@@ -82,7 +61,14 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           <CardContent>
             <CardTitle className="text-xl font-monserrat font-semibold">
               {property.name}
-              <p className="font-medium">£{property.price}/month</p>
+              <p className="font-medium">
+                £{property.price}/month for the entire property
+              </p>
+              {/* ------------------------ new line added */}
+              <p className="font-medium">
+                £{Math.round(property.price / property.beds)}/month for each bed
+              </p>
+              {/* ------------------------ new line added */}
             </CardTitle>
             <CardDescription className="text-yellow-600 text-base font-medium pb-4">
               <span style={{ display: "flex", alignItems: "center" }}>
@@ -124,7 +110,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
             </p>
           </CardFooter>
           <p className="pl-2">Amenities</p>
-          <article className="grid grid-cols-2 gap-4 p-2">
+          <article className="grid grid-cols-2 gap-4 p-2 pb-56">
             <p className="font-medium">
               {property.TV ? (
                 <svg
