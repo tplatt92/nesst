@@ -1,8 +1,8 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
-import Profile from "../../components/AccountForm";
-import AccountForm from "../../components/AccountForm";
+import Profile from "../../components/EditAccountForm";
+import EditAccountForm from "../../components/EditAccountForm";
 
 export default async function EditProfile() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -13,7 +13,7 @@ export default async function EditProfile() {
 
   return (
     <div className="w-screen">
-      <AccountForm session={session} />
+      <EditAccountForm session={session} />
     </div>
   );
 }
