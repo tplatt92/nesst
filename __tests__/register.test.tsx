@@ -1,7 +1,7 @@
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import SignUp from "@/app/register/page";
+import SignUp from "@/app/register/page.tsx";
 
 //Cleanup
 afterEach(() => {
