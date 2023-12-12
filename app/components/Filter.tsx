@@ -31,9 +31,9 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
-  const [originalProperties, setOriginalProperties] = useState<Property[]>(
-    properties || null
-  );
+  const [originalProperties, setOriginalProperties] = useState<
+    Property[] | null
+  >(properties || null);
 
   useEffect(() => {
     setOriginalProperties(properties || null);
