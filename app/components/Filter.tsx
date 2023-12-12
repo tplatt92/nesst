@@ -12,7 +12,6 @@ import {
 
 import { Slider } from "@/components/ui/slider";
 import { useEffect, useState } from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import supabase from "../config/SuperbaseClient";
 
 interface Property {
