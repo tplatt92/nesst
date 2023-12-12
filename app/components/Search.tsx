@@ -7,6 +7,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 
 import { Slider } from "@/components/ui/slider";
@@ -27,8 +28,6 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
-
-  const [availability, setAvailability] = useState<null | boolean>(null);
 
   function handleSubmit(e: FormSubmit) {
     e.preventDefault();
@@ -110,27 +109,29 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             <input
               id="Min Price"
               value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
+              onChange={(e) => setMinPrice(parseInt(e.target.value))}
             />
             <label>Max Price</label>
             <input
               id="Max Price"
               value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
+              onChange={(e) => setMaxPrice(parseInt(e.target.value))}
             />
             <label>Beds</label>
             <input
               id="Beds"
               value={minBeds}
-              onChange={(e) => setMinBeds(e.target.value)}
+              onChange={(e) => setMinBeds(parseInt(e.target.value))}
             />
             <label>Baths</label>
             <input
               id="Baths"
               value={minBaths}
-              onChange={(e) => setMinBaths(e.target.value)}
+              onChange={(e) => setMinBaths(parseInt(e.target.value))}
             />
-            <button type="submit">Apply</button>
+            <SheetClose>
+              <button type="submit">Apply</button>
+            </SheetClose>
           </form>
         </SheetContent>
       </Sheet>
