@@ -31,7 +31,21 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
+  const [originalProperties, setOriginalProperties] = useState<Property[]>(
+    properties || null
+  );
 
+  useEffect(() => {
+    setOriginalProperties(properties || null);
+  }, [properties]);
+
+  function handleReset() {
+    setMinPrice(null);
+    setMaxPrice(null);
+    setMinBeds(null);
+    setMinBaths(null);
+    setProperties(originalProperties || []);
+  }
   function handleSubmit(e: FormSubmit) {
     e.preventDefault();
     setProperties((prevProperties) => {
@@ -39,7 +53,7 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
       return prevProperties.filter((property) => {
         return (
           (!minPrice || property.price >= minPrice) &&
-          (!minBeds || property.beds >= minBeds) &&
+          (!maxPrice || property.price <= maxPrice) &&
           (!minBeds || property.beds >= minBeds) &&
           (!minBaths || property.baths >= minBaths)
         );
@@ -89,6 +103,11 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
           />
           <SheetClose>
             <button type="submit">Apply</button>
+          </SheetClose>
+          <SheetClose>
+            <button type="reset" onClick={handleReset}>
+              Reset
+            </button>
           </SheetClose>
         </form>
       </SheetContent>
