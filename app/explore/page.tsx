@@ -112,7 +112,7 @@ export default function Explore() {
               </p>
               {/* ---------------new line */}
               <p className="font-medium lg:text-[10px]">
-                £{properties.price/properties.beds}/pp
+                £{Math.round(properties.price/properties.beds)}/pp
               </p>
               {/* ------------ new line */}
 
