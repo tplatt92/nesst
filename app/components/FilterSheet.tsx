@@ -74,13 +74,13 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
           <input
             id="Min Price"
             value={minPrice}
-            onChange={(e) => setMinPrice(parseInt(e.target.value))}
+            onChange={(e) => setMinPrice(e.target.value)}
           />
           <label>Max Price</label>
           <input
             id="Max Price"
             value={maxPrice}
-            onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+            onChange={(e) => setMaxPrice(e.target.value)}
           />
           <button type="submit">Apply</button>
         </form>
