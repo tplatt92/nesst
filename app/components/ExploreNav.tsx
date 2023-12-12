@@ -4,7 +4,7 @@ type ExploreNavProps = {
   setProperties: React.Dispatch<React.SetStateAction<null | any[]>>;
 };
 type FilterProps = {
-    setProperties: React.Dispatch<React.SetStateAction<null | number>>;
+  setProperties: React.Dispatch<React.SetStateAction<null | number>>;
 };
 const ExploreNav: React.FC<ExploreNavProps> = ({ setProperties }) => {
   return (
@@ -15,9 +15,6 @@ const ExploreNav: React.FC<ExploreNavProps> = ({ setProperties }) => {
   );
 };
 export default ExploreNav;
-
-
-
 
 // type ExploreNavProps = {
 //     setProperties: React.Dispatch<React.SetStateAction<null | number>>;

@@ -34,7 +34,8 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
           const { data, error } = await supabase
             .from("properties")
             .select("*")
-            .rangeGte("price", [minPrice, maxPrice]);
+            .gte("price", minPrice)
+            .lte("price", maxPrice);
 
           if (error) {
             setFetchError("error fetching properties");
@@ -68,20 +69,20 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
       </SheetTrigger>
       <SheetContent>
         <SheetTitle>Filter</SheetTitle>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex flex-col">
           <label>Min Price</label>
           <input
             id="Min Price"
-            value={parseInt(minPrice)}
+            value={minPrice}
             onChange={(e) => setMinPrice(parseInt(e.target.value))}
           />
           <label>Max Price</label>
           <input
             id="Max Price"
-            value={parseInt(maxPrice)}
+            value={maxPrice}
             onChange={(e) => setMaxPrice(parseInt(e.target.value))}
           />
-          <button type="submit">Submit</button>
+          <button type="submit">Apply</button>
         </form>
       </SheetContent>
     </Sheet>
