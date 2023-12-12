@@ -23,6 +23,7 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
   );
   const [minPrice, setMinPrice] = useState<number | null>(null);
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
+  const [minBeds, setMinBeds] = useState<number | null>(null);
   function handleSubmit(e: FormSubmit) {
     e.preventDefault();
     const fetchProperties = async () => {
@@ -30,8 +31,9 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .gte("price", minPrice? minPrice : 0)
-          .lte("price", maxPrice? maxPrice : 1000000);
+          .gte("price", minPrice ? minPrice : 0)
+          .lte("price", maxPrice ? maxPrice : 1000000)
+          .gte("beds", minBeds ? minBeds : 0);
 
         if (error) {
           setFetchError("error fetching properties");
@@ -76,6 +78,12 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
             id="Max Price"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
+          />
+          <label>Beds</label>
+          <input
+            id="Beds"
+            value={minBeds}
+            onChange={(e) => setMinBeds(e.target.value)}
           />
           <button type="submit">Apply</button>
         </form>
