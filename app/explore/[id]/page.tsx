@@ -132,7 +132,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
             </CardContent>
 
             <p className="pl-2">Amenities</p>
-            <article className="grid grid-cols-2 gap-4 p-2 pb-32">
+            <article className="grid grid-cols-2 place-items-center gap-4 p-2 pb-32">
               <span className="font-medium">
                 {property.TV ? (
                   <svg
@@ -152,7 +152,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     />
                   </svg>
                 ) : null}
-                {property.TV ? "TV" : null}
+          
+                {property.TV ? <p>TV</p> : null}
               </span>
               <span className="font-medium">
                 {property.Desk ? (
