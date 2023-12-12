@@ -3,23 +3,12 @@ import React from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
-import {
-  // Import predefined theme
-  ThemeSupa,
-} from "@supabase/auth-ui-shared";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Link from "next/link";
 
 export default function SignUp() {
   const supabase = createClientComponentClient<Database>();
 
-  const customTheme = {
-    default: {
-      colors: {
-        brand: "#d9a66d",
-        brandButtonText: "#FFF",
-      },
-    },
-  };
   return (
     <>
       <div className=" h-screen flex flex-col justify-center items-center bg-black ">
