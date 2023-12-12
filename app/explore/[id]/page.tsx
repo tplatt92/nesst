@@ -4,6 +4,7 @@ import supabase from "../../config/SuperbaseClient";
 import { useEffect, useState } from "react";
 import Footer from "@/app/components/Footer";
 import Carousel from "../../components/CardCarousell";
+import CalendarWidget from "../../components/Calendar";
 import {
   Card,
   CardContent,
@@ -94,6 +95,17 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                   {property.bathrooms}
                 </span>
               </p>
+              <div className="text-black">
+                <CalendarWidget />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="bg-nesstYellow text-white  px-2 rounded-lg mt-4 font-4"
+                >
+                  Reserve
+                </button>
+              </div>
               <article>
                 <p className="font-medium pt-6">{property.longDescription}</p>
                 <p></p>
@@ -110,7 +122,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
             </p>
           </CardFooter>
           <p className="pl-2">Amenities</p>
-          <article className="grid grid-cols-2 gap-4 p-2 pb-56">
+          <article className="grid grid-cols-2 gap-4 p-2 pb-20">
             <p className="font-medium">
               {property.TV ? (
                 <svg
