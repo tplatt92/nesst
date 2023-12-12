@@ -21,31 +21,26 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(10000);
+  const [minPrice, setMinPrice] = useState<number | null>(null);
+  const [maxPrice, setMaxPrice] = useState<number | null>(null);
   function handleSubmit(e: FormSubmit) {
     e.preventDefault();
     const fetchProperties = async () => {
       try {
-        if (minPrice == 0 && maxPrice == 10000) {
-          const { data, error } = await supabase.from("properties").select("*");
-          setProperties(data);
-        } else {
-          const { data, error } = await supabase
-            .from("properties")
-            .select("*")
-            .gte("price", minPrice)
-            .lte("price", maxPrice);
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*")
+          .gte("price", minPrice? minPrice : 0)
+          .lte("price", maxPrice? maxPrice : 1000000);
 
-          if (error) {
-            setFetchError("error fetching properties");
-            setProperties(null);
-            console.error(error);
-          }
-          if (data) {
-            setProperties(data);
-            setFetchError(null);
-          }
+        if (error) {
+          setFetchError("error fetching properties");
+          setProperties(null);
+          console.error(error);
+        }
+        if (data) {
+          setProperties(data);
+          setFetchError(null);
         }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
