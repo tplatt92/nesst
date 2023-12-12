@@ -29,11 +29,40 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
 
+  function handleReset(e: FormSubmit) {
+    e.preventDefault();
+    setLocation("");
+    setMinPrice(null);
+    setMaxPrice(null);
+    setMinBeds(null);
+    setMinBaths(null);
+
+    const fetchProperties = async () => {
+      try {
+        const { data, error } = await supabase.from("properties").select("*");
+
+        if (error) {
+          setFetchError("error fetching properties");
+          setProperties(null);
+          console.error(error);
+        }
+
+        if (data) {
+          setProperties(data);
+          setFetchError(null);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+
+    fetchProperties();
+  }
   function handleSubmit(e: FormSubmit) {
     e.preventDefault();
     const fetchProperties = async () => {
       try {
-        if (location == "") {
+        if (location === "") {
           const { data, error } = await supabase
             .from("properties")
             .select("*")
@@ -108,30 +137,33 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             <label>Min Price</label>
             <input
               id="Min Price"
-              value={minPrice}
+              value={minPrice || ""}
               onChange={(e) => setMinPrice(parseInt(e.target.value))}
             />
             <label>Max Price</label>
             <input
               id="Max Price"
-              value={maxPrice}
+              value={maxPrice || ""}
               onChange={(e) => setMaxPrice(parseInt(e.target.value))}
             />
             <label>Beds</label>
             <input
               id="Beds"
-              value={minBeds}
+              value={minBeds || ""}
               onChange={(e) => setMinBeds(parseInt(e.target.value))}
             />
             <label>Baths</label>
             <input
               id="Baths"
-              value={minBaths}
+              value={minBaths || ""}
               onChange={(e) => setMinBaths(parseInt(e.target.value))}
             />
             <SheetClose>
               <button type="submit">Apply</button>
             </SheetClose>
+            <button type="reset" onClick={handleReset}>
+              Reset
+            </button>
           </form>
         </SheetContent>
       </Sheet>
