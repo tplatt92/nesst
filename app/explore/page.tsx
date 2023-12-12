@@ -93,10 +93,10 @@ export default function Explore() {
       >
         {properties?.map((properties) => (
           <Card key={properties.id}>
-            <Link href={`/explore/${properties.id}`}>
             <CardHeader className="relative lg:h-40">
               <Carousel images={properties.image} />
             </CardHeader>
+            <Link href={`/explore/${properties.id}`}>
             <CardContent>
               <CardTitle className="text-xl lg:text-[10px] font-monserrat font-semibold flex justify-between items-center">
                 {properties.name}
@@ -110,6 +110,11 @@ export default function Explore() {
               <p className="font-medium lg:text-[10px]">
                 £{properties.price}/month
               </p>
+              {/* ---------------new line */}
+              <p className="font-medium lg:text-[10px]">
+                £{properties.price/properties.beds}/pp
+              </p>
+              {/* ------------ new line */}
 
               <p className="text-gray-400 lg:text-[10px]">
                 {properties.available ? "Available" : "Unavailable"}
