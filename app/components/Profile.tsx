@@ -67,7 +67,7 @@ export default function Profile({ session }: { session: Session | null }) {
 
   return (
     <>
-      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 ">
+      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200" data-testid="profile-id">
         <div className="absolute right-8 top-8 z-50 w-6">
           <Link href="/profile/edit">
             <svg
