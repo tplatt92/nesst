@@ -15,6 +15,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Heart } from "lucide-react";
+import CalendarWidget from "@/app/components/Calendar";
 
 type PropertyIdProps = {
   params: any;
@@ -95,7 +96,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
             <CardContent>
               <CardTitle className="text-xl font-monserrat font-semibold">
                 <div className="flex justify-between">
-                  {property.name},
+                  {property.name}
                   <p className="text-sm ">
                     {" "}
                     {property.area} m<sup>2</sup>
@@ -134,7 +135,19 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     {Math.round(property.price / property.beds)}/pp
                   </p>
                 </div>
-
+                <div className="flex justify-center items-center py-4 border-b gap-4">
+                  <div className="text-black">
+                    <CalendarWidget />
+                  </div>
+                  <div>
+                    <button
+                      type="submit"
+                      className="bg-nesstYellow text-black font-bold px-4 py-2 rounded-lg font-4"
+                    >
+                      Reserve
+                    </button>
+                  </div>
+                </div>
                 <article>
                   <p className="font-medium border-b py-4">
                     {property.longDescription}
