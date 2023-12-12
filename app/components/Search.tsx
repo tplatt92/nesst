@@ -7,7 +7,7 @@ type SearchProps = {
 };
 type FormSubmit = React.FormEvent<HTMLFormElement>;
 const Search: React.FC<SearchProps> = ({ setProperties }) => {
-  // const [properties, setProperties] = useState<null | any[]>(null);
+
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );

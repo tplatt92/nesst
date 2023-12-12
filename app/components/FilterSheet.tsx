@@ -14,7 +14,7 @@ import { useState } from "react";
 import supabase from "../config/SuperbaseClient";
 
 type FilterProps = {
-  setProperties: React.Dispatch<React.SetStateAction<null | number>>;
+  setProperties: React.Dispatch<React.SetStateAction<null | any>>;
 };
 type FormSubmit = React.FormEvent<HTMLFormElement>;
 const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
@@ -27,10 +27,10 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
     e.preventDefault();
     const fetchProperties = async () => {
       try {
-        //   if (location == "") {
-        //     const { data, error } = await supabase.from("properties").select("*");
-        //     setProperties(data);
-        {
+        if (minPrice == 0 && maxPrice == 10000) {
+          const { data, error } = await supabase.from("properties").select("*");
+          setProperties(data);
+        } else {
           const { data, error } = await supabase
             .from("properties")
             .select("*")
@@ -67,17 +67,18 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
         </svg>
       </SheetTrigger>
       <SheetContent>
+        <SheetTitle>Filter</SheetTitle>
         <form onSubmit={handleSubmit}>
           <label>Min Price</label>
           <input
             id="Min Price"
-            value={minPrice}
+            value={parseInt(minPrice)}
             onChange={(e) => setMinPrice(parseInt(e.target.value))}
           />
           <label>Max Price</label>
           <input
             id="Max Price"
-            value={maxPrice}
+            value={parseInt(maxPrice)}
             onChange={(e) => setMaxPrice(parseInt(e.target.value))}
           />
           <button type="submit">Submit</button>
