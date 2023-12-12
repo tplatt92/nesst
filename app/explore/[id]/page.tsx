@@ -1,24 +1,3 @@
-//  for propertty page
-//   useEffect(() => {
-//     const fetchAvailability = async () => {
-//       try {
-//         const { data, error } = await supabase.from("availability").select("*");
-
-//         if (error) {
-//           setFetchError("error fetching properties");
-//           setAvailability(null);
-//           console.error(error);
-//         }
-//         if (data) {
-//           setAvailability(data);
-//           setFetchError(null);
-//         }
-//       } catch (error) {
-//         console.error("An unexpected error occurred:", error);
-//       }
-//     };
-//     fetchAvailability();
-//   }, []);
 "use client";
 import React from "react";
 import supabase from "../../config/SuperbaseClient";
@@ -34,17 +13,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { Heart } from "lucide-react";
 
 type PropertyIdProps = {
   params: any;
 };
+
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
+  const [isLiked, setIsLiked] = useState(false);
+
   const pathname = usePathname();
+
+  function handleClick() {
+    setIsLiked((prev) => !prev);
+  }
 
   const id = params.id;
   useEffect(() => {
@@ -74,7 +62,31 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   console.log(properties);
   return (
     <>
-      <main className="px-4 pt-8">
+      <main className="px-4 pt-4 pb-32">
+        <div className="flex justify-between">
+          <Link href="/explore">
+            <div className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="14"
+                viewBox="0 0 448 512"
+              >
+                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+              </svg>
+            </div>
+          </Link>
+          <div
+            className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg "
+            onClick={handleClick}
+          >
+            {isLiked ? (
+              <Heart width={20} fill="#212121" />
+            ) : (
+              <Heart width={20} />
+            )}
+          </div>
+        </div>
         {properties?.map((property) => (
           <Card key={property.id}>
             <CardHeader className="relative">
@@ -131,9 +143,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
               </CardDescription>
             </CardContent>
 
-            <p className="pl-2">Amenities</p>
-            <article className="grid grid-cols-2 place-items-center gap-4 p-2 pb-32">
-              <span className="font-medium">
+            <h2 className="text-xl font-bold px-2">Amenities</h2>
+            <article className="grid grid-cols-2 place-items-center gap-4 p-4 text-xs border-b">
+              <span className="font-medium flex flex-col items-center">
                 {property.TV ? (
                   <svg
                     width="45"
@@ -152,10 +164,10 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     />
                   </svg>
                 ) : null}
-          
+
                 {property.TV ? <p>TV</p> : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.Desk ? (
                   <svg
                     width="45"
@@ -216,7 +228,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 ) : null}{" "}
                 {property.Desk ? "Desk" : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.Washer ? (
                   <svg
                     width="45"
@@ -255,7 +267,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 ) : null}
                 {property.Washer ? "Washer" : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.SmokeAlarm ? (
                   <svg
                     width="45"
@@ -298,7 +310,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 ) : null}
                 {property.SmokeAlarm ? "Smoke Alarm" : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.wifi ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -306,7 +318,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="#8f8f8f"
-                    className="w-6 h-6"
+                    className="w-10 h-10"
                   >
                     <path
                       strokeLinecap="round"
@@ -317,7 +329,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 ) : null}
                 {property.wifi ? "Wifi" : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.Aircon ? (
                   <svg
                     width="45"
@@ -334,7 +346,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 ) : null}
                 {property.Aircon ? "Aircon" : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.Kitchen ? (
                   <svg
                     width="45"
@@ -376,7 +388,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 ) : null}
                 {property.Kitchen ? "Kitchen" : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.Parking ? (
                   <svg
                     width="45"
@@ -420,7 +432,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 ) : null}
                 {property.Parking ? "Parking" : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.Pool ? (
                   <>
                     <svg
@@ -436,7 +448,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                   </>
                 ) : null}
               </span>
-              <span className="font-medium">
+              <span className="font-medium flex flex-col items-center">
                 {property.Pets ? (
                   <>
                     <svg
@@ -455,6 +467,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
             </article>
           </Card>
         ))}
+        <article className="px-2 py-4 text-lg font-bold">
+          <h2>These people also liked this property...</h2>
+        </article>
       </main>
       <Footer pathnameUrl={pathname} />
     </>
@@ -462,36 +477,3 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
 };
 
 export default PropertyId;
-// export default function PropertyPage() {
-
-//   const getProperties = useCallback(async () => {
-//     try {
-//       setLoading(true);
-
-//       const { data, error, status } = await supabase
-//         .from("profiles")
-//         .select(
-//           '*'
-//         )
-//         .eq("id", properties?.id)
-//         .single();
-
-//       if (error && status !== 406) {
-//         throw error;
-//       }
-
-//       if (data) {
-
-//       }
-//     } catch (error) {
-//       alert("Error loading user data!");
-//     } finally {
-//       setLoading(false);
-//     }
-//   }, [user, supabase]);
-
-//   useEffect(() => {
-//     getProfile();
-//   }, [user, getProfile]);
-//   return <h1>Property</h1>;
-// }
