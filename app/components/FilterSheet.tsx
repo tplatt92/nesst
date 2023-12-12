@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -8,8 +10,48 @@ import {
 } from "@/components/ui/sheet";
 
 import { Slider } from "@/components/ui/slider";
+import { useState } from "react";
+import supabase from "../config/SuperbaseClient";
 
-export default function FilterSheet() {
+type FilterProps = {
+  setProperties: React.Dispatch<React.SetStateAction<null | number>>;
+};
+type FormSubmit = React.FormEvent<HTMLFormElement>;
+const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
+  const [fetchError, setFetchError] = useState<string | null>(
+    "error fetching properties"
+  );
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(10000);
+  function handleSubmit(e: FormSubmit) {
+    e.preventDefault();
+    const fetchProperties = async () => {
+      try {
+        //   if (location == "") {
+        //     const { data, error } = await supabase.from("properties").select("*");
+        //     setProperties(data);
+        {
+          const { data, error } = await supabase
+            .from("properties")
+            .select("*")
+            .rangeGte("price", [minPrice, maxPrice]);
+
+          if (error) {
+            setFetchError("error fetching properties");
+            setProperties(null);
+            console.error(error);
+          }
+          if (data) {
+            setProperties(data);
+            setFetchError(null);
+          }
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchProperties();
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -25,12 +67,23 @@ export default function FilterSheet() {
         </svg>
       </SheetTrigger>
       <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Filters</SheetTitle>
-        </SheetHeader>
-        <div className="p-4">Test</div>
-        <Slider defaultValue={[33]} max={100} step={1} />
+        <form onSubmit={handleSubmit}>
+          <label>Min Price</label>
+          <input
+            id="Min Price"
+            value={minPrice}
+            onChange={(e) => setMinPrice(parseInt(e.target.value))}
+          />
+          <label>Max Price</label>
+          <input
+            id="Max Price"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+          />
+          <button type="submit">Submit</button>
+        </form>
       </SheetContent>
     </Sheet>
   );
-}
+};
+export default FilterSheet;
