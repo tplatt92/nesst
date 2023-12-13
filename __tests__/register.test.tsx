@@ -12,12 +12,13 @@ describe("register", () => {
   it("renders without crashing", () => {
     render(<SignUp />);
   });
-  // it("renders a button with the text submit", async () => {
-  //   render(<SignUp />);
 
-  //   const emailInput = await screen.getByPlaceholderText("Your email address");
-  //   const passwordInput = await screen.getByPlaceholderText("Your password");
+  it("renders a button with the text submit", async () => {
+    render(<SignUp />);
 
-  //   expect(emailInput).toBeInTheDocument();
-  // });
+    const emailInput = await screen.getByPlaceholderText("Your email address");
+    const passwordInput = await screen.getByPlaceholderText("Your password");
+
+    expect(emailInput).toBeInTheDocument();
+  });
 });
