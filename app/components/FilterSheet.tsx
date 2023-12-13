@@ -16,11 +16,14 @@ import supabase from "../config/SuperbaseClient";
 type FilterProps = {
   setProperties: React.Dispatch<React.SetStateAction<null | any>>;
 };
+
 type FormSubmit = React.FormEvent<HTMLFormElement>;
+
 const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
+
   const [minPrice, setMinPrice] = useState<number | null>(null);
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   function handleSubmit(e: FormSubmit) {
@@ -30,8 +33,8 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .gte("price", minPrice? minPrice : 0)
-          .lte("price", maxPrice? maxPrice : 1000000);
+          .gte("price", minPrice ? minPrice : 0)
+          .lte("price", maxPrice ? maxPrice : 1000000);
 
         if (error) {
           setFetchError("error fetching properties");
@@ -69,13 +72,13 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
           <input
             id="Min Price"
             value={minPrice || ""}
-            onChange={(e) => setMinPrice(e.target.value)}
+            onChange={(e) => setMinPrice(Number(e.target.value))}
           />
           <label>Max Price</label>
           <input
             id="Max Price"
             value={maxPrice || ""}
-            onChange={(e) => setMaxPrice(e.target.value)}
+            onChange={(e) => setMaxPrice(Number(e.target.value))}
           />
           <button type="submit">Apply</button>
         </form>

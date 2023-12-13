@@ -10,6 +10,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 
+import React, { MouseEventHandler } from "react";
 import { Slider } from "@/components/ui/slider";
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
@@ -29,7 +30,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
 
-  function handleReset(e: FormSubmit) {
+  const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setLocation("");
     setMinPrice(null);
@@ -57,9 +58,11 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     };
 
     fetchProperties();
-  }
+  };
+
   function handleSubmit(e: FormSubmit) {
     e.preventDefault();
+
     const fetchProperties = async () => {
       try {
         if (location === "") {
@@ -97,6 +100,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     };
     fetchProperties();
   }
+
   return (
     <div className="flex flex-row items-center gap-4 relative my-4 w-full">
       <nav className="flex flex-row relative my-4 w-full">
@@ -161,12 +165,12 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             <SheetClose asChild>
               <button type="submit">Apply</button>
             </SheetClose>
-            <SheetClose asChild>
-              <button type="reset" onClick={handleReset}>
-                Reset
-              </button>
-            </SheetClose>
           </form>
+          <SheetClose asChild>
+            <button type="reset" onClick={handleReset}>
+              Reset
+            </button>
+          </SheetClose>
         </SheetContent>
       </Sheet>
     </div>
