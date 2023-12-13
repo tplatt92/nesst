@@ -31,25 +31,28 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
 
   const pathname = usePathname();
   const id = params.id;
-  console.log(id)
+  
   const addToLikedColumn = async () => {
     const { data, error } = await supabase
       .from('properties') 
       .update({ who_has_liked:['ioana'] })
       .eq('id', id); 
-      console.log(id);
+      console.log("Hello");
   };
 
   const undoToLikedColumn = async () => {
     const { data, error } = await supabase
-    .from("properties")
-    .delete()
-    .eq("id", { who_has_liked: ["ioana"] })
-    .then()
+      .from("properties")
+      .select( "who_has_liked ")
+      .delete("ioana")
+      .eq("id", id)
+      .then();
+      console.log("Bye")
   };
 
   function handleClick() {
     addToLikedColumn();
+    // undoToLikedColumn();
     setIsLiked((prev) => !prev);
   }
 
