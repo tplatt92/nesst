@@ -46,7 +46,9 @@ export default function Explore() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-32">
-      <ExploreNav setProperties={setProperties} />
+      <nav className="flex flex-row items-center gap-4 relative my-4 w-full">
+        <ExploreNav setProperties={setProperties} />
+      </nav>
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
         data-testid="card-id"
