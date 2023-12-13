@@ -31,32 +31,39 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
 
   const pathname = usePathname();
   const id = params.id;
-  
+
   const addToLikedColumn = async () => {
     const { data, error } = await supabase
-      .from('properties') 
-      .update({ who_has_liked:['ioana'] })
-      .eq('id', id); 
-      console.log("Hello");
+      .from("properties")
+      .update({ who_has_liked: ["ioana"] })
+      .eq("id", id);
+    console.log(id);
   };
 
-  const undoToLikedColumn = async () => {
+  const removeProfileFromLiked = async () => {
     const { data, error } = await supabase
       .from("properties")
-      .select( "who_has_liked ")
-      .delete("ioana")
-      .eq("id", id)
-      .then();
-      console.log("Bye")
+      .select("*")
+      .eq("id", id);
+    const array = data[0].who_has_liked;
+    console.log(array);
+    const index = array.indexOf("ioana");
+    array.splice(index, 1);
+    console.log(array);
+    try {
+      supabase.from("properties").update(["who_has_liked", array]).eq("id", id);
+      console.log("updated");
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
   };
 
   function handleClick() {
-    addToLikedColumn();
-    // undoToLikedColumn();
+    // addToLikedColumn();
+    removeProfileFromLiked();
     setIsLiked((prev) => !prev);
   }
 
-  
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -83,7 +90,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   }, [id]);
   console.log(properties);
 
-  
   return (
     <>
       <main className="px-4 pt-4 pb-32">
