@@ -30,9 +30,12 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [minPrice, setMinPrice] = useState<number | null>(null);
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [minBeds, setMinBeds] = useState<number | null>(null);
+  const [maxBeds, setMaxBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
+  const [maxBaths, setMaxBaths] = useState<number | null>(null);
   const [priceRange, setPriceRange] = useState<number[]>([0, 5000]);
   const [bedRange, setBedRange] = useState<number[]>([0, 20]);
+  const [bathRange, setBathRange] = useState<number[]>([0, 20]);
 
   useEffect(() => {
     setMinPrice(priceRange[0]);
@@ -41,18 +44,24 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
 
   useEffect(() => {
     setMinBeds(bedRange[0]);
-    // setMaxBeds(bedRange[1]);
+    setMaxBeds(bedRange[1]);
   }, [bedRange]);
+
+  useEffect (() => {
+    setMinBaths(bedRange[0]);
+    setMaxBaths(bedRange[1]);
+  }, [bedRange]);
+
+
 
   console.log(minPrice, maxPrice, priceRange, minBeds, bedRange);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setLocation("");
-    setMinBeds(null);
-    setMinBaths(null);
     setPriceRange([0, 5000]);
     setBedRange([0, 20]);
+    setBathRange([0, 20]);
 
     const fetchProperties = async () => {
       try {
@@ -88,7 +97,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             .gte("price", minPrice ? minPrice : 0)
             .lte("price", maxPrice ? maxPrice : 1000000)
             .gte("beds", minBeds ? minBeds : 0)
-            .gte("bathrooms", minBaths ? minBaths : 0);
+            .lte("beds", maxBeds ? maxBeds : 20)
+            .gte("bathrooms", minBaths ? minBaths : 0)
+            .lte("bathrooms", maxBaths ? maxBaths : 20);
           setProperties(data);
         } else {
           const { data, error } = await supabase
@@ -98,7 +109,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             .gte("price", minPrice ? minPrice : 0)
             .lte("price", maxPrice ? maxPrice : 1000000)
             .gte("beds", minBeds ? minBeds : 0)
-            .gte("bathrooms", minBaths ? minBaths : 0);
+            .lte("beds", maxBeds ? maxBeds : 20)
+            .gte("bathrooms", minBaths ? minBaths : 0)
+            .lte("bathrooms", maxBaths ? maxBaths : 20);
 
           if (error) {
             setFetchError("error fetching properties");
@@ -122,6 +135,10 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
 
   const handleBedRangeChange = (value: number[]) => {
     setBedRange(value);
+  };
+
+  const handleBathRangeChange = (value: number[]) => {
+    setBathRange(value);
   };
 
   return (
@@ -183,17 +200,17 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               onValueChange={handleBedRangeChange}
               formatLabel={(value: number) => `${value}`}
             />
-            <input
-              id="Beds"
-              value={minBeds || ""}
-              onChange={(e) => setMinBeds(parseInt(e.target.value))}
-            />
             <label>Baths</label>
-            <input
-              id="Baths"
-              value={minBaths || ""}
-              onChange={(e) => setMinBaths(parseInt(e.target.value))}
-            />
+            <Slider
+            defaultValue={[0, 5000]}
+            min={0}
+            max={10}
+            step={1}
+            minStepsBetweenThumbs={1}
+            value={bedRange}
+            onValueChange={handleBathRangeChange}
+            formatLabel={(value: number) => `${value}`}
+          />
             <SheetClose asChild>
               <button type="submit">Apply</button>
             </SheetClose>
