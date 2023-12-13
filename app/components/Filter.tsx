@@ -20,8 +20,9 @@ interface Property {
   baths: number;
 }
 type FormSubmit = React.FormEvent<HTMLFormElement>;
+
 type FilterProps = {
-  properties: Property[] | undefined;
+  properties: Property[] | null;
   setProperties: React.Dispatch<React.SetStateAction<null | Property[]>>;
 };
 
@@ -43,22 +44,33 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
     setMaxPrice(null);
     setMinBeds(null);
     setMinBaths(null);
-    setProperties(properties || []);
+    setProperties(filteredProperties);
   }
-  function handleSubmit(e: FormSubmit) {
-    e.preventDefault();
-    setfilteredProperties((prevProperties) => {
+
+  function filterProperties() {
+    setProperties((prevProperties) => {
       if (!prevProperties) return null;
-      return prevProperties.filter((filteredProperties) => {
+      setfilteredProperties(prevProperties);
+      return prevProperties.filter((filteredProperty) => {
         return (
-          (!minPrice || filteredProperties.price >= minPrice) &&
-          (!maxPrice || filteredProperties.price <= maxPrice) &&
-          (!minBeds || filteredProperties.beds >= minBeds) &&
-          (!minBaths || filteredProperties.baths >= minBaths)
+          (!minPrice || filteredProperty.price >= minPrice) &&
+          (!maxPrice || filteredProperty.price <= maxPrice) &&
+          (!minBeds || filteredProperty.beds >= minBeds) &&
+          (!minBaths || filteredProperty.baths >= minBaths)
         );
       });
     });
+    console.log(filteredProperties);
   }
+
+  function handleSubmit(e: FormSubmit) {
+    e.preventDefault();
+    console.log("minPrice:", minPrice);
+    console.log("maxPrice:", maxPrice);
+    console.log("beds:", minBeds);
+    filterProperties();
+  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -100,10 +112,10 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
             value={minBaths || ""}
             onChange={(e) => setMinBaths(parseInt(e.target.value))}
           />
-          <SheetClose>
+          <SheetClose asChild>
             <button type="submit">Apply</button>
           </SheetClose>
-          <SheetClose>
+          <SheetClose asChild>
             <button type="reset" onClick={handleReset}>
               Reset
             </button>
