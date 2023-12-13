@@ -158,12 +158,14 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               value={minBaths || ""}
               onChange={(e) => setMinBaths(parseInt(e.target.value))}
             />
-            <SheetClose>
+            <SheetClose asChild>
               <button type="submit">Apply</button>
             </SheetClose>
-            <button type="reset" onClick={handleReset}>
-              Reset
-            </button>
+            <SheetClose asChild>
+              <button type="reset" onClick={handleReset}>
+                Reset
+              </button>
+            </SheetClose>
           </form>
         </SheetContent>
       </Sheet>
