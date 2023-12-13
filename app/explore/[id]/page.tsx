@@ -40,6 +40,14 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       console.log(id);
   };
 
+  const undoToLikedColumn = async () => {
+    const { data, error } = await supabase
+    .from("properties")
+    .delete()
+    .eq("id", { who_has_liked: ["ioana"] })
+    .then()
+  };
+
   function handleClick() {
     addToLikedColumn();
     setIsLiked((prev) => !prev);
