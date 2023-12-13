@@ -30,12 +30,22 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const pathname = usePathname();
+  const id = params.id;
+  console.log(id)
+  const addToLikedColumn = async () => {
+    const { data, error } = await supabase
+      .from('properties') 
+      .update({ who_has_liked:['ioana'] })
+      .eq('id', id); 
+      console.log(id);
+  };
 
   function handleClick() {
+    addToLikedColumn();
     setIsLiked((prev) => !prev);
   }
 
-  const id = params.id;
+  
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -61,6 +71,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     fetchProperties();
   }, [id]);
   console.log(properties);
+
+  
   return (
     <>
       <main className="px-4 pt-4 pb-32">
