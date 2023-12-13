@@ -51,11 +51,14 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     array.splice(index, 1);
     console.log(array);
     try {
-      supabase.from("properties").update(["who_has_liked", array]).eq("id", id);
-      console.log("updated");
+      await supabase
+        .from("properties")
+        .update({ who_has_liked: array })
+        .eq("id", id);
     } catch (error) {
-      console.error("An unexpected error occurred:", error);
+      console.error(error.message);
     }
+    
   };
 
   function handleClick() {
