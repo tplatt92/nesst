@@ -12,7 +12,6 @@ import {
 
 import { Slider } from "@/components/ui/slider";
 import { useEffect, useState } from "react";
-import supabase from "../config/SuperbaseClient";
 
 interface Property {
   price: number;
@@ -100,10 +99,10 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
             value={minBaths || ""}
             onChange={(e) => setMinBaths(parseInt(e.target.value))}
           />
-          <SheetClose>
+          <SheetClose asChild>
             <button type="submit">Apply</button>
           </SheetClose>
-          <SheetClose>
+          <SheetClose asChild>
             <button type="reset" onClick={handleReset}>
               Reset
             </button>
