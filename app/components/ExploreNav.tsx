@@ -29,6 +29,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
+  const [range, setRange] = useState<number[]>([0, 5000]);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -100,7 +101,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     };
     fetchProperties();
   }
-
+  const handleRangeChange = (value) => {
+    setRange(value);
+  };
   return (
     <div className="flex flex-row items-center gap-4 relative my-4 w-full">
       <nav className="flex flex-row relative my-4 w-full">
@@ -139,6 +142,16 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
           <SheetTitle>Filter</SheetTitle>
           <form onSubmit={handleSubmit} className="flex flex-col">
             <label>Min Price</label>
+            <Slider
+              defaultValue={[0, 5000]}
+              min={0}
+              max={5000}
+              step={100}
+              minStepsBetweenThumbs={1}
+              value={range}
+              onValueChange={handleRangeChange}
+              formatLabel={(value: number) => `${value}`}
+            />
             <input
               id="Min Price"
               value={minPrice || ""}
