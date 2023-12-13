@@ -31,6 +31,13 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [minBaths, setMinBaths] = useState<number | null>(null);
   const [range, setRange] = useState<number[]>([0, 5000]);
 
+  useEffect(() => {
+    setMinPrice(range[0]);
+    setMaxPrice(range[1]);
+  }, [range]);
+
+  console.log(minPrice, maxPrice);
+
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setLocation("");
@@ -152,7 +159,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               onValueChange={handleRangeChange}
               formatLabel={(value: number) => `${value}`}
             />
-            <input
+            {/* <input
               id="Min Price"
               value={minPrice || ""}
               onChange={(e) => setMinPrice(parseInt(e.target.value))}
@@ -162,7 +169,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               id="Max Price"
               value={maxPrice || ""}
               onChange={(e) => setMaxPrice(parseInt(e.target.value))}
-            />
+            /> */}
             <label>Beds</label>
             <input
               id="Beds"
