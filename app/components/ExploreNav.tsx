@@ -9,16 +9,18 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-
 import React, { MouseEventHandler } from "react";
 import { Slider } from "@/components/ui/slider";
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import supabase from "../config/SuperbaseClient";
+
 type SearchProps = {
   setProperties: React.Dispatch<React.SetStateAction<null | any[]>>;
 };
+
 type FormSubmit = React.FormEvent<HTMLFormElement>;
+
 const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
@@ -29,22 +31,28 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
-  const [range, setRange] = useState<number[]>([0, 5000]);
-  
+  const [priceRange, setPriceRange] = useState<number[]>([0, 5000]);
+  const [bedRange, setBedRange] = useState<number[]>([0, 20]);
 
   useEffect(() => {
-    setMinPrice(range[0]);
-    setMaxPrice(range[1]);
-  }, [range]);
+    setMinPrice(priceRange[0]);
+    setMaxPrice(priceRange[1]);
+  }, [priceRange]);
 
-  console.log(minPrice, maxPrice, range);
+  useEffect(() => {
+    setMinBeds(bedRange[0]);
+    // setMaxBeds(bedRange[1]);
+  }, [bedRange]);
+
+  console.log(minPrice, maxPrice, priceRange, minBeds, bedRange);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setLocation("");
     setMinBeds(null);
     setMinBaths(null);
-    setRange([0, 5000]);
+    setPriceRange([0, 5000]);
+    setBedRange([0, 20]);
 
     const fetchProperties = async () => {
       try {
@@ -108,9 +116,14 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     };
     fetchProperties();
   }
-  const handleRangeChange = (value: number[]) => {
-    setRange(value);
+  const handlePriceRangeChange = (value: number[]) => {
+    setPriceRange(value);
   };
+
+  const handleBedRangeChange = (value: number[]) => {
+    setBedRange(value);
+  };
+
   return (
     <div className="flex flex-row items-center gap-4 relative my-4 w-full">
       <nav className="flex flex-row relative my-4 w-full">
@@ -155,22 +168,21 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               max={5000}
               step={100}
               minStepsBetweenThumbs={1}
-              value={range}
-              onValueChange={handleRangeChange}
+              value={priceRange}
+              onValueChange={handlePriceRangeChange}
               formatLabel={(value: number) => `${value}`}
             />
-            {/* <input
-              id="Min Price"
-              value={minPrice || ""}
-              onChange={(e) => setMinPrice(parseInt(e.target.value))}
-            />
-            <label>Max Price</label>
-            <input
-              id="Max Price"
-              value={maxPrice || ""}
-              onChange={(e) => setMaxPrice(parseInt(e.target.value))}
-            /> */}
             <label>Beds</label>
+            <Slider
+              defaultValue={[0, 5000]}
+              min={0}
+              max={10}
+              step={1}
+              minStepsBetweenThumbs={1}
+              value={bedRange}
+              onValueChange={handleBedRangeChange}
+              formatLabel={(value: number) => `${value}`}
+            />
             <input
               id="Beds"
               value={minBeds || ""}
