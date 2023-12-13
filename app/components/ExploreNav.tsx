@@ -14,6 +14,7 @@ import { Slider } from "@/components/ui/slider";
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import supabase from "../config/SuperbaseClient";
+import { Switch } from "@/components/ui/switch"
 
 type SearchProps = {
   setProperties: React.Dispatch<React.SetStateAction<null | any[]>>;
@@ -34,8 +35,8 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [minBaths, setMinBaths] = useState<number | null>(null);
   const [maxBaths, setMaxBaths] = useState<number | null>(null);
   const [priceRange, setPriceRange] = useState<number[]>([0, 5000]);
-  const [bedRange, setBedRange] = useState<number[]>([0, 20]);
-  const [bathRange, setBathRange] = useState<number[]>([0, 20]);
+  const [bedRange, setBedRange] = useState<number[]>([0, 10]);
+  const [bathRange, setBathRange] = useState<number[]>([0, 10]);
 
   useEffect(() => {
     setMinPrice(priceRange[0]);
@@ -47,12 +48,10 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     setMaxBeds(bedRange[1]);
   }, [bedRange]);
 
-  useEffect (() => {
-    setMinBaths(bedRange[0]);
-    setMaxBaths(bedRange[1]);
-  }, [bedRange]);
-
-
+  useEffect(() => {
+    setMinBaths(bathRange[0]);
+    setMaxBaths(bathRange[1]);
+  }, [bathRange]);
 
   console.log(minPrice, maxPrice, priceRange, minBeds, bedRange);
 
@@ -60,8 +59,8 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     e.preventDefault();
     setLocation("");
     setPriceRange([0, 5000]);
-    setBedRange([0, 20]);
-    setBathRange([0, 20]);
+    setBedRange([0, 10]);
+    setBathRange([0, 10]);
 
     const fetchProperties = async () => {
       try {
@@ -97,9 +96,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             .gte("price", minPrice ? minPrice : 0)
             .lte("price", maxPrice ? maxPrice : 1000000)
             .gte("beds", minBeds ? minBeds : 0)
-            .lte("beds", maxBeds ? maxBeds : 20)
+            .lte("beds", maxBeds ? maxBeds : 10)
             .gte("bathrooms", minBaths ? minBaths : 0)
-            .lte("bathrooms", maxBaths ? maxBaths : 20);
+            .lte("bathrooms", maxBaths ? maxBaths : 10);
           setProperties(data);
         } else {
           const { data, error } = await supabase
@@ -109,9 +108,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             .gte("price", minPrice ? minPrice : 0)
             .lte("price", maxPrice ? maxPrice : 1000000)
             .gte("beds", minBeds ? minBeds : 0)
-            .lte("beds", maxBeds ? maxBeds : 20)
+            .lte("beds", maxBeds ? maxBeds : 10)
             .gte("bathrooms", minBaths ? minBaths : 0)
-            .lte("bathrooms", maxBaths ? maxBaths : 20);
+            .lte("bathrooms", maxBaths ? maxBaths : 10);
 
           if (error) {
             setFetchError("error fetching properties");
@@ -191,7 +190,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             />
             <label>Beds</label>
             <Slider
-              defaultValue={[0, 5000]}
+              defaultValue={[0, 10]}
               min={0}
               max={10}
               step={1}
@@ -202,21 +201,64 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             />
             <label>Baths</label>
             <Slider
-            defaultValue={[0, 5000]}
-            min={0}
-            max={10}
-            step={1}
-            minStepsBetweenThumbs={1}
-            value={bedRange}
-            onValueChange={handleBathRangeChange}
-            formatLabel={(value: number) => `${value}`}
-          />
+              defaultValue={[0, 10]}
+              min={0}
+              max={10}
+              step={1}
+              minStepsBetweenThumbs={1}
+              value={bathRange}
+              onValueChange={handleBathRangeChange}
+              formatLabel={(value: number) => `${value}`}
+            />
+            <div className="flex flex-col gap-4">
+            <h2>Amenieties</h2>
+            <div className="flex flex-row items-center justify-between">
+              <label>Wifi</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Parking</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Kitchen</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Aircon</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>TV</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Desk</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Washer</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Smokealarm</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Pets</label>
+              <Switch />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Pool</label>
+              <Switch />
+            </div>
+            </div>
             <SheetClose asChild>
-              <button type="submit">Apply</button>
+              <button className="bg-[#d9a66d] w-full py-2 rounded-full mt-4" type="submit">Apply</button>
             </SheetClose>
           </form>
           <SheetClose asChild>
-            <button type="reset" onClick={handleReset}>
+            <button className="text-sm mt-4 text-center w-full" type="reset" onClick={handleReset}>
               Reset
             </button>
           </SheetClose>

@@ -62,11 +62,11 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
             <CardTitle className="text-xl font-monserrat font-semibold">
               {property.name}
               <p className="font-medium">
-                £{property.price}/month for the entire property
+                £{property.price * property.beds}/month for the entire property
               </p>
               {/* ------------------------ new line added */}
               <p className="font-medium">
-                £{Math.round(property.price / property.beds)}/month for each bed
+                £{property.price}/month for each bed
               </p>
               {/* ------------------------ new line added */}
             </CardTitle>
