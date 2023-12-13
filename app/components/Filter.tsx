@@ -30,12 +30,12 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
-  const [originalProperties, setOriginalProperties] = useState<
+  const [filteredProperties, setfilteredProperties] = useState<
     Property[] | null
   >(properties || null);
 
   useEffect(() => {
-    setOriginalProperties(properties || null);
+    setfilteredProperties(properties || null);
   }, [properties]);
 
   function handleReset() {
@@ -43,18 +43,18 @@ const Filter: React.FC<FilterProps> = ({ properties, setProperties }) => {
     setMaxPrice(null);
     setMinBeds(null);
     setMinBaths(null);
-    setProperties(originalProperties || []);
+    setProperties(properties || []);
   }
   function handleSubmit(e: FormSubmit) {
     e.preventDefault();
-    setProperties((prevProperties) => {
+    setfilteredProperties((prevProperties) => {
       if (!prevProperties) return null;
-      return prevProperties.filter((property) => {
+      return prevProperties.filter((filteredProperties) => {
         return (
-          (!minPrice || property.price >= minPrice) &&
-          (!maxPrice || property.price <= maxPrice) &&
-          (!minBeds || property.beds >= minBeds) &&
-          (!minBaths || property.baths >= minBaths)
+          (!minPrice || filteredProperties.price >= minPrice) &&
+          (!maxPrice || filteredProperties.price <= maxPrice) &&
+          (!minBeds || filteredProperties.beds >= minBeds) &&
+          (!minBaths || filteredProperties.baths >= minBaths)
         );
       });
     });
