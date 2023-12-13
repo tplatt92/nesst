@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 
 import { cn } from "@/lib/utils";
@@ -33,6 +33,11 @@ const Slider = React.forwardRef(
   ) => {
     const initialValue = Array.isArray(value) ? value : [min, max];
     const [localValues, setLocalValues] = useState(initialValue);
+
+    useEffect(() => {
+      // Update localValues when the external value prop changes
+      setLocalValues(Array.isArray(value) ? value : [min, max]);
+    }, [min, max, value]);
 
     const handleValueChange = (newValues: number[]) => {
       setLocalValues(newValues);

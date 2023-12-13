@@ -30,21 +30,21 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [minBeds, setMinBeds] = useState<number | null>(null);
   const [minBaths, setMinBaths] = useState<number | null>(null);
   const [range, setRange] = useState<number[]>([0, 5000]);
+  
 
   useEffect(() => {
     setMinPrice(range[0]);
     setMaxPrice(range[1]);
   }, [range]);
 
-  console.log(minPrice, maxPrice);
+  console.log(minPrice, maxPrice, range);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setLocation("");
-    setMinPrice(null);
-    setMaxPrice(null);
     setMinBeds(null);
     setMinBaths(null);
+    setRange([0, 5000]);
 
     const fetchProperties = async () => {
       try {
