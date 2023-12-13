@@ -101,7 +101,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     };
     fetchProperties();
   }
-  const handleRangeChange = (value) => {
+  const handleRangeChange = (value: number[]) => {
     setRange(value);
   };
   return (

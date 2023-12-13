@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
@@ -14,6 +14,7 @@ type SliderProps = {
   formatLabel?: (value: number) => string;
   value?: number[] | readonly number[];
   onValueChange?: (values: number[]) => void;
+  defaultValue: number[];
 };
 
 const Slider = React.forwardRef(
