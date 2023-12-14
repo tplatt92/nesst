@@ -42,9 +42,16 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     setPriceRange([0, 5000]);
     setBedRange([0, 10]);
     setBathRange([0, 10]);
-    setPool(true);
-    setSmokeAlarm(true);
-    setPets(true);
+    setPool(null);
+    setSmokeAlarm(null);
+    setPets(null);
+    setWifi(null);
+    setParking(null);
+    setKitchen(null);
+    setAircon(null);
+    setTv(null);
+    setDesk(null);
+    setWasher(null);
   };
 
   useEffect(() => {

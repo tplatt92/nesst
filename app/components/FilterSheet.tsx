@@ -26,6 +26,16 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
   onPetsChange,
   pool,
   onPoolChange,
+  wifi,
+  onWifiChange,
+  parking,
+  onParkingChange,
+  kitchen,
+  onKitchenChange,
+  aircon,
+  onAirconChange,
+  tv,
+  onTvChange,
 }) => {
   return (
     <Sheet>
@@ -92,6 +102,26 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
             <div className="flex flex-row items-center justify-between">
               <label>Pool</label>
               <Switch checked={pool} onCheckedChange={onPoolChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Wifi</label>
+              <Switch checked={wifi} onCheckedChange={onWifiChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Parking</label>
+              <Switch checked={parking} onCheckedChange={onParkingChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Kitchen</label>
+              <Switch checked={kitchen} onCheckedChange={onKitchenChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Aircon</label>
+              <Switch checked={aircon} onCheckedChange={onAirconChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>TV</label>
+              <Switch checked={tv} onCheckedChange={onTvChange} />
             </div>
           </div>
 
