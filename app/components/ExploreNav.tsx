@@ -20,9 +20,16 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 5000]);
   const [bedRange, setBedRange] = useState<number[]>([0, 10]);
   const [bathRange, setBathRange] = useState<number[]>([0, 10]);
-  const [smokeAlarm, setSmokeAlarm] = useState<boolean>(true);
-  const [pets, setPets] = useState<boolean>(true);
-  const [pool, setPool] = useState<boolean>(true);
+  const [smokeAlarm, setSmokeAlarm] = useState<boolean | null>(null);
+  const [pets, setPets] = useState<boolean | null>(null);
+  const [pool, setPool] = useState<boolean | null>(null);
+  const [wifi, setWifi] = useState<boolean | null>(null);
+  const [parking, setParking] = useState<boolean | null>(null);
+  const [kitchen, setKitchen] = useState<boolean | null>(null);
+  const [aircon, setAircon] = useState<boolean | null>(null);
+  const [tv, setTv] = useState<boolean | null>(null);
+  const [desk, setDesk] = useState<boolean | null>(null);
+  const [washer, setWasher] = useState<boolean | null>(null);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -130,6 +137,20 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
         onPetsChange={setPets}
         pool={pool}
         onPoolChange={setPool}
+        wifi={wifi}
+        onWifiChange={setWifi}
+        parking={parking}
+        onParkingChange={setParking}
+        kitchen={kitchen}
+        onKitchenChange={setKitchen}
+        aircon={aircon}
+        onAirconChange={setAircon}
+        tv={tv}
+        onTvChange={setTv}
+        desk={desk}
+        onDeskChange={setDesk}
+        washer={washer}
+        onWasherChange={setWasher}
       />
     </div>
   );

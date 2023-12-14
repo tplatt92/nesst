@@ -39,15 +39,29 @@ export interface FilterSheetProps {
   onPriceRangeChange: (value: number[]) => void;
   onBedRangeChange: (value: number[]) => void;
   onBathRangeChange: (value: number[]) => void;
-  onSmokeAlarmChange: (value: boolean) => void;
-  onPetsChange: (value: boolean) => void;
-  onPoolChange: (value: boolean) => void;
+  onSmokeAlarmChange: (value: boolean | null) => void;
+  onPetsChange: (value: boolean | null) => void;
+  onPoolChange: (value: boolean | null) => void;
+  onWifiChange: (value: boolean | null) => void;
+  onParkingChange: (value: boolean | null) => void;
+  onKitchenChange: (value: boolean | null) => void;
+  onAirconChange: (value: boolean | null) => void;
+  onTvChange: (value: boolean | null) => void;
+  onDeskChange: (value: boolean | null) => void;
+  onWasherChange: (value: boolean | null) => void;
   priceRange: number[];
   bedRange: number[];
   bathRange: number[];
-  smokeAlarm: boolean;
-  pets: boolean;
-  pool: boolean;
+  smokeAlarm: boolean | null;
+  pets: boolean | null;
+  pool: boolean | null;
+  wifi: boolean | null;
+  parking: boolean | null;
+  kitchen: boolean | null;
+  aircon: boolean | null;
+  tv: boolean | null;
+  desk: boolean | null;
+  washer: boolean | null;
 }
 
 export type FooterProps = {
