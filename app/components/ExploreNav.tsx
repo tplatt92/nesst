@@ -32,9 +32,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [washer, setWasher] = useState<boolean>(false);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     resetFilters();
-    fetchProperties();
+    // fetchProperties();
   };
 
   const resetFilters = () => {
@@ -54,11 +54,11 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     setWasher(false);
   };
 
-  useEffect(() => {
-    setPriceRange([0, 5000]);
-    setBedRange([0, 10]);
-    setBathRange([0, 10]);
-  }, []);
+  // useEffect(() => {
+  //   setPriceRange([0, 5000]);
+  //   setBedRange([0, 10]);
+  //   setBathRange([0, 10]);
+  // }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

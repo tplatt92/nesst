@@ -134,7 +134,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
             </button>
           </SheetClose>
         </form>
-        <SheetClose asChild>
+        
           <button
             className="text-sm mt-4 text-center w-full"
             type="reset"
@@ -142,7 +142,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
           >
             Reset
           </button>
-        </SheetClose>
+        
       </SheetContent>
     </Sheet>
   );
