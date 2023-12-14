@@ -32,15 +32,31 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const pathname = usePathname();
   const id = params.id;
 
+  // const fetchProfile = async () => {
+  //   const { data, error } = await supabase
+  //     .from("profiles")
+  //     .select("id")
+  //     .eq("id", id);
+  // };
+  //joining tables
+  // const joiningTables = async () => {
+  // const { data, error } = await supabase.from("profiles").select(`
+  //   id,
+  //   properties (
+  //     who_has_liked
+  //   )
+  // `);
+  //   }
+
   const addToLikedColumn = async () => {
     const { data, error } = await supabase
       .from("properties")
-      .update({ who_has_liked: ["ioana"] })
+      .update({ who_has_liked: ["please work"] })
       .eq("id", id);
     console.log(id);
   };
 
-  const removeProfileFromLiked = async () => {
+  const removeProfileFromLikedColumn = async () => {
     const { data, error } = await supabase
       .from("properties")
       .select("*")
@@ -58,12 +74,14 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     } catch (error) {
       console.error(error.message);
     }
-    
   };
 
   function handleClick() {
-    // addToLikedColumn();
-    removeProfileFromLiked();
+    if (!isLiked) {
+      addToLikedColumn();
+    } else {
+      removeProfileFromLikedColumn();
+    }
     setIsLiked((prev) => !prev);
   }
 
