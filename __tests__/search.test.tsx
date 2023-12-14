@@ -1,7 +1,7 @@
 import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Search from "@/app/components/Search";
+import Search from "@/app/components/ExploreNav";
 
 //Cleanup
 afterEach(() => {

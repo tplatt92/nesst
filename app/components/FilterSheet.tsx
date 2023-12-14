@@ -1,15 +1,42 @@
+// FilterSheet.tsx
+import React from "react";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
   SheetTitle,
+  SheetClose,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+import { FilterSheetProps } from "@/types/types";
 
-export default function FilterSheet() {
+const FilterSheet: React.FC<FilterSheetProps> = ({
+  onSubmit,
+  onReset,
+  onPriceRangeChange,
+  onBedRangeChange,
+  onBathRangeChange,
+  bedRange,
+  priceRange,
+  bathRange,
+  smokeAlarm,
+  onSmokeAlarmChange,
+  pets,
+  onPetsChange,
+  pool,
+  onPoolChange,
+  wifi,
+  onWifiChange,
+  parking,
+  onParkingChange,
+  kitchen,
+  onKitchenChange,
+  aircon,
+  onAirconChange,
+  tv,
+  onTvChange,
+}) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -25,12 +52,100 @@ export default function FilterSheet() {
         </svg>
       </SheetTrigger>
       <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Filters</SheetTitle>
-        </SheetHeader>
-        <div className="p-4">Test</div>
-        <Slider defaultValue={[33]} max={100} step={1} />
+        <SheetTitle className="pb-8">Filters</SheetTitle>
+        <form onSubmit={onSubmit} className="flex flex-col">
+          <label className="pb-2">Price</label>
+          <Slider
+            defaultValue={priceRange}
+            min={0}
+            max={5000}
+            step={100}
+            minStepsBetweenThumbs={1}
+            value={priceRange}
+            onValueChange={onPriceRangeChange}
+            formatLabel={(value: number) => `£${value}`}
+          />
+          <label className="pb-2">Bedrooms</label>
+          <Slider
+            defaultValue={bedRange}
+            min={0}
+            max={10}
+            step={1}
+            minStepsBetweenThumbs={1}
+            value={bedRange}
+            onValueChange={onBedRangeChange}
+            formatLabel={(value: number) => `${value}`}
+          />
+          <label className="pb-2">Bathrooms</label>
+          <Slider
+            defaultValue={bathRange}
+            min={0}
+            max={10}
+            step={1}
+            minStepsBetweenThumbs={1}
+            value={bathRange}
+            onValueChange={onBathRangeChange}
+            formatLabel={(value: number) => `${value}`}
+          />
+          <div className="flex flex-col pt-4 gap-4">
+            <h2 className="font-bold text-lg">Amenities</h2>
+            <div className="flex flex-row items-center justify-between">
+              <label>Smokealarm</label>
+              <Switch
+                checked={smokeAlarm}
+                onCheckedChange={onSmokeAlarmChange}
+              />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Pets</label>
+              <Switch checked={pets} onCheckedChange={onPetsChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Pool</label>
+              <Switch checked={pool} onCheckedChange={onPoolChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Wifi</label>
+              <Switch checked={wifi} onCheckedChange={onWifiChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Parking</label>
+              <Switch checked={parking} onCheckedChange={onParkingChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Kitchen</label>
+              <Switch checked={kitchen} onCheckedChange={onKitchenChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Aircon</label>
+              <Switch checked={aircon} onCheckedChange={onAirconChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>TV</label>
+              <Switch checked={tv} onCheckedChange={onTvChange} />
+            </div>
+          </div>
+
+          <SheetClose asChild>
+            <button
+              className="bg-[#d9a66d] font-bold w-full mt-12 py-2 rounded-full"
+              type="submit"
+            >
+              Apply
+            </button>
+          </SheetClose>
+        </form>
+
+        <button
+          className="text-sm mt-4 text-center w-full"
+          type="reset"
+          onClick={onReset}
+        >
+          Reset
+        </button>
       </SheetContent>
     </Sheet>
   );
-}
+};
+
+export default FilterSheet;

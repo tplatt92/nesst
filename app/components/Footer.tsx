@@ -2,14 +2,9 @@ import { HeartIcon } from "@heroicons/react/24/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import { UserIcon } from "@heroicons/react/24/solid";
-
 import Link from "next/link";
-
-import Image from "next/image"; // Add this import statement
-
-type FooterProps = {
-  pathnameUrl: string;
-};
+import Image from "next/image";
+import { FooterProps } from "@/types/types";
 
 const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
   return (
@@ -41,7 +36,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
         <div className="relative self-end">
           <Image
             alt="NESST"
-            src="/logos/fullegg.png" // Use forward slashes instead of backslashes
+            src="/logos/fullegg.png"
             className="flex-1 text-center absolute bottom-5 "
             priority={true}
             width={60}
@@ -76,10 +71,3 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
 };
 
 export default Footer;
-/*
-flex w-3/4 border-solid p-4
-
-<Link href="/messages"><ChatBubbleLeftEllipsisIcon className="h-6 w-1/4 "/></Link>*/
-
-{
-}

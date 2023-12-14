@@ -7,22 +7,26 @@ import {
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
-import Image from "next/image";
 import AvatarProfile from "./AvatarProfile";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import Footer from "./Footer";
+import { profileData } from "@/types/types";
+import { renderSocialLink, renderUserPhoto } from "../utils/helperFunctions";
 
-export default function Profile({ session }: { session: Session | null }) {
+export default function UserProfile({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(true);
-  const [firstName, setFirstName] = useState<string | null>(null);
-  const [lastName, setLastName] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
-  const [age, setAge] = useState<number | null>(null); // [age, setAge
-  const [bio, setBio] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
-  const [drinker, setDrinker] = useState<string | null>(null);
-  const [smoker, setSmoker] = useState<string | null>(null);
+  const [profileData, setProfileData] = useState<profileData>({
+    firstName: null,
+    lastName: null,
+    username: null,
+    age: null,
+    bio: null,
+    avatar_url: null,
+    drinker: null,
+    smoker: false,
+  });
+
   const user = session?.user;
 
   const router = useRouter();
@@ -45,14 +49,17 @@ export default function Profile({ session }: { session: Session | null }) {
       }
 
       if (data) {
-        setFirstName(data.first_name);
-        setLastName(data.last_name);
-        setUsername(data.username);
-        setAge(data.age);
-        setBio(data.bio);
-        setDrinker(data.drinker);
-        setSmoker(data.smoker);
-        setAvatarUrl(data.avatar_url);
+        setProfileData((prevProfileData) => ({
+          ...prevProfileData,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          username: data.username,
+          age: data.age,
+          bio: data.bio,
+          drinker: data.drinker,
+          smoker: data.smoker,
+          avatar_url: data.avatar_url,
+        }));
       }
     } catch (error) {
       alert("Error loading user data!");
@@ -67,7 +74,7 @@ export default function Profile({ session }: { session: Session | null }) {
 
   return (
     <>
-      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200" data-testid="profile-id">
+      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 ">
         <div className="absolute right-8 top-8 z-50 w-6">
           <Link href="/profile/edit">
             <svg
@@ -88,74 +95,47 @@ export default function Profile({ session }: { session: Session | null }) {
         </div>
         <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen">
           <div className="pb-4">
-            <AvatarProfile uid={user?.id ?? ""} url={avatar_url} size={150} />
+            <AvatarProfile
+              uid={user?.id ?? ""}
+              url={profileData.avatar_url}
+              size={150}
+            />
           </div>
           <h1 className="text-white text-4xl py-4">
-            {firstName} {lastName}
+            {profileData.firstName} {profileData.lastName}
           </h1>
-          <h2 className="text-2xl text-white">{username}</h2>
-          <div className="pt-4 flex">
-            <Link href="/messages">
-              <Image
-                src="/logos/instagramCircle.png"
-                height={40}
-                width={40}
-                alt="Instagram Logo"
-              />
-            </Link>
+          <h2 className="text-2xl text-white">{profileData.username}</h2>
+          <div className="pt-4 flex" aria-label="Social icons list">
+            {renderSocialLink(
+              "/messages",
+              "/logos/instagramCircle.png",
+              "Instagram Logo"
+            )}
             <Link href="/messages">
               <ChatBubbleLeftEllipsisIcon className="h-10 text-[#d9a66d] px-8" />
             </Link>
-            <Link href="/messages">
-              <Image
-                src="/logos/linkedinCircle.png"
-                height={40}
-                width={40}
-                alt="Facebook Logo"
-              />
-            </Link>
+            {renderSocialLink(
+              "/messages",
+              "/logos/linkedinCircle.png",
+              "LinkedIn Logo"
+            )}
           </div>
           <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  top-[87%] -bottom-[17%] px-4 text-white overflow-y-scroll">
             <div className=" flex flex-row justify-between">
               <h3 className="py-2 font-semibold">About Me</h3>
-              <h3 className="py-2 font-semibold">{age} y/o</h3>
+              <h3 className="py-2 font-semibold">{profileData.age} y/o</h3>
             </div>
-            <p className="pb-2">{bio}</p>
+            <p className="pb-2">{profileData.bio}</p>
           </div>
         </div>
 
         <div className="w-11/12 bg-white rounded-lg mt-24 px-4 ">
           <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
           <div className="flex justify-evenly py-2">
-            <Image
-              src="/userPhotos/user5.png"
-              height={50}
-              width={50}
-              alt="user 1 Photo"
-              className="rounded-r-full object-cover rounded-b-full"
-            />
-
-            <Image
-              src="/userPhotos/user6.png"
-              height={50}
-              width={50}
-              alt="user 2 Photo"
-              className="rounded-r-full object-cover rounded-b-full"
-            />
-            <Image
-              src="/userPhotos/user7.png"
-              height={50}
-              width={50}
-              alt="user 3 Photo"
-              className="rounded-r-full object-cover rounded-b-full"
-            />
-            <Image
-              src="/userPhotos/user8.png"
-              height={50}
-              width={50}
-              alt="user 4 Photo"
-              className="rounded-r-full object-cover rounded-b-full"
-            />
+            {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
+            {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
+            {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
+            {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
           </div>
         </div>
         <Footer pathnameUrl={pathname} />

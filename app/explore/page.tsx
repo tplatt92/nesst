@@ -45,8 +45,10 @@ export default function Explore() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-2">
-      <ExploreNav setProperties={setProperties} />
+    <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-32">
+      <nav className="flex flex-row items-center gap-4 relative my-4 w-full">
+        <ExploreNav setProperties={setProperties} />
+      </nav>
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
         data-testid="card-id"
@@ -78,11 +80,11 @@ export default function Explore() {
               </CardContent>
               <CardFooter className="flex justify-between">
                 <p className="font-medium lg:text-[10px]">
-                  £{properties.price}/month
+                  £{properties.price * properties.beds}/month
                 </p>
                 {/* ---------------new line */}
                 <p className="font-medium lg:text-[10px]">
-                  £{Math.round(properties.price / properties.beds)}/pp
+                  £{properties.price}/pp
                 </p>
                 {/* ------------ new line */}
 
