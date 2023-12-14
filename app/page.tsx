@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className=" h-screen w-screen flex flex-col lg:flex-row items-center lg:justify-between justify-center text-white overflow-hidden bg-[url('/backgroundImages/home2.jpg')] lg:bg-none lg:bg-black bg-cover">
-      <div className="lg:bg-[url('/backgroundImages/home4.jpg')] lg:h-screen lg:flex-1 lg:bg-cover lg:flex lg:flex-col lg:items-center">
+      <div className="lg:bg-[url('/backgroundImages/home5.jpg')] lg:h-screen lg:flex-1 lg:bg-cover lg:flex lg:flex-col lg:items-center">
         <div className="flex items-center pb-16 px-10 pt-60 lg:pt-80">
           <Image
             src="/logos/emptyegg.png"
@@ -22,7 +22,7 @@ export default function Home() {
           <p className="text-sm lg:text-lg">And find your perfect nest</p>
         </div>
       </div>
-      <div>
+      <div className="h-screen mt-[650px]">
         <div className="flex flex-col items-center justify-center w-screen lg:w-[400px] gap-3 lg:gap-8 pb-16">
           <Link
             href="/register"
