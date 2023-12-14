@@ -75,38 +75,42 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
       if (pool) {
         query = query.eq("Pool", pool);
       }
+      if (smokeAlarm) {
+        query = query.eq("SmokeAlarm", smokeAlarm);
+      }
+      if (pets) {
+        query = query.eq("Pets", pets);
+      }
+      if (wifi) {
+        query = query.eq("wifi", wifi);
+      }
+      if (parking) {
+        query = query.eq("Parking", parking);
+      }
+      if (kitchen) {
+        query = query.eq("Kitchen", kitchen);
+      }
+      if (aircon) {
+        query = query.eq("Aircon", aircon);
+      }
+      if (tv) {
+        query = query.eq("TV", tv);
+      }
+      if (desk) {
+        query = query.eq("Desk", desk);
+      }
+      if (washer) {
+        query = query.eq("Washer", washer);
+      }
 
-      // query
-      //   .gte("price", priceRange[0] || 0)
-      //   .lte("price", priceRange[1] || 1000000)
-      //   .gte("beds", bedRange[0] || 0)
-      //   .lte("beds", bedRange[1] || 10)
-      //   .gte("bathrooms", bathRange[0] || 0)
-      //   .lte("bathrooms", bathRange[1] || 10);
+      const { data, error } = await query
 
-      const { data, error } = await query;
-      // if (smokeAlarm) query = query.eq("SmokeAlarm", smokeAlarm);
-      // if (pets) query = query.eq("Pets", pets);
-      // if (pool) query = query.eq("Pool", pool);
-      // if (wifi) query = query.eq("wifi", wifi);
-      // if (parking) query = query.eq("Parking", parking);
-      // if (kitchen !== null) query = query.eq("Kitchen", kitchen);
-      // if (aircon !== null) query = query.eq("Aircon", aircon);
-      // if (tv !== null) query = query.eq("TV", tv);
-      // if (desk !== null) query = query.eq("Desk", desk);
-      // if (washer !== null) query = query.eq("Washer", washer);
-      //   .eq("SmokeAlarm", smokeAlarm !== null ? smokeAlarm : false)
-      //
-      //   .eq("Pool", pool !== null ? pool : false)
-      //   .eq("wifi", wifi !== null ? wifi : false)
-      //   .eq("Parking", parking !== null ? parking : false)
-      //   .eq("Kitchen", kitchen !== null ? kitchen : false)
-      //   .eq("Aircon", aircon !== null ? aircon : false)
-      //   .eq("TV", tv !== null ? tv : false)
-      //   .eq("Desk", desk !== null ? desk : false)
-      //   .eq("Washer", washer !== null ? washer : false);
-      // // .filter("Pets", "in", '(true)')
-      // // .filter("Pool", "in", '(true)');
+        .gte("price", priceRange[0] || 0)
+        .lte("price", priceRange[1] || 1000000)
+        .gte("beds", bedRange[0] || 0)
+        .lte("beds", bedRange[1] || 10)
+        .gte("bathrooms", bathRange[0] || 0)
+        .lte("bathrooms", bathRange[1] || 10);
 
       if (error) {
         setFetchError("error fetching properties");
