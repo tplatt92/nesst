@@ -128,7 +128,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
 
           <SheetClose asChild>
             <button
-              className="bg-[#d9a66d] font-bold w-full mt-12 py-2 rounded-full"
+              className="bg-[#d9a66d] font-bold w-full mt-12 md:mt-4 lg:mt-12 py-2 rounded-full"
               type="submit"
             >
               Apply
