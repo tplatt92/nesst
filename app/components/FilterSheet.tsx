@@ -1,56 +1,32 @@
-"use client";
-
+// FilterSheet.tsx
+import React from "react";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
   SheetTitle,
+  SheetClose,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
-import supabase from "../config/SuperbaseClient";
+import { Switch } from "@/components/ui/switch";
+import { FilterSheetProps } from "@/types/types";
 
-type FilterProps = {
-  setProperties: React.Dispatch<React.SetStateAction<null | any>>;
-};
-
-type FormSubmit = React.FormEvent<HTMLFormElement>;
-
-const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
-  const [fetchError, setFetchError] = useState<string | null>(
-    "error fetching properties"
-  );
-
-  const [minPrice, setMinPrice] = useState<number | null>(null);
-  const [maxPrice, setMaxPrice] = useState<number | null>(null);
-  function handleSubmit(e: FormSubmit) {
-    e.preventDefault();
-    const fetchProperties = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("properties")
-          .select("*")
-          .gte("price", minPrice ? minPrice : 0)
-          .lte("price", maxPrice ? maxPrice : 1000000);
-
-        if (error) {
-          setFetchError("error fetching properties");
-          setProperties(null);
-          console.error(error);
-        }
-        if (data) {
-          setProperties(data);
-          setFetchError(null);
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
-      }
-    };
-    fetchProperties();
-  }
+const FilterSheet: React.FC<FilterSheetProps> = ({
+  onSubmit,
+  onReset,
+  onPriceRangeChange,
+  onBedRangeChange,
+  onBathRangeChange,
+  bedRange,
+  priceRange,
+  bathRange,
+  smokeAlarm,
+  onSmokeAlarmChange,
+  pets,
+  onPetsChange,
+  pool,
+  onPoolChange,
+}) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -67,23 +43,79 @@ const FilterSheet: React.FC<FilterProps> = ({ setProperties }) => {
       </SheetTrigger>
       <SheetContent>
         <SheetTitle>Filter</SheetTitle>
-        <form onSubmit={handleSubmit} className="flex flex-col">
+        <form onSubmit={onSubmit} className="flex flex-col">
           <label>Min Price</label>
-          <input
-            id="Min Price"
-            value={minPrice || ""}
-            onChange={(e) => setMinPrice(Number(e.target.value))}
+          <Slider
+            defaultValue={priceRange}
+            min={0}
+            max={5000}
+            step={100}
+            minStepsBetweenThumbs={1}
+            value={priceRange}
+            onValueChange={onPriceRangeChange}
+            formatLabel={(value: number) => `£${value}`}
           />
-          <label>Max Price</label>
-          <input
-            id="Max Price"
-            value={maxPrice || ""}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
+          <label>Bedrooms</label>
+          <Slider
+            defaultValue={bedRange}
+            min={0}
+            max={10}
+            step={1}
+            minStepsBetweenThumbs={1}
+            value={bedRange}
+            onValueChange={onBedRangeChange}
+            formatLabel={(value: number) => `${value}`}
           />
-          <button type="submit">Apply</button>
+          <label>Bathrooms</label>
+          <Slider
+            defaultValue={bathRange}
+            min={0}
+            max={10}
+            step={1}
+            minStepsBetweenThumbs={1}
+            value={bathRange}
+            onValueChange={onBathRangeChange}
+            formatLabel={(value: number) => `${value}`}
+          />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row items-center justify-between">
+              <label>Smokealarm</label>
+              <Switch
+                checked={smokeAlarm}
+                onCheckedChange={onSmokeAlarmChange}
+              />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Pets</label>
+              <Switch checked={pets} onCheckedChange={onPetsChange} />
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <label>Pool</label>
+              <Switch checked={pool} onCheckedChange={onPoolChange} />
+            </div>
+          </div>
+
+          <SheetClose asChild>
+            <button
+              className="bg-[#d9a66d] w-full py-2 rounded-full mt-4"
+              type="submit"
+            >
+              Apply
+            </button>
+          </SheetClose>
         </form>
+        <SheetClose asChild>
+          <button
+            className="text-sm mt-4 text-center w-full"
+            type="reset"
+            onClick={onReset}
+          >
+            Reset
+          </button>
+        </SheetClose>
       </SheetContent>
     </Sheet>
   );
 };
+
 export default FilterSheet;

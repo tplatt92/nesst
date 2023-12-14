@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
-import supabase from "../../config/SuperbaseClient";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/types/supabase";
 import { useEffect, useState } from "react";
 import Footer from "@/app/components/Footer";
-import AvatarProfile from "@/app/components/AvatarProfile";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid";
+import { renderSocialLink, renderUserPhoto } from "../../utils/helperFunctions";
+import AvatarProfile from "@/app/components/AvatarProfile";
 
 type ProfileIdProps = {
   params: any | null;
@@ -18,6 +19,7 @@ const ProfieId: React.FC<ProfileIdProps> = ({ params }) => {
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching profile"
   );
+  const supabase = createClientComponentClient<Database>();
   const pathname = usePathname();
   const user = params.user;
 
@@ -43,9 +45,9 @@ const ProfieId: React.FC<ProfileIdProps> = ({ params }) => {
         console.error("An unexpected error occurred:", error);
       }
     };
-    console.log(profile);
+
     fetchProfile();
-  }, [user]);
+  }, [user, supabase]);
 
   return (
     <>
@@ -56,37 +58,34 @@ const ProfieId: React.FC<ProfileIdProps> = ({ params }) => {
         >
           <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen">
             <div className="pb-4">
-              {/* <AvatarProfile
+              <AvatarProfile
                 uid={profile.id}
-                url={profile.avatar_url}
+                url={`/${profile.avatar_url}`}
                 size={150}
-              /> */}
+              />
             </div>
+
             <h1 className="text-white text-4xl py-4">
               {profile.first_name} {profile.last_name}
             </h1>
+
             <h2 className="text-2xl text-white">{profile.username}</h2>
             <div className="pt-4 flex">
-              <Link href="/messages">
-                <Image
-                  src="/logos/instagramCircle.png"
-                  height={40}
-                  width={40}
-                  alt="Instagram Logo"
-                />
-              </Link>
+              {renderSocialLink(
+                "/messages",
+                "/logos/instagramCircle.png",
+                "Instagram Logo"
+              )}
               <Link href="/messages">
                 <ChatBubbleLeftEllipsisIcon className="h-10 text-[#d9a66d] px-8" />
               </Link>
-              <Link href="/messages">
-                <Image
-                  src="/logos/linkedinCircle.png"
-                  height={40}
-                  width={40}
-                  alt="Facebook Logo"
-                />
-              </Link>
+              {renderSocialLink(
+                "/messages",
+                "/logos/linkedinCircle.png",
+                "LinkedIn Logo"
+              )}
             </div>
+
             <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  top-[87%] -bottom-[17%] px-4 text-white overflow-y-scroll">
               <div className=" flex flex-row justify-between">
                 <h3 className="py-2 font-semibold">About Me</h3>
@@ -99,35 +98,10 @@ const ProfieId: React.FC<ProfileIdProps> = ({ params }) => {
           <div className="w-11/12 bg-white rounded-lg mt-24 px-4 ">
             <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
             <div className="flex justify-evenly py-2">
-              <Image
-                src="/userPhotos/user5.png"
-                height={50}
-                width={50}
-                alt="user 1 Photo"
-                className="rounded-r-full object-cover rounded-b-full"
-              />
-
-              <Image
-                src="/userPhotos/user6.png"
-                height={50}
-                width={50}
-                alt="user 2 Photo"
-                className="rounded-r-full object-cover rounded-b-full"
-              />
-              <Image
-                src="/userPhotos/user7.png"
-                height={50}
-                width={50}
-                alt="user 3 Photo"
-                className="rounded-r-full object-cover rounded-b-full"
-              />
-              <Image
-                src="/userPhotos/user8.png"
-                height={50}
-                width={50}
-                alt="user 4 Photo"
-                className="rounded-r-full object-cover rounded-b-full"
-              />
+              {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
+              {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
+              {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
+              {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
             </div>
           </div>
           <Footer pathnameUrl={pathname} />

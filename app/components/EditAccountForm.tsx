@@ -6,22 +6,36 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
+import { Switch } from "@/components/ui/switch";
+import { profileData } from "@/types/types";
+import CustomTextArea from "./CustomTextArea";
+import CustomSelect from "./CustomSelect";
+import CustomInput from "./CustomInput";
 import Image from "next/image";
 import Avatar from "./Avatar";
-import { Switch } from "@/components/ui/switch";
 
-export default function EditAccountForm({session }: { session: Session | null }) {
+export default function EditAccountForm({
+  session,
+}: {
+  session: Session | null;
+}) {
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(true);
-  const [firstName, setFirstName] = useState<string | null>(null);
-  const [lastName, setLastName] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
-  const [bio, setBio] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
-  const [drinker, setDrinker] = useState<string | null>(null);
-  const [smoker, setSmoker] = useState<boolean>(false);
+  const [formData, setFormData] = useState<profileData>({
+    firstName: null,
+    lastName: null,
+    username: null,
+    age: null,
+    bio: null,
+    avatar_url: null,
+    drinker: null,
+    smoker: false,
+  });
+
   const user = session?.user;
   const router = useRouter();
+
+  // function to getProfile
 
   const getProfile = useCallback(async () => {
     try {
@@ -40,13 +54,17 @@ export default function EditAccountForm({session }: { session: Session | null })
       }
 
       if (data) {
-        setFirstName(data.first_name);
-        setLastName(data.last_name);
-        setUsername(data.username);
-        setBio(data.bio);
-        setDrinker(data.drinker);
-        setSmoker(data.smoker);
-        setAvatarUrl(data.avatar_url);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          username: data.username,
+          age: data.age,
+          bio: data.bio,
+          drinker: data.drinker,
+          smoker: data.smoker,
+          avatar_url: data.avatar_url,
+        }));
       }
     } catch (error) {
       alert("Error loading user data!");
@@ -55,9 +73,13 @@ export default function EditAccountForm({session }: { session: Session | null })
     }
   }, [user, supabase]);
 
+  // UseEffect to getProfile
+
   useEffect(() => {
     getProfile();
   }, [user, getProfile]);
+
+  // Update profile
 
   async function updateProfile({
     firstName,
@@ -116,92 +138,119 @@ export default function EditAccountForm({session }: { session: Session | null })
       <div className="pb-4">
         <Avatar
           uid={user?.id ?? ""}
-          url={avatar_url}
+          url={formData.avatar_url ?? null}
           size={150}
           onUpload={(url) => {
-            setAvatarUrl(url);
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              avatar_url: url,
+            }));
           }}
         />
       </div>
       <div className="w-5/6 pb-4">
         <label htmlFor="email">Email</label>
-        <input
+        <CustomInput
           id="email"
-          type="text"
-          value={session?.user.email}
-          disabled
-          className="w-full p-2 pl-4 border border-white rounded-full mt-2 bg-black placeholder-white"
           placeholder="Email"
+          type="text"
+          value={session?.user.email || ""}
+          onChange={(e) => e.preventDefault()} // Dummy onChange for disabled input
+          required
         />
       </div>
       <div className="w-5/6 pb-4 ">
         <label htmlFor="firstName">First Name</label>
-        <input
-          placeholder="First Name"
+        <CustomInput
           id="firstName"
+          placeholder="First Name"
           type="text"
-          value={firstName || ""}
-          onChange={(e) => setFirstName(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full mt-2 bg-black placeholder-white"
+          value={formData.firstName || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              firstName: e.target.value,
+            }))
+          }
         />
       </div>
       <div className="w-5/6 pb-4">
         <label htmlFor="lastName">Last Name</label>
-        <input
+        <CustomInput
           id="lastName"
           placeholder="Last Name"
           type="text"
-          value={lastName || ""}
-          onChange={(e) => setLastName(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
+          value={formData.lastName || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              lastName: e.target.value,
+            }))
+          }
         />
       </div>
       <div className="w-5/6 pb-4">
         <label htmlFor="username">Username</label>
-        <input
+        <CustomInput
           id="username"
-          placeholder="Username"
+          placeholder="Username minimum 2 characters"
           type="text"
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
+          value={formData.username || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              username: e.target.value,
+            }))
+          }
+          onError={(e) => alert("Username must be at least 3 characters")}
+          required
         />
       </div>
       <div className="w-5/6 pb-4">
         <label htmlFor="bio">Bio</label>
-        <textarea
+        <CustomTextArea
           id="Bio"
           placeholder="Bio"
-          value={bio || ""}
-          onChange={(e) => setBio(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-3xl mt-2 bg-black placeholder-white overflow-auto scrollbar-none h-32"
+          value={formData.bio || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              bio: e.target.value,
+            }))
+          }
         />
       </div>
       <div className="w-5/6 pb-8">
         <label htmlFor="drinking habits">Drinking Habits</label>
-        <select
-          defaultValue={"Drinking Habits"}
+        <CustomSelect
           id="drinker"
-          placeholder="Drinking habits"
-          value={drinker || ""}
-          onChange={(e) => setDrinker(e.target.value)}
-          className="w-full p-2 pl-4 border border-white rounded-full  mt-2 bg-black placeholder-white"
-        >
-          <option value="" disabled>
-            Drinking habits
-          </option>
-          <option value="social">Social</option>
-          <option value="light">Light</option>
-          <option value="heavy">Heavy</option>
-          <option value="non">Non</option>
-        </select>
+          value={formData.drinker || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              drinker: e.target.value,
+            }))
+          }
+          options={[
+            { value: "", label: "Drinking habits" },
+            { value: "social", label: "Social" },
+            { value: "light", label: "Light" },
+            { value: "heavy", label: "Heavy" },
+            { value: "non", label: "Non" },
+          ]}
+        />
       </div>
       <div className="w-5/6 pb-8 flex justify-between items-center">
         <label htmlFor="smoker">Do you Smoke?</label>
         <Switch
           id="smoker"
-          checked={smoker}
-          onCheckedChange={(e) => setSmoker(!smoker)}
+          checked={formData.smoker}
+          onCheckedChange={() =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              smoker: !formData.smoker,
+            }))
+          }
         />
       </div>
       <div className="w-5/6 pb-4">
@@ -209,13 +258,7 @@ export default function EditAccountForm({session }: { session: Session | null })
           className="bg-[#d9a66d] w-full py-2 rounded-full "
           onClick={() =>
             updateProfile({
-              firstName,
-              lastName,
-              username,
-              bio,
-              smoker,
-              drinker,
-              avatar_url,
+              ...formData,
             })
           }
           disabled={loading}
