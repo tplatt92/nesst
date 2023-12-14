@@ -32,7 +32,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [washer, setWasher] = useState<boolean | null>(null);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     resetFilters();
     fetchProperties();
   };
@@ -79,7 +79,21 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
         .gte("beds", bedRange[0] || 0)
         .lte("beds", bedRange[1] || 10)
         .gte("bathrooms", bathRange[0] || 0)
-        .lte("bathrooms", bathRange[1] || 10);
+        .lte("bathrooms", bathRange[1] || 10)
+        // .eq("SmokeAlarm", smokeAlarm !== null ? smokeAlarm : false)
+        // .eq("Pets", pets !== null ? pets : false)
+        // .eq("Pool", pool !== null ? pool : false)
+        // .eq("wifi", wifi !== null ? wifi : false)
+        //  .eq("Parking", parking !== null ? parking : false)
+        // .eq("Kitchen", kitchen !== null ? kitchen : false)
+        // .eq("Aircon", aircon !== null ? aircon : false)
+        // .eq("TV", tv !== null ? tv : false)
+        // .eq("Desk", desk !== null ? desk : false)
+        // .eq("Washer", washer !== null ? washer : false);
+        .filter("Pets", "in", '(true)')
+        .filter("Pool", "in", '(true)');
+      
+
 
       if (error) {
         setFetchError("error fetching properties");
@@ -133,7 +147,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
         onPriceRangeChange={handlePriceRangeChange}
         onBedRangeChange={handleBedRangeChange}
         onBathRangeChange={handleBathRangeChange}
-        onReset={resetFilters}
+        onReset={handleReset}
         onSubmit={handleSubmit}
         priceRange={priceRange}
         bedRange={bedRange}
