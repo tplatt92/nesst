@@ -7,6 +7,8 @@ import Carousel from "../components/CardCarousell";
 import { usePathname } from "next/navigation";
 import ExploreNav from "../components/ExploreNav";
 import Link from "next/link";
+import { useMediaQuery } from "react-responsive";
+import Header from "../components/Header";
 import {
   Card,
   CardContent,
@@ -22,6 +24,10 @@ export default function Explore() {
     "error fetching properties"
   );
   const pathname = usePathname();
+
+  const isMobile = useMediaQuery({
+    query: "(max-width:640px), { noSsr: true }",
+  });
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -47,6 +53,7 @@ export default function Explore() {
   return (
     <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-2">
       <ExploreNav setProperties={setProperties} />
+      {!isMobile && <Header />}
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
         data-testid="card-id"
@@ -95,7 +102,7 @@ export default function Explore() {
         ))}
       </div>
       {properties?.length == 0 && <p>No items match your search.</p>}
-      <Footer pathnameUrl={pathname} />
+      {isMobile && <Footer pathnameUrl={pathname} />}
     </main>
   );
 }
