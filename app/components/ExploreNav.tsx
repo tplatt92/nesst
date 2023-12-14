@@ -20,16 +20,16 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 5000]);
   const [bedRange, setBedRange] = useState<number[]>([0, 10]);
   const [bathRange, setBathRange] = useState<number[]>([0, 10]);
-  const [smokeAlarm, setSmokeAlarm] = useState<boolean | null>(null);
-  const [pets, setPets] = useState<boolean | null>(null);
-  const [pool, setPool] = useState<boolean | null>(null);
-  const [wifi, setWifi] = useState<boolean | null>(null);
-  const [parking, setParking] = useState<boolean | null>(null);
-  const [kitchen, setKitchen] = useState<boolean | null>(null);
-  const [aircon, setAircon] = useState<boolean | null>(null);
-  const [tv, setTv] = useState<boolean | null>(null);
-  const [desk, setDesk] = useState<boolean | null>(null);
-  const [washer, setWasher] = useState<boolean | null>(null);
+  const [smokeAlarm, setSmokeAlarm] = useState<boolean>(false);
+  const [pets, setPets] = useState<boolean>(false);
+  const [pool, setPool] = useState<boolean>(false);
+  const [wifi, setWifi] = useState<boolean>(false);
+  const [parking, setParking] = useState<boolean>(false);
+  const [kitchen, setKitchen] = useState<boolean>(false);
+  const [aircon, setAircon] = useState<boolean>(false);
+  const [tv, setTv] = useState<boolean>(false);
+  const [desk, setDesk] = useState<boolean>(false);
+  const [washer, setWasher] = useState<boolean>(false);
 
   const handleReset: MouseEventHandler<HTMLButtonElement> = (e) => {
     // e.preventDefault();
@@ -42,16 +42,16 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     setPriceRange([0, 5000]);
     setBedRange([0, 10]);
     setBathRange([0, 10]);
-    setPool(null);
-    setSmokeAlarm(null);
-    setPets(null);
-    setWifi(null);
-    setParking(null);
-    setKitchen(null);
-    setAircon(null);
-    setTv(null);
-    setDesk(null);
-    setWasher(null);
+    setPool(false);
+    setSmokeAlarm(false);
+    setPets(false);
+    setWifi(false);
+    setParking(false);
+    setKitchen(false);
+    setAircon(false);
+    setTv(false);
+    setDesk(false);
+    setWasher(false);
   };
 
   useEffect(() => {
