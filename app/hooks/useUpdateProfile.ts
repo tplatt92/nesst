@@ -15,33 +15,23 @@ interface ProfileUpdater {
 
 const supabase = createClientComponentClient<Database>();
 
-export function useProfileUpdater(session: Session | null): ProfileUpdater {
+export function useUpdateProfile(session: Session | null): ProfileUpdater {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const [formData, setFormData] = useState<profileData>({
-    firstName: null,
-    lastName: null,
-    username: null,
-    age: null,
-    bio: null,
-    avatar_url: null,
-    drinker: null,
-    smoker: false,
-  });
 
   const updateProfile = async (data: profileData): Promise<void> => {
     try {
       setLoading(true);
       const { error } = await supabase.from("profiles").upsert({
-        id: user?.id as string,
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        username: formData.username,
-        age: formData.age,
-        bio: formData.bio,
-        drinker: formData.drinker,
-        smoker: formData.smoker,
-        avatar_url: formData.avatar_url,
+        id: session?.user?.id as string,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        username: data.username,
+        age: data.age,
+        bio: data.bio,
+        drinker: data.drinker,
+        smoker: data.smoker,
+        avatar_url: data.avatar_url,
         updated_at: new Date().toISOString(),
       });
       if (error) throw error;

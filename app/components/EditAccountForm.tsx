@@ -1,127 +1,43 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
-import { Database } from "@/types/supabase";
-import { useRouter } from "next/navigation";
-import {
-  Session,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
+import { useEffect } from "react";
+import { Session } from "@supabase/auth-helpers-nextjs";
 import { Switch } from "@/components/ui/switch";
-import { profileData } from "@/types/types";
 import CustomTextArea from "./CustomTextArea";
 import CustomSelect from "./CustomSelect";
 import CustomInput from "./CustomInput";
 import Image from "next/image";
 import Avatar from "./Avatar";
+import { useUserProfile } from "../hooks/useUserProfile";
+import { useUpdateProfile } from "../hooks/useUpdateProfile";
 
 export default function EditAccountForm({
   session,
 }: {
   session: Session | null;
 }) {
-  const supabase = createClientComponentClient<Database>();
-  const [loading, setLoading] = useState(true);
-  const [formData, setFormData] = useState<profileData>({
-    firstName: null,
-    lastName: null,
-    username: null,
-    age: null,
-    bio: null,
-    avatar_url: null,
-    drinker: null,
-    smoker: false,
-  });
-
   const user = session?.user;
-  const router = useRouter();
 
-  // function to getProfile
-
-  const getProfile = useCallback(async () => {
-    try {
-      setLoading(true);
-
-      const { data, error, status } = await supabase
-        .from("profiles")
-        .select(
-          `first_name, last_name, username, age, avatar_url, bio, drinker, smoker`
-        )
-        .eq("id", user?.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          username: data.username,
-          age: data.age,
-          bio: data.bio,
-          drinker: data.drinker,
-          smoker: data.smoker,
-          avatar_url: data.avatar_url,
-        }));
-      }
-    } catch (error) {
-      alert("Error loading user data!");
-    } finally {
-      setLoading(false);
-    }
-  }, [user, supabase]);
-
-  // UseEffect to getProfile
+  // gets profile
+  const { loading, formData, setFormData, setLoading } = useUserProfile(
+    user?.id ?? ""
+  );
 
   useEffect(() => {
-    getProfile();
-  }, [user, getProfile]);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      username: formData.username,
+      age: formData.age,
+      bio: formData.bio,
+      drinker: formData.drinker,
+      smoker: formData.smoker,
+      avatar_url: formData.avatar_url,
+    }));
+  }, []);
 
-  // Update profile
-
-  async function updateProfile({
-    firstName,
-    lastName,
-    username,
-    bio,
-    avatar_url,
-    smoker,
-    drinker,
-  }: {
-    username: string | null;
-    firstName: string | null;
-    lastName: string | null;
-    bio: string | null;
-    avatar_url: string | null;
-    smoker: boolean;
-    drinker: string | null;
-  }) {
-    try {
-      setLoading(true);
-
-      const { error } = await supabase.from("profiles").upsert({
-        id: user?.id as string,
-        first_name: firstName,
-        last_name: lastName,
-        username,
-        bio,
-        avatar_url,
-        smoker,
-        drinker,
-        updated_at: new Date().toISOString(),
-      });
-      if (error) throw error;
-      alert("Profile updated!");
-      router.refresh();
-      router.push("/profile");
-    } catch (error) {
-      alert("Error updating the data!");
-    } finally {
-      setLoading(false);
-    }
-  }
+  // call to update profile
+  const { updateProfile } = useUpdateProfile(session);
 
   return (
     <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl">
