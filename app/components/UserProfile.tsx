@@ -12,17 +12,20 @@ import { renderSocialLink, renderUserPhoto } from "../utils/helperFunctions";
 
 export default function UserProfile({ session }: { session: Session | null }) {
   const user = session?.user;
+
   const router = useRouter();
   const pathname = usePathname();
 
   // gets profile
-  const { formData, setFormData } = useUserProfile(user?.id ?? "");
+  const { loading, formData, setFormData, setLoading } = useUserProfile(
+    user?.id ?? ""
+  );
 
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
+      firstName: formData.first_name,
+      lastName: formData.last_name,
       username: formData.username,
       age: formData.age,
       bio: formData.bio,
@@ -63,7 +66,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
               />
             </div>
             <h1 className="text-white text-4xl py-4">
-              {formData.firstName} {formData.lastName}
+              {formData.first_name} {formData.last_name}
             </h1>
             <h2 className="text-2xl text-white">{formData.username}</h2>
             <div className="pt-4 flex" aria-label="Social icons list">

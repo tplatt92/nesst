@@ -1,6 +1,6 @@
 export type profileData = {
-  firstName: string | null;
-  lastName: string | null;
+  first_name: string | null;
+  last_name: string | null;
   username: string | null;
   age: number | null;
   bio: string | null;

@@ -25,8 +25,8 @@ export default function EditAccountForm({
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
+      firstName: formData.first_name,
+      lastName: formData.last_name,
       username: formData.username,
       age: formData.age,
       bio: formData.bio,
@@ -81,7 +81,7 @@ export default function EditAccountForm({
           id="firstName"
           placeholder="First Name"
           type="text"
-          value={formData.firstName || ""}
+          value={formData.first_name || ""}
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
@@ -96,7 +96,7 @@ export default function EditAccountForm({
           id="lastName"
           placeholder="Last Name"
           type="text"
-          value={formData.lastName || ""}
+          value={formData.last_name || ""}
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
@@ -174,7 +174,14 @@ export default function EditAccountForm({
           className="bg-[#d9a66d] w-full py-2 rounded-full "
           onClick={() =>
             updateProfile({
-              ...formData,
+              first_name: formData.first_name,
+              last_name: formData.last_name,
+              username: formData.username,
+              age: formData.age,
+              bio: formData.bio,
+              drinker: formData.drinker,
+              smoker: formData.smoker,
+              avatar_url: formData.avatar_url,
             })
           }
           disabled={loading}

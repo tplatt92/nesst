@@ -9,8 +9,8 @@ const supabase = createClientComponentClient<Database>();
 export const useUserProfile = (userId: string | null) => {
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState<profileData>({
-    firstName: null,
-    lastName: null,
+    first_name: null,
+    last_name: null,
     username: null,
     age: null,
     bio: null,

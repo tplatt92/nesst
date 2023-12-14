@@ -25,8 +25,8 @@ export default function CreateAccountForm({
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
+      firstName: formData.first_name,
+      lastName: formData.last_name,
       username: formData.username,
       age: formData.age,
       bio: formData.bio,
@@ -73,7 +73,7 @@ export default function CreateAccountForm({
           placeholder="Email"
           type="text"
           value={session?.user.email || ""}
-          onChange={(e) => e.preventDefault()} // Dummy onChange for disabled input
+          onChange={(e) => e.preventDefault()}
           required
         />
       </div>
@@ -82,7 +82,7 @@ export default function CreateAccountForm({
           id="firstName"
           placeholder="First Name"
           type="text"
-          value={formData.firstName || ""}
+          value={formData.first_name || ""}
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
@@ -96,7 +96,7 @@ export default function CreateAccountForm({
           id="lastName"
           placeholder="Last Name"
           type="text"
-          value={formData.lastName || ""}
+          value={formData.last_name || ""}
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
@@ -186,8 +186,8 @@ export default function CreateAccountForm({
           className="bg-[#d9a66d] w-full py-2 rounded-full"
           onClick={() =>
             updateProfile({
-              firstName: formData.firstName,
-              lastName: formData.lastName,
+              first_name: formData.first_name,
+              last_name: formData.last_name,
               username: formData.username,
               age: formData.age,
               bio: formData.bio,
