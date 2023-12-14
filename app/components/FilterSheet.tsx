@@ -52,9 +52,9 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
         </svg>
       </SheetTrigger>
       <SheetContent>
-        <SheetTitle>Filter</SheetTitle>
+        <SheetTitle className="pb-8">Filters</SheetTitle>
         <form onSubmit={onSubmit} className="flex flex-col">
-          <label>Min Price</label>
+          <label className="pb-2">Price</label>
           <Slider
             defaultValue={priceRange}
             min={0}
@@ -65,7 +65,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
             onValueChange={onPriceRangeChange}
             formatLabel={(value: number) => `£${value}`}
           />
-          <label>Bedrooms</label>
+          <label className="pb-2">Bedrooms</label>
           <Slider
             defaultValue={bedRange}
             min={0}
@@ -76,7 +76,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
             onValueChange={onBedRangeChange}
             formatLabel={(value: number) => `${value}`}
           />
-          <label>Bathrooms</label>
+          <label className="pb-2">Bathrooms</label>
           <Slider
             defaultValue={bathRange}
             min={0}
@@ -87,7 +87,8 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
             onValueChange={onBathRangeChange}
             formatLabel={(value: number) => `${value}`}
           />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col pt-4 gap-4">
+            <h2 className="font-bold text-lg">Amenities</h2>
             <div className="flex flex-row items-center justify-between">
               <label>Smokealarm</label>
               <Switch
@@ -127,22 +128,21 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
 
           <SheetClose asChild>
             <button
-              className="bg-[#d9a66d] w-full py-2 rounded-full mt-4"
+              className="bg-[#d9a66d] font-bold w-full mt-12 py-2 rounded-full"
               type="submit"
             >
               Apply
             </button>
           </SheetClose>
         </form>
-        
-          <button
-            className="text-sm mt-4 text-center w-full"
-            type="reset"
-            onClick={onReset}
-          >
-            Reset
-          </button>
-        
+
+        <button
+          className="text-sm mt-4 text-center w-full"
+          type="reset"
+          onClick={onReset}
+        >
+          Reset
+        </button>
       </SheetContent>
     </Sheet>
   );
