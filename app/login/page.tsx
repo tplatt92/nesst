@@ -15,15 +15,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { NextRequest, NextResponse } from 'next/server'
-import {
-  // Import predefined theme
-  ThemeSupa,
-} from "@supabase/auth-ui-shared";
-import link from "next/link";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Link from "next/link";
 
 export default function Login() {
@@ -37,13 +29,11 @@ export default function Login() {
     },
   };
 
-
-
   supabase.auth.onAuthStateChange(async (event) => {
     if (event == "SIGNED_IN") {
       window.location.href = "/explore";
     }
-  })
+  });
 
   return (
     <div className=" h-screen flex flex-col justify-center items-center bg-black ">
