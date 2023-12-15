@@ -39,7 +39,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
 }) => {
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="shadow-lg md:w-14 lg:w-12">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="16"

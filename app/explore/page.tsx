@@ -17,7 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Loading from "../loading";
+import Loading from "./loading";
 import { Suspense } from "react";
 
 export default function Explore() {
@@ -54,55 +54,57 @@ export default function Explore() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-2">
+    <main className="flex min-h-screen w-screen flex-col items-center pb-2">
       <ExploreNav setProperties={setProperties} />
-      <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
-        data-testid="card-id"
-      >
-        {properties?.map((properties) => (
-          <Card key={properties.id}>
-            <CardHeader className="relative lg:h-40">
-              <Carousel images={properties.image} />
-            </CardHeader>
-            <Link href={`/explore/${properties.id}`}>
-              <CardContent>
-                <CardTitle className="text-xl lg:text-[10px] font-monserrat font-semibold flex justify-between items-center">
-                  {properties.name}
-                  <p className="text-sm lg:text-[10px] flex gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="16"
-                      width="20"
-                      viewBox="0 0 640 512"
-                    >
-                      <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
-                    </svg>
-                    {properties.beds}
+      <Suspense fallback={<p>loading...</p>}>
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 p-8 lg:px-8"
+          data-testid="card-id"
+        >
+          {properties?.map((properties) => (
+            <Card key={properties.id}>
+              <CardHeader className="relative lg:h-40">
+                <Carousel images={properties.image} />
+              </CardHeader>
+              <Link href={`/explore/${properties.id}`}>
+                <CardContent>
+                  <CardTitle className="text-xl lg:text-[10px] font-monserrat font-semibold flex justify-between items-center">
+                    {properties.name}
+                    <p className="text-sm lg:text-[10px] flex gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="16"
+                        width="20"
+                        viewBox="0 0 640 512"
+                      >
+                        <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
+                      </svg>
+                      {properties.beds}
+                    </p>
+                  </CardTitle>
+                  <CardDescription className="text-yellow-600 text-sm lg:text-[10px] font-medium">
+                    {properties.location}
+                  </CardDescription>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <p className="font-medium lg:text-[10px]">
+                    £{properties.price}/month
                   </p>
-                </CardTitle>
-                <CardDescription className="text-yellow-600 text-sm lg:text-[10px] font-medium">
-                  {properties.location}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <p className="font-medium lg:text-[10px]">
-                  £{properties.price}/month
-                </p>
-                {/* ---------------new line */}
-                <p className="font-medium lg:text-[10px]">
-                  £{Math.round(properties.price / properties.beds)}/pp
-                </p>
-                {/* ------------ new line */}
+                  {/* ---------------new line */}
+                  <p className="font-medium lg:text-[10px]">
+                    £{Math.round(properties.price / properties.beds)}/pp
+                  </p>
+                  {/* ------------ new line */}
 
-                <p className="text-gray-400 lg:text-[10px]">
-                  {properties.available ? "Available" : "Unavailable"}
-                </p>
-              </CardFooter>
-            </Link>
-          </Card>
-        ))}
-      </div>
+                  <p className="text-gray-400 lg:text-[10px]">
+                    {properties.available ? "Available" : "Unavailable"}
+                  </p>
+                </CardFooter>
+              </Link>
+            </Card>
+          ))}
+        </div>
+      </Suspense>
       {properties?.length == 0 && <p>No items match your search.</p>}
       {isMobile && <Footer pathnameUrl={pathname} />}
     </main>

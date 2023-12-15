@@ -72,6 +72,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
 
   const fetchProperties = async () => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       let query = supabase.from("properties").select("*");
 
       if (location) {
@@ -151,7 +152,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
 
   const pathnameUrl = usePathname();
   return (
-    <nav className="flex flex-row items-center gap-4 relative my-4 w-full ">
+    <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-8 w-full shadow-lg ">
       {isMobile ? (
         <>
           <nav className="flex flex-row relative my-4 w-full">
@@ -159,7 +160,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               className="flex items-center w-full justify-between"
               onSubmit={handleSubmit}
             >
-              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center lg:max-w-xs shadow-sm">
+              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center lg:max-w-xs shadow-lg">
                 <input
                   className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
                   type="text"
@@ -215,12 +216,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               height={80}
             />
           </div>
-          <nav className="flex flex-row relative my-4 w-full">
-            <form
-              className="flex items-center w-full justify-between"
-              onSubmit={handleSubmit}
-            >
-              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center lg:max-w-xs shadow-sm">
+          <nav className="flex flex-row relative w-full">
+            <form className="flex items-center w-full " onSubmit={handleSubmit}>
+              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center md:max-w-xs lg:max-w-md shadow-lg">
                 <input
                   className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
                   type="text"
@@ -234,53 +232,57 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               </div>
             </form>
           </nav>
-          <div
-            className={`${
-              pathnameUrl === "/explore" ? "text-nesstYellow" : "text-black"
-            } `}
-          >
-            <Link
-              href="/explore"
-              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer "
+          <div className="flex gap-2 lg:gap-8 lg:pr-8 text-sm lg:text-md">
+            <div
+              className={`${
+                pathnameUrl === "/explore" ? "text-nesstYellow" : "text-black"
+              } `}
             >
-              <p className=" text-md">Explore</p>
-            </Link>
-          </div>
-          <div
-            className={`${
-              pathnameUrl === "/favourites" ? "text-nesstYellow" : "text-black"
-            } `}
-          >
-            <Link
-              href="/favourites"
-              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+              <Link
+                href="/explore"
+                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer "
+              >
+                <p className=" text-md">Explore</p>
+              </Link>
+            </div>
+            <div
+              className={`${
+                pathnameUrl === "/favourites"
+                  ? "text-nesstYellow"
+                  : "text-black"
+              } `}
             >
-              <p className=" text-md">Favourites</p>
-            </Link>
-          </div>
-          <div
-            className={`${
-              pathnameUrl === "/messages" ? "text-nesstYellow" : "text-black"
-            } `}
-          >
-            <Link
-              href="/messages"
-              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+              <Link
+                href="/favourites"
+                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+              >
+                <p className=" text-md">Favourites</p>
+              </Link>
+            </div>
+            <div
+              className={`${
+                pathnameUrl === "/messages" ? "text-nesstYellow" : "text-black"
+              } `}
             >
-              <p className=" text-md">Messages</p>
-            </Link>
-          </div>
-          <div
-            className={`${
-              pathnameUrl === "/profile" ? "text-nesstYellow" : "text-black"
-            } `}
-          >
-            <Link
-              href="/profile"
-              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+              <Link
+                href="/messages"
+                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+              >
+                <p className=" text-md">Messages</p>
+              </Link>
+            </div>
+            <div
+              className={`${
+                pathnameUrl === "/profile" ? "text-nesstYellow" : "text-black"
+              } `}
             >
-              <p className=" text-md">Profile</p>
-            </Link>
+              <Link
+                href="/profile"
+                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+              >
+                <p className=" text-md">Profile</p>
+              </Link>
+            </div>
           </div>
           <FilterSheet
             onPriceRangeChange={handlePriceRangeChange}
