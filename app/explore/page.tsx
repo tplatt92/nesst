@@ -15,8 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Loading from "../loading";
 import { Suspense } from "react";
-import Loading from "../loading.tsx";
 
 export default function Explore() {
   const [properties, setProperties] = useState<null | any[]>(null);
@@ -28,6 +28,7 @@ export default function Explore() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
+        // await new Promise((resolve) => setTimeout(resolve, 3000));
         const { data, error } = await supabase.from("properties").select("*");
 
         if (error) {
@@ -51,7 +52,7 @@ export default function Explore() {
       <nav className="flex flex-row items-center gap-4 relative my-4 w-full">
         <ExploreNav setProperties={setProperties} />
       </nav>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<h1>This is loading</h1>}>
         <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
           data-testid="card-id"

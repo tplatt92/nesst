@@ -15,14 +15,14 @@ export default function Home() {
           />
           <h1 className="text-5xl lg:text-6xl tracking-[0.4em]">NESST</h1>
         </div>
-        <div className="pb-16 px-10">
+        <div className="pb-16 px-10 lg:pl-14">
           <h2 className="text-xl lg:text-2xl w-60 lg:w-80 pb-8">
             Join the world&#39;s largest nomad community
           </h2>
           <p className="text-sm lg:text-lg">And find your perfect nest</p>
         </div>
       </div>
-      <div className="h-screen mt-[650px]">
+      <div className="lg:h-screen lg:mt-[650px]">
         <div className="flex flex-col items-center justify-center w-screen lg:w-[400px] gap-3 lg:gap-8 pb-16">
           <Link
             href="/register"

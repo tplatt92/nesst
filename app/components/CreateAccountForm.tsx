@@ -34,7 +34,7 @@ export default function CreateAccountForm({
       smoker: formData.smoker,
       avatar_url: formData.avatar_url,
     }));
-  }, []);
+  }, []); // eslint-disable-line
 
   // call to update profile
   const { updateProfile } = useUpdateProfile(session);

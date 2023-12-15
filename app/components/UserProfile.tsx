@@ -33,7 +33,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
       smoker: formData.smoker,
       avatar_url: formData.avatar_url,
     }));
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <>

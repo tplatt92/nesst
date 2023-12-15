@@ -24,8 +24,8 @@ export function useUpdateProfile(session: Session | null): ProfileUpdater {
       setLoading(true);
       const { error } = await supabase.from("profiles").upsert({
         id: session?.user?.id as string,
-        first_name: data.firstName,
-        last_name: data.lastName,
+        first_name: data.first_name,
+        last_name: data.last_name,
         username: data.username,
         age: data.age,
         bio: data.bio,
