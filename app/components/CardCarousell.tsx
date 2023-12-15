@@ -1,7 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import Image from "next/image";
 
 const slideVariants = {
   hiddenRight: {
@@ -54,7 +53,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
     setDirection(index > currentIndex ? "right" : "left");
   };
   if (!images || images.length === 0) {
-    return null; // or handle the case when images are not available
+    return null;
   }
   return (
     <div className="carousel-images relative rounded-lg max-w-screen-md  overflow-hidden h-60">

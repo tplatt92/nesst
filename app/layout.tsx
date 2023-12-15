@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import ExploreNav from "./components/ExploreNav";
 
 const monstserrat = Montserrat({ weight: ["400", "600"], subsets: ["latin"] });
 

@@ -34,7 +34,7 @@ export default function EditAccountForm({
       smoker: formData.smoker,
       avatar_url: formData.avatar_url,
     }));
-  }, []);
+  }, []); // eslint-disable-line
 
   // call to update profile
   const { updateProfile } = useUpdateProfile(session);
@@ -71,7 +71,7 @@ export default function EditAccountForm({
           placeholder="Email"
           type="text"
           value={session?.user.email || ""}
-          onChange={(e) => e.preventDefault()} // Dummy onChange for disabled input
+          onChange={(e) => e.preventDefault()}
           required
         />
       </div>
@@ -85,7 +85,7 @@ export default function EditAccountForm({
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              firstName: e.target.value,
+              first_name: e.target.value,
             }))
           }
         />
@@ -100,7 +100,7 @@ export default function EditAccountForm({
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              lastName: e.target.value,
+              last_name: e.target.value,
             }))
           }
         />

@@ -86,7 +86,7 @@ export default function CreateAccountForm({
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              firstName: e.target.value,
+              first_name: e.target.value,
             }))
           }
         />
@@ -100,7 +100,7 @@ export default function CreateAccountForm({
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              lastName: e.target.value,
+              last_name: e.target.value,
             }))
           }
         />

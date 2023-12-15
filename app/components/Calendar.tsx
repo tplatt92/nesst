@@ -19,11 +19,7 @@ export default function CalendarWidget({
     from: new Date(),
     to: addDays(Date.now(), 28),
   });
-  //   React.useEffect(() => {
-  //     return () => {
-  //       setDate(undefined);
-  //     };
-  //   }, []);
+
   const handleSelectDateRange = (selectedDate: DateRange | undefined) => {
     if (
       selectedDate &&
