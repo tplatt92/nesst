@@ -1,3 +1,4 @@
+"use client";
 import React, {
   useState,
   useEffect,
@@ -7,6 +8,10 @@ import React, {
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import supabase from "../config/SuperbaseClient";
 import FilterSheet from "./FilterSheet";
+import { useMediaQuery } from "react-responsive";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 type SearchProps = {
   setProperties: React.Dispatch<React.SetStateAction<null | any[]>>;
@@ -139,58 +144,177 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     setBathRange(value);
   };
 
+  const isMobile = useMediaQuery({
+    query: "(max-width:600px), { noSsr: true}",
+    //make sure to get rid of the hydration warning
+  });
+
+  const pathnameUrl = usePathname();
   return (
-    <div className="flex flex-row items-center gap-4 relative my-4 w-full">
-      <nav className="flex flex-row relative my-4 w-full">
-        <form
-          className="flex items-center w-full justify-between"
-          onSubmit={handleSubmit}
-        >
-          <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center lg:max-w-xs shadow-sm">
-            <input
-              className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
-              type="text"
-              placeholder="Search Destinations"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+    <nav className="flex flex-row items-center gap-4 relative my-4 w-full ">
+      {isMobile ? (
+        <>
+          <nav className="flex flex-row relative my-4 w-full">
+            <form
+              className="flex items-center w-full justify-between"
+              onSubmit={handleSubmit}
+            >
+              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center lg:max-w-xs shadow-sm">
+                <input
+                  className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
+                  type="text"
+                  placeholder="Search Destinations"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+                <button type="submit">
+                  <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
+                </button>
+              </div>
+            </form>
+          </nav>
+          <FilterSheet
+            onPriceRangeChange={handlePriceRangeChange}
+            onBedRangeChange={handleBedRangeChange}
+            onBathRangeChange={handleBathRangeChange}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            priceRange={priceRange}
+            bedRange={bedRange}
+            bathRange={bathRange}
+            smokeAlarm={smokeAlarm}
+            onSmokeAlarmChange={setSmokeAlarm}
+            pets={pets}
+            onPetsChange={setPets}
+            pool={pool}
+            onPoolChange={setPool}
+            wifi={wifi}
+            onWifiChange={setWifi}
+            parking={parking}
+            onParkingChange={setParking}
+            kitchen={kitchen}
+            onKitchenChange={setKitchen}
+            aircon={aircon}
+            onAirconChange={setAircon}
+            tv={tv}
+            onTvChange={setTv}
+            desk={desk}
+            onDeskChange={setDesk}
+            washer={washer}
+            onWasherChange={setWasher}
+          />
+        </>
+      ) : (
+        <div className="flex flex-row items-center gap-4 relative my-4 w-full">
+          <div className="flex items-center justify-center pl-2">
+            <Image
+              alt="NESST"
+              src="/logos/fullegg.png"
+              priority={true}
+              width={80}
+              height={80}
             />
-            <button type="submit">
-              <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
-            </button>
           </div>
-        </form>
-      </nav>
-      <FilterSheet
-        onPriceRangeChange={handlePriceRangeChange}
-        onBedRangeChange={handleBedRangeChange}
-        onBathRangeChange={handleBathRangeChange}
-        onReset={handleReset}
-        onSubmit={handleSubmit}
-        priceRange={priceRange}
-        bedRange={bedRange}
-        bathRange={bathRange}
-        smokeAlarm={smokeAlarm}
-        onSmokeAlarmChange={setSmokeAlarm}
-        pets={pets}
-        onPetsChange={setPets}
-        pool={pool}
-        onPoolChange={setPool}
-        wifi={wifi}
-        onWifiChange={setWifi}
-        parking={parking}
-        onParkingChange={setParking}
-        kitchen={kitchen}
-        onKitchenChange={setKitchen}
-        aircon={aircon}
-        onAirconChange={setAircon}
-        tv={tv}
-        onTvChange={setTv}
-        desk={desk}
-        onDeskChange={setDesk}
-        washer={washer}
-        onWasherChange={setWasher}
-      />
-    </div>
+          <nav className="flex flex-row relative my-4 w-full">
+            <form
+              className="flex items-center w-full justify-between"
+              onSubmit={handleSubmit}
+            >
+              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center lg:max-w-xs shadow-sm">
+                <input
+                  className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
+                  type="text"
+                  placeholder="Search Destinations"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+                <button type="submit">
+                  <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
+                </button>
+              </div>
+            </form>
+          </nav>
+          <div
+            className={`${
+              pathnameUrl === "/explore" ? "text-nesstYellow" : "text-black"
+            } `}
+          >
+            <Link
+              href="/explore"
+              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer "
+            >
+              <p className=" text-md">Explore</p>
+            </Link>
+          </div>
+          <div
+            className={`${
+              pathnameUrl === "/favourites" ? "text-nesstYellow" : "text-black"
+            } `}
+          >
+            <Link
+              href="/favourites"
+              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+            >
+              <p className=" text-md">Favourites</p>
+            </Link>
+          </div>
+          <div
+            className={`${
+              pathnameUrl === "/messages" ? "text-nesstYellow" : "text-black"
+            } `}
+          >
+            <Link
+              href="/messages"
+              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+            >
+              <p className=" text-md">Messages</p>
+            </Link>
+          </div>
+          <div
+            className={`${
+              pathnameUrl === "/profile" ? "text-nesstYellow" : "text-black"
+            } `}
+          >
+            <Link
+              href="/profile"
+              className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+            >
+              <p className=" text-md">Profile</p>
+            </Link>
+          </div>
+          <FilterSheet
+            onPriceRangeChange={handlePriceRangeChange}
+            onBedRangeChange={handleBedRangeChange}
+            onBathRangeChange={handleBathRangeChange}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+            priceRange={priceRange}
+            bedRange={bedRange}
+            bathRange={bathRange}
+            smokeAlarm={smokeAlarm}
+            onSmokeAlarmChange={setSmokeAlarm}
+            pets={pets}
+            onPetsChange={setPets}
+            pool={pool}
+            onPoolChange={setPool}
+            wifi={wifi}
+            onWifiChange={setWifi}
+            parking={parking}
+            onParkingChange={setParking}
+            kitchen={kitchen}
+            onKitchenChange={setKitchen}
+            aircon={aircon}
+            onAirconChange={setAircon}
+            tv={tv}
+            onTvChange={setTv}
+            desk={desk}
+            onDeskChange={setDesk}
+            washer={washer}
+            onWasherChange={setWasher}
+          />
+        </div>
+      )}
+    </nav>
   );
 };
 
