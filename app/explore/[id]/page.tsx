@@ -2,7 +2,9 @@
 import React from "react";
 import supabase from "../../config/SuperbaseClient";
 import { useEffect, useState } from "react";
+import ExploreNav from "../../components/ExploreNav";
 import Footer from "@/app/components/Footer";
+import { useMediaQuery } from "react-responsive";
 import Carousel from "../../components/CardCarousell";
 import {
   Card,
@@ -47,6 +49,10 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   //   )
   // `);
   //   }
+
+  const isMobile = useMediaQuery({
+    query: "(max-width:640px), { noSsr: true }",
+  });
 
   const addToLikedColumn = async () => {
     const { data, error } = await supabase
@@ -114,6 +120,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   return (
     <>
       <main className="px-4 pt-4 pb-32">
+        <ExploreNav setProperties={setProperties} />
         <div className="flex justify-between">
           <Link href="/explore">
             <div className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg">
@@ -534,7 +541,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           <h2>These people also liked this property...</h2>
         </article>
       </main>
-      <Footer pathnameUrl={pathname} />
+      {isMobile && <Footer pathnameUrl={pathname} />}
     </>
   );
 };

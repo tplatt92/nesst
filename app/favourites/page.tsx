@@ -1,9 +1,10 @@
 // import NextJsCarousel from "../components/CardCarousell";
 "use client";
-import Carousel from "../components/CardCarousell";
+import ExploreNav from "../components/ExploreNav";
 import Footer from "../components/Footer";
+import { useMediaQuery } from "react-responsive";
 import { usePathname } from "next/navigation";
-import Header from "../components/Header";
+import { useState } from "react";
 
 const images = [
   "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -15,9 +16,17 @@ const images = [
 ];
 
 export default function Favourites() {
+  const pathname = usePathname();
+  const isMobile = useMediaQuery({
+    query: "(max-width:640px), { noSsr: true }",
+  });
+  const [properties, setProperties] = useState<null | any[]>(null);
   return (
     <>
-      <p>This is the Favourites page</p>
+      <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-2">
+        <ExploreNav setProperties={setProperties} />
+        {isMobile && <Footer pathnameUrl={pathname} />}
+      </main>
     </>
   );
 }

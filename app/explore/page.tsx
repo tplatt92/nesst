@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import ExploreNav from "../components/ExploreNav";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
-import Header from "../components/Header";
+
 import {
   Card,
   CardContent,
