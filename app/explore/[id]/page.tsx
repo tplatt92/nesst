@@ -51,7 +51,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   //   }
 
   const isMobile = useMediaQuery({
-    query: "(max-width:640px), { noSsr: true }",
+    query: "(max-width:600px), { noSsr: true }",
   });
 
   const addToLikedColumn = async () => {

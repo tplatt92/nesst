@@ -26,7 +26,7 @@ export default function Explore() {
   const pathname = usePathname();
 
   const isMobile = useMediaQuery({
-    query: "(max-width:640px), { noSsr: true }",
+    query: "(max-width:600px), { noSsr: true }",
   });
 
   useEffect(() => {

@@ -13,7 +13,7 @@ type ExploreNavProps = {
 
 const ExploreNav: React.FC<ExploreNavProps> = ({ setProperties }) => {
   const isMobile = useMediaQuery({
-    query: "(max-width:640px), { noSsr: true}, suppressHydrationWarning={true}",
+    query: "(max-width:600px), { noSsr: true}",
     //make sure to get rid of the hydration warning
   });
 

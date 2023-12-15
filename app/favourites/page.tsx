@@ -18,7 +18,7 @@ const images = [
 export default function Favourites() {
   const pathname = usePathname();
   const isMobile = useMediaQuery({
-    query: "(max-width:640px), { noSsr: true }",
+    query: "(max-width:600px), { noSsr: true }",
   });
   const [properties, setProperties] = useState<null | any[]>(null);
   return (
