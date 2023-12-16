@@ -17,3 +17,22 @@ export default async function EditProfile() {
     </div>
   );
 }
+
+
+
+// const addToLikedColumn = async () => {
+//   const supabase1 = createServerComponentClient<Database>({ cookies });
+
+//   const {
+//     data: { session },
+//   } = await supabase1.auth.getSession();
+
+//   const userId = session?.user?.id;
+
+//   const { data, error } = await supabase
+//     .from("propertiesILiked")
+//     .insert({ profile_id: `${userId}`, property_id: `${id}` })
+    
+//   console.log(id);
+//   console.log(userId);
+// };

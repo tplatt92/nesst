@@ -17,6 +17,7 @@ export default function EditAccountForm({
 }) {
   const user = session?.user;
 
+
   // gets profile
   const { loading, formData, setFormData, setLoading } = useUserProfile(
     user?.id ?? ""
