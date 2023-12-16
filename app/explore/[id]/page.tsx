@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 
 import CalendarWidget from "@/app/components/Calendar";
+import { add } from "date-fns";
 
 type PropertyIdProps = {
   params: any;
@@ -54,38 +55,46 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   });
 
   const addToLikedColumn = async () => {
-    const { data, error } = await supabase
-      .from("properties")
-      .update({ who_has_liked: ["please work"] })
-      .eq("id", id);
-    console.log(id);
-  };
-
-  const removeProfileFromLikedColumn = async () => {
-    const { data, error } = await supabase
-      .from("properties")
-      .select("*")
-      .eq("id", id);
-    const array = data[0].who_has_liked;
-    console.log(array);
-    const index = array.indexOf("ioana");
-    array.splice(index, 1);
-    console.log(array);
     try {
-      await supabase
-        .from("properties")
-        .update({ who_has_liked: array })
-        .eq("id", id);
+      const { data, error } = await supabase
+        .from("propertiesILiked")
+        .insert({ profiles_id: "eb85f52f-5080-4238-b507-c861090bdb3a", properties_id: `${id}` });
+  
+      if (error) {
+        console.error("Error adding to liked column:", error.message);
+      } else {
+        console.log("Row added successfully:", data);
+      }
     } catch (error) {
-      console.error(error.message);
+      console.error("An unexpected error occurred:", error);
     }
-  };
+  }
+// --------------------------------------------------------
+// const removeProfileFromLikedColumn = async () => {
+//   const { data, error } = await supabase
+//     .from("properties")
+//     .select("*")
+//     .eq("id", id);
+//   const array = data[0].who_has_liked;
+//   console.log(array);
+//   const index = array.indexOf("ioana");
+//   array.splice(index, 1);
+//   console.log(array);
+//   try {
+//     await supabase
+//       .from("properties")
+//       .update({ who_has_liked: array })
+//       .eq("id", id);
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// };
 
   function handleClick() {
     if (!isLiked) {
       addToLikedColumn();
-    } else {
-      removeProfileFromLikedColumn();
+    // } else {
+    //   removeProfileFromLikedColumn();
     }
     setIsLiked((prev) => !prev);
   }
@@ -135,7 +144,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           </Link>
           <div
             className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg "
-            onClick={handleClick}
+            onClick={addToLikedColumn}
           >
             {isLiked ? (
               <Heart width={20} fill="#212121" />
