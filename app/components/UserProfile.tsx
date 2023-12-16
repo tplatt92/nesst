@@ -127,6 +127,9 @@ export default function UserProfile({ session }: { session: Session | null }) {
               <div className="flex flex-col justify-evenly py-2 ">
                 <UserConnections connections={connections} />
               </div>
+              <div className="flex flex-col justify-evenly py-2 ">
+                <UserConnections connections={connections} />
+              </div>
             </div>
           </div>
         </div>

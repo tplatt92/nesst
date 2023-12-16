@@ -7,7 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import { renderSocialLink, renderUserPhoto } from "../utils/helperFunctions";
 import { fetchConnectionsData } from "../hooks/fetchConnections";
-import { useUserProfile } from "../hooks/useUserProfile";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import Footer from "@/app/components/Footer";
@@ -33,17 +32,17 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
+  const [profile, setProfile] = useState<null | any[]>(null);
   const pathname = usePathname();
-  console.log(pathname);
+
   const router = useRouter();
   const user = params.user;
   const userId = session?.user;
-
-  // gets profile
-  const { loading, formData, setFormData, setLoading } = useUserProfile(user);
+  const supabase = createClientComponentClient<Database>();
+  console.log(pathname);
 
   useEffect(() => {
-    const fetchProperties = async () => {
+    const fetchProfile = async () => {
       try {
         const { data, error } = await supabase
           .from("profiles")
@@ -52,20 +51,21 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
           .single();
 
         if (error) {
-          setFetchError("error fetching properties");
+          setFetchError("error fetching profile");
+          setProfile(null);
           console.error(error);
         }
         if (data) {
-          setFormData(data);
+          setProfile([data]);
           setFetchError(null);
         }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
       }
     };
-    fetchProperties();
-  }, [user]);
-  console.log(formData);
+
+    fetchProfile();
+  }, [user, supabase]);
 
   useEffect(() => {
     const userData: string | undefined = userId?.id;
@@ -78,7 +78,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
 
   return (
     <>
-      {formData?.map((profile) => (
+      {profile?.map((profile) => (
         <div
           key={profile.id}
           className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 "
