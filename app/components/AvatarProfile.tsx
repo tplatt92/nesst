@@ -78,12 +78,12 @@ export default function AvatarProfile({
           height={size}
           src={avatarUrl}
           alt="Avatar"
-          className="avatar image rounded-r-full object-cover rounded-b-full"
+          className="avatar image rounded-r-full object-cover rounded-b-full border-4 border-white"
           style={{ height: size, width: size }}
         />
       ) : (
         <div
-          className="avatar no-image bg-gray-900 rounded-r-full rounded-b-full"
+          className="avatar no-image bg-gray-900 rounded-r-full rounded-b-full border-4 border-white"
           style={{ height: size, width: size }}
         />
       )}

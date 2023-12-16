@@ -38,8 +38,8 @@ export default function UserProfile({ session }: { session: Session | null }) {
   return (
     <>
       <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-white  ">
-        <div className=" flex flex-col items-center h-screen  bg-gray-100 lg:mt-12">
-          <div className="absolute right-8 md:right-20 lg:right-[530px] top-8 lg:top-32 z-50 w-6">
+        <div className=" flex flex-col items-center h-screen relative  bg-gray-100 lg:mt-12">
+          <div className="absolute right-8 md:right-20 lg:right-10 top-8 lg:top-4 z-50 w-6">
             <Link href="/profile/edit">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -57,52 +57,83 @@ export default function UserProfile({ session }: { session: Session | null }) {
               </svg>
             </Link>
           </div>
-          <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
-            <div className="pb-4">
-              <AvatarProfile
-                uid={user?.id ?? ""}
-                url={formData.avatar_url}
-                size={150}
-              />
-            </div>
-            <h1 className="text-white text-4xl py-4">
-              {formData.first_name} {formData.last_name}
-            </h1>
-            <h2 className="text-2xl text-white">{formData.username}</h2>
-            <div className="pt-4 flex" aria-label="Social icons list">
-              {renderSocialLink(
-                "/messages",
-                "/logos/instagramCircle.png",
-                "Instagram Logo"
-              )}
-              <Link href="/messages">
-                <ChatBubbleLeftEllipsisIcon className="h-10 text-[#d9a66d] px-8" />
-              </Link>
-              {renderSocialLink(
-                "/messages",
-                "/logos/linkedinCircle.png",
-                "LinkedIn Logo"
-              )}
-            </div>
-            <div className="bg-[#d9a66d] w-11/12 lg:w-11/12 max-w-5xl rounded-lg absolute top-[87%] -bottom-[17%] md:-bottom-[32%] px-4 text-white overflow-y-scroll md:overflow-hidden">
-              <div className=" flex flex-row justify-between">
-                <h3 className="py-2 font-semibold">About Me</h3>
-                <h3 className="py-2 font-semibold">{formData.age} y/o</h3>
+          <div className="relative">
+            <div className="flex flex-col items-center lg:flex-row py-20  lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
+              <div className="pb-4 lg:pb-0 lg:pl-24">
+                <AvatarProfile
+                  uid={user?.id ?? ""}
+                  url={formData.avatar_url}
+                  size={150}
+                />
               </div>
-              <p className="pb-2">{formData.bio}</p>
+              <div>
+                <h1 className="text-white text-4xl py-4 lg:pt-0">
+                  {formData.first_name} {formData.last_name}
+                </h1>
+                <h2 className="text-2xl text-center lg:text-left text-white">
+                  {formData.username}
+                </h2>
+                <div className="pt-4 flex" aria-label="Social icons list">
+                  {renderSocialLink(
+                    "/messages",
+                    "/logos/instagramCircle.png",
+                    "Instagram Logo"
+                  )}
+                  <Link href="/messages">
+                    <ChatBubbleLeftEllipsisIcon className="h-10 text-[#d9a66d] px-8" />
+                  </Link>
+                  {renderSocialLink(
+                    "/messages",
+                    "/logos/linkedinCircle.png",
+                    "LinkedIn Logo"
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* bio */}
+            <div className="w-full flex flex-col items-center lg:my-4">
+              <div className="bg-[#d9a66d] w-11/12 lg:w-11/12 max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
+                <div className=" flex flex-row justify-between">
+                  <h3 className="py-2 font-semibold">About Me</h3>
+                  <h3 className="py-2 font-semibold">{formData.age} y/o</h3>
+                </div>
+                <p className="pb-2">{formData.bio}</p>
+              </div>
             </div>
           </div>
+          {/* connections */}
+          <div className="w-11/12 md:flex gap-4">
+            <div className="w-full bg-white rounded-lg mt-24 md:mt-44 lg:mt-0 px-4 max-w-5xl">
+              <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
+              <div className="flex justify-evenly py-2 ">
+                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
+                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
+                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
+                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
+                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
+                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
+                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
+                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
+              </div>
+            </div>
 
-          <div className="w-11/12 bg-white rounded-lg mt-24 md:mt-40 px-4 max-w-5xl">
-            <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
-            <div className="flex justify-evenly py-2 ">
-              {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
-              {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
-              {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
-              {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
+            <div className="w-full bg-white rounded-lg mt-4 md:mt-44 lg:mt-0 px-4 max-w-5xl">
+              <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
+              <div className="flex justify-evenly py-2 ">
+                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
+                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
+                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
+                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
+                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
+                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
+                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
+                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div>
         <Footer pathnameUrl={pathname} />
       </div>
     </>

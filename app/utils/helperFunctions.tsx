@@ -8,7 +8,7 @@ export function renderUserPhoto(src: string, alt: string) {
       height={50}
       width={50}
       alt={alt}
-      className="rounded-r-full object-cover rounded-b-full"
+      className="rounded-r-full object-cover rounded-b-full border-4 border-gray-300"
     />
   );
 }

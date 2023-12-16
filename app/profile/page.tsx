@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
 import UserProfile from "@/app/components/UserProfile";
+import DesktopNav from "../components/DesktopNav";
 
 export default async function ViewProfile() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -12,6 +13,7 @@ export default async function ViewProfile() {
 
   return (
     <div className="w-screen">
+      <DesktopNav />
       <UserProfile session={session} />
     </div>
   );

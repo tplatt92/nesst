@@ -66,7 +66,6 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
 
   const fetchProperties = async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       let query = supabase.from("properties").select("*");
 
       if (location) {
