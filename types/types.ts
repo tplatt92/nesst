@@ -1,4 +1,5 @@
 export type profileData = {
+  map(arg0: (profile: any) => import("react").JSX.Element): unknown;
   first_name: string | null;
   last_name: string | null;
   username: string | null;

@@ -1,6 +1,5 @@
 "use client";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
@@ -9,8 +8,19 @@ import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import Footer from "./Footer";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { renderSocialLink, renderUserPhoto } from "../utils/helperFunctions";
+import { fetchConnectionsData } from "../hooks/fetchConnections";
+import UserConnections from "./UserConnections";
+
+interface ConnectionData {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  avatar_url: string | null;
+  username: string | null;
+}
 
 export default function UserProfile({ session }: { session: Session | null }) {
+  const [connections, setConnections] = useState<ConnectionData[] | null>(null);
   const user = session?.user;
 
   const router = useRouter();
@@ -33,6 +43,15 @@ export default function UserProfile({ session }: { session: Session | null }) {
       smoker: formData.smoker,
       avatar_url: formData.avatar_url,
     }));
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    const userId: string | undefined = user?.id;
+    if (userId) {
+      fetchConnectionsData(userId).then((data) => setConnections(data));
+    } else {
+      console.error("User ID is undefined");
+    }
   }, []); // eslint-disable-line
 
   return (
@@ -102,32 +121,11 @@ export default function UserProfile({ session }: { session: Session | null }) {
             </div>
           </div>
           {/* connections */}
-          <div className="w-full md:flex gap-4">
-            <div className="w-full bg-white rounded-lg shadow-lg mt-24 md:mt-44 lg:mt-0 px-4 max-w-5xl">
-              <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
-              <div className="flex justify-evenly py-2 ">
-                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
-                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
-                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
-                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
-                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
-                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
-                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
-                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
-              </div>
-            </div>
-
+          <div className="w-full md:flex gap-4 px-8">
             <div className="w-full bg-white rounded-lg shadow-lg mt-4 md:mt-44 lg:mt-0 px-4 max-w-5xl">
               <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
-              <div className="flex justify-evenly py-2 ">
-                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
-                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
-                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
-                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
-                {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
-                {renderUserPhoto("/userPhotos/user6.png", "user 2 Photo")}
-                {renderUserPhoto("/userPhotos/user7.png", "user 3 Photo")}
-                {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
+              <div className="flex flex-col justify-evenly py-2 ">
+                <UserConnections connections={connections} />
               </div>
             </div>
           </div>
