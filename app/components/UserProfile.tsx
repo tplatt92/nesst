@@ -37,7 +37,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
 
   return (
     <>
-      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-white  ">
+      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-100  ">
         <div className=" flex flex-col items-center h-screen relative  bg-gray-100 lg:mt-12">
           <div className="absolute right-8 md:right-20 lg:right-10 top-8 lg:top-4 z-50 w-6">
             <Link href="/profile/edit">
@@ -58,7 +58,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
             </Link>
           </div>
           <div className="relative">
-            <div className="flex flex-col items-center lg:flex-row py-20  lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
+            <div className="flex flex-col items-center lg:flex-row py-20 shadow-lg lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
               <div className="pb-4 lg:pb-0 lg:pl-24">
                 <AvatarProfile
                   uid={user?.id ?? ""}
@@ -91,8 +91,8 @@ export default function UserProfile({ session }: { session: Session | null }) {
               </div>
             </div>
             {/* bio */}
-            <div className="w-full flex flex-col items-center lg:my-4">
-              <div className="bg-[#d9a66d] w-11/12 lg:w-11/12 max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
+            <div className="w-full flex flex-col items-center lg:my-4 shadow-lg">
+              <div className="bg-[#d9a66d] w-11/12 lg:w-full max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
                 <div className=" flex flex-row justify-between">
                   <h3 className="py-2 font-semibold">About Me</h3>
                   <h3 className="py-2 font-semibold">{formData.age} y/o</h3>
@@ -102,8 +102,8 @@ export default function UserProfile({ session }: { session: Session | null }) {
             </div>
           </div>
           {/* connections */}
-          <div className="w-11/12 md:flex gap-4">
-            <div className="w-full bg-white rounded-lg mt-24 md:mt-44 lg:mt-0 px-4 max-w-5xl">
+          <div className="w-full md:flex gap-4">
+            <div className="w-full bg-white rounded-lg shadow-lg mt-24 md:mt-44 lg:mt-0 px-4 max-w-5xl">
               <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
               <div className="flex justify-evenly py-2 ">
                 {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
@@ -117,7 +117,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
               </div>
             </div>
 
-            <div className="w-full bg-white rounded-lg mt-4 md:mt-44 lg:mt-0 px-4 max-w-5xl">
+            <div className="w-full bg-white rounded-lg shadow-lg mt-4 md:mt-44 lg:mt-0 px-4 max-w-5xl">
               <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
               <div className="flex justify-evenly py-2 ">
                 {renderUserPhoto("/userPhotos/user5.png", "user 1 Photo")}
