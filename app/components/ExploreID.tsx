@@ -35,14 +35,16 @@ import {
 
 import CalendarWidget from "@/app/components/Calendar";
 
-export default function ExploreID({ session }: { session: Session | null }) {
-  const user = session?.user;
+type ExploreIDProps = {
+  session: Session | null;
+  id: any;
+};
 
-  type PropertyIdProps = {
-    params: any;
-  };
+const ExploreID: React.FC<ExploreIDProps> = ({ session }) => {
+  const userId = session?.user?.id
 
-  const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
+
+
     const [availability, setAvailability] = useState<null | any[]>(null);
     const [properties, setProperties] = useState<null | any[]>(null);
     const [fetchError, setFetchError] = useState<string | null>(
@@ -51,7 +53,7 @@ export default function ExploreID({ session }: { session: Session | null }) {
     const [isLiked, setIsLiked] = useState(false);
 
     const pathname = usePathname();
-    const id = params.id;
+    const  = ;
 
     const isMobile = useMediaQuery({
       query: "(max-width:600px), { noSsr: true }",
@@ -61,7 +63,7 @@ export default function ExploreID({ session }: { session: Session | null }) {
         try {
           const { data, error } = await supabase
             .from("propertiesILiked")
-            .insert({ profile_id: `${userId}`, property_id: `${id}` });
+            .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
       
           if (error) {
             console.error("Error adding to liked column:", error.message);
@@ -293,4 +295,6 @@ export default function ExploreID({ session }: { session: Session | null }) {
       </>
     );
   };
-}
+
+
+export default ExploreID;

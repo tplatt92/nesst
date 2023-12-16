@@ -10,12 +10,11 @@ export default async function ViewProfile() {
     data: { session },
   } = await supabase.auth.getSession();
 
+  const userId = session?.user?.id;
 
-    return (
-      <div className="w-screen">
-        <ExploreID session={session}/>
-      </div>
-    );
-
+  return (
+    <div 
+      <p>{...userId}</p>
+    </div>
+  );
 }
-
