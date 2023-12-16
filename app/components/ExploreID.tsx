@@ -36,7 +36,7 @@ import {
 import CalendarWidget from "@/app/components/Calendar";
 
 export default function ExploreID({ session }: { session: Session | null }) {
-  const userId = session?.user?.id;
+  const user = session?.user;
 
   type PropertyIdProps = {
     params: any;

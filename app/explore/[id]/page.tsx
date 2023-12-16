@@ -1,9 +1,9 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
-import ExploreID from "../../components/ExploreID";
+import ExploreID from "@/app/components/ExploreID";
 
-export default async function EditProfile() {
+export default async function PropertyPage() {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
