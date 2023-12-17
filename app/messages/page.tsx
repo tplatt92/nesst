@@ -135,7 +135,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
             onClick={() => setIsNomads((prev) => !prev)}
             className={`${!isNomads ? "text-black" : "text-nesstDarkGrey"}`}
           >
-            Tribes
+            Nests
           </button>
         </div>
 

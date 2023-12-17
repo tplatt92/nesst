@@ -30,10 +30,7 @@ export async function fetchConnectionsData(
       console.error(connectionsError);
       return null;
     }
-
-    console.log(connectionsData);
     const friendIds = connectionsData?.map((entry) => entry.friend_id) || [];
-    console.log(friendIds);
 
     // Fetch profile data for connections
     const { data: profilesData, error: profilesError } = await supabase
@@ -47,7 +44,6 @@ export async function fetchConnectionsData(
     }
 
     // Return the fetched data
-    console.log("Profiles Data:", profilesData);
     return profilesData as ConnectionData[];
   } catch (error) {
     console.error(error);

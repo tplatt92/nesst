@@ -2,12 +2,19 @@
 
 import supabase from "../config/SuperbaseClient";
 import { useEffect, useState } from "react";
-import Footer from "../components/Footer";
 import Carousel from "../components/CardCarousell";
 import { usePathname } from "next/navigation";
-import ExploreNav from "../components/ExploreNav";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import dynamic from "next/dynamic";
+
+const ExploreNav = dynamic(() => import("../components/ExploreNav"), {
+  ssr: false,
+});
+
+const Footer = dynamic(() => import("../components/Footer"), {
+  ssr: false,
+});
 
 import {
   Card,
