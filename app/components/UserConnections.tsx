@@ -28,7 +28,7 @@ const UserConnections: React.FC<UserConnectionsProps> = ({ connections }) => {
     <div className="flex flex-col gap-4">
       {connections.map((connection) => (
         <Link key={connection.id} href={`/profile/${connection.username}`}>
-          <div className="p-4 flex items-center gap-4 border rounded-md">
+          <div className="p-2 flex items-center gap-4 border rounded-md">
             <AvatarProfile
               uid={connection.id}
               url={`/${connection.avatar_url}`}

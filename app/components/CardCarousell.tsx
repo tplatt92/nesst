@@ -56,7 +56,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
     return null;
   }
   return (
-    <div className="carousel-images relative rounded-lg max-w-screen-md  overflow-hidden h-60">
+    <div className="carousel-images relative rounded-lg max-w-screen-md  overflow-hidden h-80">
       <AnimatePresence>
         <motion.img
           key={currentIndex}

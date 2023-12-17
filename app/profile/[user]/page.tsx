@@ -90,6 +90,8 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     fetchData();
   }, [user]);
 
+  // fetch connections
+
   useEffect(() => {
     const fetchConnections = async () => {
       try {

@@ -52,7 +52,7 @@ module.exports = {
         },
         nesstYellow: "#d9a66d",
         nesstLightGrey: "#8f8f8f",
-        nesstDarkGrey: "#bfbfbf",
+        nesstDarkGrey: "#39393a",
       },
       borderRadius: {
         lg: "var(--radius)",

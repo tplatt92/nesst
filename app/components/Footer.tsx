@@ -22,7 +22,9 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
         >
           <div
             className={`${
-              pathnameUrl === "/explore" ? "text-nesstYellow" : "text-gray-400"
+              pathnameUrl === "/explore"
+                ? "text-nesstDarkGrey"
+                : "text-gray-400"
             } `}
           >
             <Link href="/explore" className="flex-1 text-center">
@@ -33,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
           <div
             className={`${
               pathnameUrl === "/favourites"
-                ? "text-nesstYellow"
+                ? "text-nesstDarkGrey"
                 : "text-gray-400"
             } `}
           >
@@ -56,7 +58,9 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
 
           <div
             className={`${
-              pathnameUrl === "/messages" ? "text-nesstYellow" : "text-gray-400"
+              pathnameUrl === "/messages"
+                ? "text-nesstDarkGrey"
+                : "text-gray-400"
             } `}
           >
             <Link href="/messages" className="flex-1 text-center">
@@ -66,7 +70,9 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
           </div>
           <div
             className={`${
-              pathnameUrl === "/profile" ? "text-nesstYellow" : "text-gray-400"
+              pathnameUrl === "/profile"
+                ? "text-nesstDarkGrey"
+                : "text-gray-400"
             } `}
           >
             <Link href="/profile" className="flex-1 text-center">

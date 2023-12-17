@@ -8,6 +8,13 @@ export type profileData = {
   drinker: string | null;
   smoker: boolean;
   avatar_url: string | null;
+  occupation: string | null;
+  languages: string[] | null;
+  personality_type: string | null;
+  star_sign: string | null;
+  location: string | null;
+  nationality: string | null;
+  hobbies: string[] | null;
 };
 
 export interface InputElementProps {

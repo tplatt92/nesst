@@ -10,6 +10,16 @@ import { useUserProfile } from "../hooks/useUserProfile";
 import { renderSocialLink, renderUserPhoto } from "../utils/helperFunctions";
 import { fetchConnectionsData } from "../hooks/fetchConnections";
 import UserConnections from "./UserConnections";
+import Image from "next/image";
+import {
+  Briefcase,
+  MapPin,
+  Bike,
+  Map,
+  Globe2,
+  User,
+  Sparkles,
+} from "lucide-react";
 
 interface ConnectionData {
   id: string;
@@ -42,6 +52,13 @@ export default function UserProfile({ session }: { session: Session | null }) {
       drinker: formData.drinker,
       smoker: formData.smoker,
       avatar_url: formData.avatar_url,
+      occupation: formData.occupation,
+      languages: formData.languages,
+      personality_type: formData.personality_type,
+      star_sign: formData.star_sign,
+      location: formData.location,
+      nationality: formData.nationality,
+      hobbies: formData.hobbies,
     }));
   }, []); // eslint-disable-line
 
@@ -56,7 +73,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
 
   return (
     <>
-      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-100  ">
+      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-100 pb-96 ">
         <div className=" flex flex-col items-center h-screen relative  bg-gray-100 lg:mt-12">
           <div className="absolute right-8 md:right-20 lg:right-10 top-8 lg:top-4 z-50 w-6">
             <Link href="/profile/edit">
@@ -65,7 +82,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
-                stroke="#d9a66d"
+                stroke="#fff"
                 className="w-12 h-12"
               >
                 <path
@@ -89,9 +106,12 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 <h1 className="text-white text-4xl py-4 lg:pt-0">
                   {formData.first_name} {formData.last_name}
                 </h1>
-                <h2 className="text-2xl text-center lg:text-left text-white">
+                <h2 className="text-2xl text-center lg:text-left pb-4 text-white">
                   {formData.username}
                 </h2>
+                <p className="text-md text-center lg:text-left text-white">
+                  {formData.location}
+                </p>
                 <div className="pt-4 flex" aria-label="Social icons list">
                   {renderSocialLink(
                     "/messages",
@@ -99,7 +119,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                     "Instagram Logo"
                   )}
                   <Link href="/messages">
-                    <ChatBubbleLeftEllipsisIcon className="h-10 text-[#d9a66d] px-8" />
+                    <ChatBubbleLeftEllipsisIcon className="h-10 text-white px-8" />
                   </Link>
                   {renderSocialLink(
                     "/messages",
@@ -110,8 +130,8 @@ export default function UserProfile({ session }: { session: Session | null }) {
               </div>
             </div>
             {/* bio */}
-            <div className="w-full flex flex-col items-center lg:my-4 shadow-lg">
-              <div className="bg-[#d9a66d] w-11/12 lg:w-full max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
+            <div className="w-full flex flex-col items-center my-4 shadow-lg">
+              <div className="bg-nesstDarkGrey w-11/12 lg:w-full max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
                 <div className=" flex flex-row justify-between">
                   <h3 className="py-2 font-semibold">About Me</h3>
                   <h3 className="py-2 font-semibold">{formData.age} y/o</h3>
@@ -121,14 +141,70 @@ export default function UserProfile({ session }: { session: Session | null }) {
             </div>
           </div>
           {/* connections */}
-          <div className="w-full md:flex gap-4 px-8">
-            <div className="w-full bg-white rounded-lg shadow-lg mt-4 md:mt-44 lg:mt-0 px-4 max-w-5xl">
-              <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
-              <div className="flex flex-col justify-evenly py-2 ">
-                <UserConnections connections={connections} />
+          <div className="w-full mb-80 gap-4 px-5 lg:px-0 md:flex">
+            <div className="flex-1 bg-white rounded-lg shadow-lg mt-28 md:mt-48 lg:mt-0 px-4 py-4 max-w-5xl ">
+              <h3 className="pb-2 text-[#bfbfbf] font-semibold">Connections</h3>
+              <div className="md:flex md:gap-8">
+                <div className="flex flex-1 flex-col justify-evenly py-1 ">
+                  <UserConnections connections={connections} />
+                </div>
               </div>
-              <div className="flex flex-col justify-evenly py-2 ">
-                <UserConnections connections={connections} />
+            </div>
+            <div>
+              <div className="flex flex-1 flex-col mt-4 py-4  bg-white rounded-lg shadow-lg  md:mt-48 lg:mt-0 px-4 max-w-5xl ">
+                <h3 className="pb-2 text-[#bfbfbf] font-semibold">
+                  Get to know me
+                </h3>
+
+                {formData.nationality && (
+                  <div className="py-2 flex gap-2">
+                    <Map /> <p>{formData.nationality}</p>
+                  </div>
+                )}
+
+                {formData.personality_type && (
+                  <div className="py-2 flex gap-2">
+                    <User /> <p>{formData.personality_type}</p>
+                  </div>
+                )}
+                {formData.occupation && (
+                  <div className="py-2 flex gap-2">
+                    <Briefcase /> <p>{formData.occupation}</p>
+                  </div>
+                )}
+                {formData.languages && (
+                  <div className="py-2 flex gap-2">
+                    <Globe2 /> <p>{formData.languages}</p>
+                  </div>
+                )}
+                {formData.star_sign && (
+                  <div className="py-2 flex gap-2">
+                    <Sparkles /> <p>{formData.star_sign}</p>
+                  </div>
+                )}
+                {formData.hobbies && (
+                  <div className="py-2 flex gap-2">
+                    <Bike /> <p>{formData.hobbies.join(", ")}</p>
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-1 flex-col mt-4 mb-32 md:mb-0 py-4 bg-white rounded-lg shadow-lg px-4 max-w-5xl ">
+                <h3 className="pb-2 text-[#bfbfbf] font-semibold">
+                  Current Nest
+                </h3>
+                <div className="flex gap-4">
+                  <Image
+                    src="/imagesTest/photo2.webp"
+                    alt="profileNest"
+                    width={80}
+                    height={100}
+                    className="rounded-r-full object-cover rounded-b-full border-4 border-gray-300"
+                  />
+                  <div>
+                    <p className="font-bold">Spacious Town House</p>
+                    <p>London</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

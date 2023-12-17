@@ -17,6 +17,16 @@ export const useUserProfile = (userId: string | null) => {
     avatar_url: null,
     drinker: null,
     smoker: false,
+    occupation: null,
+    languages: null,
+    personality_type: null,
+    star_sign: null,
+    location: null,
+    nationality: null,
+    hobbies: null,
+    map(arg0: (profile: any) => import("react").JSX.Element): unknown {
+      throw new Error("Method not implemented.");
+    },
   });
 
   useEffect(() => {
@@ -27,7 +37,7 @@ export const useUserProfile = (userId: string | null) => {
         const { data, error, status } = await supabase
           .from("profiles")
           .select(
-            `first_name, last_name, username, age, avatar_url, bio, drinker, smoker`
+            `first_name, last_name, username, age, avatar_url, bio, drinker, smoker, occupation, languages, personality_type, star_sign, Location, Nationality, Hobbies`
           )
           .eq("id", userId)
           .single();
@@ -47,6 +57,13 @@ export const useUserProfile = (userId: string | null) => {
             drinker: data.drinker,
             smoker: data.smoker,
             avatar_url: data.avatar_url,
+            occupation: data.occupation,
+            languages: data.languages,
+            personality_type: data.personality_type,
+            star_sign: data.star_sign,
+            location: data.Location,
+            nationality: data.Nationality,
+            hobbies: data.Hobbies,
           }));
         }
       } catch (error) {

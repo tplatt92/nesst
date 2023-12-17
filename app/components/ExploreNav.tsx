@@ -148,21 +148,20 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-8 w-full shadow-lg ">
       {isMobile ? (
         <>
-          <nav className="flex flex-row relative my-4 w-full">
+          <nav className="flex flex-row relative py-8 w-full">
             <form
               className="flex items-center w-full justify-between"
               onSubmit={handleSubmit}
             >
-              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center lg:max-w-xs shadow-lg">
-                <input
-                  className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
-                  type="text"
-                  placeholder="Search Destinations"
+              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-14 lg:h-10 items-center lg:max-w-xs shadow-lg">
+                <textarea
+                  className="h-13 lg:h-6 items-center flex-1 rounded-l-full pl-4 text-[12px] lg:text-xs focus:outline-none"
+                  placeholder={"Where\nAdd destination"}
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                 />
                 <button type="submit">
-                  <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstYellow p-1 rounded-full" />
+                  <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstDarkGrey p-1 rounded-full" />
                 </button>
               </div>
             </form>
