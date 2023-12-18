@@ -157,8 +157,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       try {
         const { data, error } = await supabase
           .from("propertiesILiked")
-          .select(`profiles (id, username, avatar_url)`)
-          .eq("properties_id", `${propertyId}`);
+          .select(`profile (id, username, avatar_url)`)
+          .eq("property_id", `${propertyId}`);
 
         if (error) {
           console.error("Error fetching properties:", error.message);
@@ -188,7 +188,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     try {
       const { data, error } = await supabase
         .from("propertiesILiked")
-        .insert({ profiles_id: `${userId}`, properties_id: `${propertyId}` });
+        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
 
       if (error) {
         console.error("Error adding to liked column:", error.message);
@@ -207,8 +207,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       const { data, error } = await supabase
         .from("propertiesILiked")
         .delete()
-        .eq("profiles_id", `${userId}`)
-        .eq("properties_id", `${propertyId}`);
+        .eq("profile_id", `${userId}`)
+        .eq("property_id", `${propertyId}`);
 
       if (error) {
         console.error("Error removing from liked column:", error.message);
