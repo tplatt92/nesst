@@ -148,7 +148,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-8 w-full shadow-lg ">
       {isMobile ? (
         <>
-          <nav className="flex flex-row relative py-8 w-full">
+          <div className="flex flex-row relative py-8 w-full">
             <form
               className="flex items-center w-full justify-between"
               onSubmit={handleSubmit}
@@ -165,7 +165,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
                 </button>
               </div>
             </form>
-          </nav>
+          </div>
           <FilterSheet
             onPriceRangeChange={handlePriceRangeChange}
             onBedRangeChange={handleBedRangeChange}
@@ -208,7 +208,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               height={80}
             />
           </div>
-          <nav className="flex flex-row relative w-full">
+          <div className="flex flex-row relative w-full">
             <form className="flex items-center w-full " onSubmit={handleSubmit}>
               <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center md:max-w-xs lg:max-w-md shadow-lg">
                 <input
@@ -223,7 +223,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
                 </button>
               </div>
             </form>
-          </nav>
+          </div>
           <div className="flex gap-2 lg:gap-8 lg:pr-8 text-sm lg:text-md">
             <div
               className={`${

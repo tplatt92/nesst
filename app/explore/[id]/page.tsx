@@ -43,7 +43,6 @@ type PropertyIdProps = {
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const supabase = createClientComponentClient<Database>();
   const [session, setSession] = useState<Session | null>(null);
-  const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
@@ -106,32 +105,30 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     fetchProperties();
   }, [propertyId]); // eslint-disable-line
 
-//check if property has already been liked
-useEffect(() => {
-  const checkIfLiked = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("propertiesILiked")
-        .select("*")
-        .eq("profiles_id", `${userId}`)
-        .eq("properties_id", `${propertyId}`);
+  //check if property has already been liked
+  useEffect(() => {
+    const checkIfLiked = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("propertiesILiked")
+          .select("*")
+          .eq("profile_id", `${userId}`)
+          .eq("property_id", `${propertyId}`);
 
-      if (error) {
-        console.error("Error fetching properties:", error.message);
-      } else {
-        // console.log("Row fetched successfully:", data);
-        if (data.length > 0) {
-          setIsLiked(true);
+        if (error) {
+          console.error("Error fetching properties:", error.message);
+        } else {
+          // console.log("Row fetched successfully:", data);
+          if (data.length > 0) {
+            setIsLiked(true);
+          }
         }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
       }
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
-    }
-  };
-  checkIfLiked();
-}, [propertyId, userId]); // eslint-disable-line
-
-
+    };
+    checkIfLiked();
+  }, [propertyId, userId]); // eslint-disable-line
 
   // add property to propertiesILiked
 
@@ -139,7 +136,7 @@ useEffect(() => {
     try {
       const { data, error } = await supabase
         .from("propertiesILiked")
-        .insert({ profiles_id: `${userId}`, properties_id: `${propertyId}` });
+        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
 
       if (error) {
         console.error("Error adding to liked column:", error.message);
@@ -158,8 +155,8 @@ useEffect(() => {
       const { data, error } = await supabase
         .from("propertiesILiked")
         .delete()
-        .eq("profiles_id", `${userId}`)
-        .eq("properties_id", `${propertyId}`);
+        .eq("profile_id", `${userId}`)
+        .eq("property_id", `${propertyId}`);
 
       if (error) {
         console.error("Error removing from liked column:", error.message);
@@ -184,7 +181,7 @@ useEffect(() => {
 
   return (
     <>
-      <main className="px-4 pt-4 pb-32">
+      <div className="px-4 pt-4 pb-32">
         <ExploreNav setProperties={setProperties} />
         <div className="flex justify-between">
           <Link href="/explore">
@@ -217,59 +214,56 @@ useEffect(() => {
                 <Carousel images={property.image} />
               </div>
             </CardHeader>
-            <CardContent>
-              <CardTitle className="text-xl font-monserrat font-semibold">
-                <div className="flex justify-between md:justify-evenly">
-                  {property.name} - {property.location}
-                  <p className="text-sm ">
-                    {property.area} m<sup>2</sup>
-                  </p>
-                </div>
-              </CardTitle>
-              <CardDescription className="text-black text-base font-medium pb-4">
-                <div className="flex gap-4 items-center justify-between md:justify-evenly border-b pb-4">
-                  <div className="flex gap-4">
-                    <span className="flex items-center gap-2">
-                      <Bed size={20} stroke="#8f8f8f" />
-                      <p>{property.beds}</p>
-                    </span>
 
-                    <span className="flex items-center gap-2">
-                      <Bath size={20} stroke="#8f8f8f" />
+            <CardTitle className="text-xl font-monserrat font-semibold">
+              <div className="flex justify-between md:justify-evenly">
+                {property.name} - {property.location}
+                <p className="text-sm ">
+                  {property.area} m<sup>2</sup>
+                </p>
+              </div>
+            </CardTitle>
+            <CardContent className="text-black text-base font-medium pb-4">
+              <div className="flex gap-4 items-center justify-between md:justify-evenly border-b pb-4">
+                <div className="flex gap-4">
+                  <span className="flex items-center gap-2">
+                    <Bed size={20} stroke="#8f8f8f" />
+                    <p>{property.beds}</p>
+                  </span>
 
-                      <p>{property.bathrooms}</p>
-                    </span>
-                  </div>
-                  <p className="font-medium text-sm">
-                    £ {property.price * property.beds}/month - £{" "}
-                    {property.price}/pp
-                  </p>
+                  <span className="flex items-center gap-2">
+                    <Bath size={20} stroke="#8f8f8f" />
+
+                    <p>{property.bathrooms}</p>
+                  </span>
                 </div>
-                <div className="flex flex-col justify-center items-center py-4 border-b gap-4">
-                  <div className="text-black">
-                    <CalendarWidget />
-                  </div>
-                  <div className="flex gap-2 sm:gap-12 md:gap-20 lg:gap-36">
-                    <button
-                      type="submit"
-                      className="bg-nesstYellow text-black font-bold px-2 py-2 rounded-lg font-2"
-                    >
-                      Reserve property
-                    </button>
-                    <button
-                      type="submit"
-                      className="bg-nesstYellow text-black font-bold px-2 py-2 rounded-lg font-2"
-                    >
-                      Reserve Bed
-                    </button>
-                  </div>
+                <p className="font-medium text-sm">
+                  £ {property.price * property.beds}/month - £ {property.price}
+                  /pp
+                </p>
+              </div>
+              <div className="flex flex-col justify-center items-center py-4 border-b gap-4">
+                <div className="text-black">
+                  <CalendarWidget />
                 </div>
-                <article>
-                  <p className="font-medium border-b py-4">
-                    {property.longDescription}
-                  </p>
-                </article>
-              </CardDescription>
+                <div className="flex gap-2 sm:gap-12 md:gap-20 lg:gap-36">
+                  <button
+                    type="submit"
+                    className="bg-nesstYellow text-black font-bold px-2 py-2 rounded-lg font-2"
+                  >
+                    Reserve property
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-nesstYellow text-black font-bold px-2 py-2 rounded-lg font-2"
+                  >
+                    Reserve Bed
+                  </button>
+                </div>
+              </div>
+              <p className="font-medium border-b py-4">
+                {property.longDescription}
+              </p>
             </CardContent>
 
             <h2 className="text-xl font-bold px-2">Amenities</h2>
@@ -342,7 +336,7 @@ useEffect(() => {
         <article className="px-2 py-4 text-lg font-bold">
           <h2>These people also liked this property...</h2>
         </article>
-      </main>
+      </div>
       {isMobile && <Footer pathnameUrl={pathname} />}
     </>
   );

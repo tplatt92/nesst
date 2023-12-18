@@ -129,13 +129,17 @@ const Messages: React.FC<ProfileIdProps> = () => {
         <div className="text-center flex justify-evenly font-bold border-b py-4">
           <button
             onClick={() => setIsNomads(true)}
-            className={`${isNomads ? "text-black" : "text-nesstDarkGrey"}`}
+            className={`${
+              isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
+            }`}
           >
             Nomads
           </button>
           <button
             onClick={() => setIsNomads(false)}
-            className={`${!isNomads ? "text-black" : "text-nesstDarkGrey"}`}
+            className={`${
+              !isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
+            }`}
           >
             Nests
           </button>
