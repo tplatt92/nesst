@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
-import supabase from "../../config/SuperbaseClient";
 import { useEffect, useState } from "react";
 import ExploreNav from "../../components/ExploreNav";
 import Footer from "@/app/components/Footer";
 import { useMediaQuery } from "react-responsive";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/types/supabase";
 import Carousel from "../../components/CardCarousell";
+import { Session } from "@supabase/auth-helpers-nextjs";
 import {
   Card,
   CardContent,
@@ -39,6 +41,8 @@ type PropertyIdProps = {
 };
 
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
+  const supabase = createClientComponentClient<Database>();
+  const [session, setSession] = useState<Session | null>(null);
   const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
@@ -47,56 +51,43 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const pathname = usePathname();
-  const id = params.id;
+  const propertyId = params.id;
+  const userId = session?.user?.id;
 
   const isMobile = useMediaQuery({
     query: "(max-width:600px), { noSsr: true }",
   });
 
-  const addToLikedColumn = async () => {
-    const { data, error } = await supabase
-      .from("properties")
-      .update({ who_has_liked: ["please work"] })
-      .eq("id", id);
-    console.log(id);
-  };
+  // get session
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error("Error fetching session:", error);
+          return;
+        }
+        if (data) {
+          console.log(session?.user ?? null);
+          setSession(data?.session ?? null);
+        } else {
+          setSession(null);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchSession();
+  }, []); // eslint-disable-line
 
-  // const removeProfileFromLikedColumn = async () => {
-  //   const { data, error } = await supabase
-  //     .from("properties")
-  //     .select("*")
-  //     .eq("id", id);
-  //   const array = {data[0].who_has_liked? ?? null};
-  //   console.log(array);
-  //   const index = array.indexOf("ioana");
-  //   array.splice(index, 1);
-  //   console.log(array);
-  //   try {
-  //     await supabase
-  //       .from("properties")
-  //       .update({ who_has_liked: array })
-  //       .eq("id", id);
-  //   } catch (error) {
-  //     console.error(error.message);
-  //   }
-  // };
-
-  function handleClick() {
-    // if (!isLiked) {
-    //   addToLikedColumn();
-    // } else {
-    //   removeProfileFromLikedColumn();
-    // }
-    setIsLiked((prev) => !prev);
-  }
-
+  // fetch properties
   useEffect(() => {
     const fetchProperties = async () => {
       try {
         const { data, error } = await supabase
           .from("properties")
           .select("*")
-          .eq("id", id)
+          .eq("id", propertyId)
           .single();
 
         if (error) {
@@ -113,8 +104,50 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     fetchProperties();
-  }, [id]);
-  console.log(properties);
+  }, [propertyId]); // eslint-disable-line
+
+  const addToLikedColumn = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("propertiesILiked")
+        .insert({ profiles_id: `${userId}`, properties_id: `${propertyId}` });
+
+      if (error) {
+        console.error("Error adding to liked column:", error.message);
+      } else {
+        console.log("Row added successfully:", data);
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+
+  const removeProfileFromLikedColumn = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("propertiesILiked")
+        .delete()
+        .eq("profiles_id", `${userId}`)
+        .eq("properties_id", `${propertyId}`);
+
+      if (error) {
+        console.error("Error removing from liked column:", error.message);
+      } else {
+        console.log("Row deleted successfully:", data);
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+
+  function handleClick() {
+    if (!isLiked) {
+      addToLikedColumn();
+    } else {
+      removeProfileFromLikedColumn();
+    }
+    setIsLiked((prev) => !prev);
+  }
 
   return (
     <>
