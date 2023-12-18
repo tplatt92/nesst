@@ -51,4 +51,3 @@ export async function fetchLikedProperties(
     return null;
   }
 }
-fetchLikedProperties("eb85f52f-5080-4238-b507-c861090bdb3a");

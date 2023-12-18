@@ -19,7 +19,6 @@ interface PropertyData {
   image: string[] | null;
 }
 
-
 export default function Favourites() {
   const supabase = createClientComponentClient<Database>();
   const [session, setSession] = useState<Session | null>(null);
@@ -113,7 +112,7 @@ export default function Favourites() {
     };
 
     fetchLiked();
-  }, [likedProperties]); // eslint-disable-line
+  }, [session, profile]); // eslint-disable-line
 
   return (
     <>
