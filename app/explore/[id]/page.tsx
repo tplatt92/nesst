@@ -106,6 +106,33 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     fetchProperties();
   }, [propertyId]); // eslint-disable-line
 
+//check if property has already been liked
+useEffect(() => {
+  const checkIfLiked = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("propertiesILiked")
+        .select("*")
+        .eq("profiles_id", `${userId}`)
+        .eq("properties_id", `${propertyId}`);
+
+      if (error) {
+        console.error("Error fetching properties:", error.message);
+      } else {
+        // console.log("Row fetched successfully:", data);
+        if (data.length > 0) {
+          setIsLiked(true);
+        }
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+  checkIfLiked();
+}, [propertyId, userId]); // eslint-disable-line
+
+
+
   // add property to propertiesILiked
 
   const addToLikedColumn = async () => {
