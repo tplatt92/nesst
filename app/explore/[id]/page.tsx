@@ -249,7 +249,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
               </svg>
             </div>
           </Link>
-          
         </div>
         {properties?.map((property) => (
           <Card key={property.id}>
@@ -339,8 +338,20 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <Heart width={20} />
                     )}
                   </div>
-                  <div><p>NESST logo</p></div>
-                  <Image src={logoGrey} alt="nesst logo" width={30} height={30} />
+                  <div>
+                    <p>NESST logo</p>
+                  </div>
+                  {isLiked ? (
+                    <Heart width={20} fill="#212121" />
+                  ) : (
+                    <Heart width={20} />
+                  )}
+                  <Image
+                    src={logoGrey}
+                    alt="nesst logo"
+                    width={40}
+                    height={40}
+                  />
                 </div>
                 <article>
                   <p className="font-medium border-b py-4">
@@ -419,24 +430,31 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         ))}
         <article className="px-2 py-4 text-lg font-bold">
           <h2>These people also liked this property...</h2>
-          <div className=" relative flex flex-wrap row-column bg-red-300">
-            {profilesWhoHaveLikedThisProperty?.map((profile) => (
-              <div
-                key={profile.profiles.id}
-                className="flex items-center py-4 pr-4"
-              >
-                <Link href={`/profile/${profile.profiles.username}`}>
-                  <div className="flex items-center  bg-blue-200">
-                    <AvatarProfile
-                      uid={profile.profiles.id}
-                      url={`/${profile.profiles.avatar_url}`}
-                      size={80}
-                    />
-                    <p className="pl-4">{profile.profiles.username}</p>
-                  </div>
-                </Link>
-              </div>
-            ))}
+          <div className="relative overflow-x-auto ">
+            <div className="flex items-center ">
+              {profilesWhoHaveLikedThisProperty?.map((profile) => (
+                <div
+                  key={profile.profiles.id}
+                  className="flex flex-col items-center py-4"
+                  style={{ minWidth: "140px" }}
+                >
+                  <Link href={`/profile/${profile.profiles.username}`}>
+                    <div className="px-4 ">
+                      <div className="flex items-center">
+                        <AvatarProfile
+                          uid={profile.profiles.id}
+                          url={`/${profile.profiles.avatar_url}`}
+                          size={80}
+                        />
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p>{profile.profiles.username}</p>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </article>
       </main>
