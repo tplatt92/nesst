@@ -133,8 +133,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         const { data, error } = await supabase
           .from("propertiesILiked")
           .select("*")
-          .eq("profiles_id", `${userId}`)
-          .eq("properties_id", `${propertyId}`);
+          .eq("profile_id", `${userId}`)
+          .eq("property_id", `${propertyId}`);
 
         if (error) {
           console.error("Error fetching properties:", error.message);
@@ -157,7 +157,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       try {
         const { data, error } = await supabase
           .from("propertiesILiked")
-          .select(`profile (id, username, avatar_url)`)
+          .select(`profiles (id, username, avatar_url)`)
           .eq("property_id", `${propertyId}`);
 
         if (error) {
