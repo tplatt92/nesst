@@ -60,7 +60,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
     };
     console.log(session);
     fetchSession();
-  }, []);
+  }, []); // eslint-disable-line
 
   // fetch data
   useEffect(() => {
@@ -88,7 +88,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
     };
 
     fetchData();
-  }, [session]);
+  }, [session]); // eslint-disable-line
 
   // fetch connections
 
@@ -116,7 +116,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
     };
 
     fetchConnections();
-  }, [profile]);
+  }, [profile]); // eslint-disable-line
 
   return (
     <>
