@@ -182,7 +182,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   return (
     <>
       <div className="px-4 pt-4 pb-32">
-        <ExploreNav setProperties={setProperties} />
         <div className="flex justify-between">
           <Link href="/explore">
             <div className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg">
