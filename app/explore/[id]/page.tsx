@@ -8,6 +8,8 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
 import Carousel from "../../components/CardCarousell";
 import { Session } from "@supabase/auth-helpers-nextjs";
+import Image from "next/image"; 
+import AvatarProfile from "@/app/components/AvatarProfile";
 import {
   Card,
   CardContent,
@@ -35,6 +37,7 @@ import {
 } from "lucide-react";
 
 import CalendarWidget from "@/app/components/Calendar";
+import { set } from "date-fns";
 
 type PropertyIdProps = {
   params: any;
@@ -43,6 +46,7 @@ type PropertyIdProps = {
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const supabase = createClientComponentClient<Database>();
   const [session, setSession] = useState<Session | null>(null);
+  const [profilesWhoHaveLikedThisProperty, setProfilesWhoHaveLikedThisProperty] = useState<null | any[]>(null);
   const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
@@ -131,6 +135,37 @@ useEffect(() => {
   checkIfLiked();
 }, [propertyId, userId]); // eslint-disable-line
 
+// fetch who has liked a property info
+useEffect(() => {
+  const fetchWhoLiked = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("propertiesILiked")
+        .select(`profiles (id, username, avatar_url)`)
+        .eq("properties_id", `${propertyId}`);
+
+      if (error) {
+        console.error("Error fetching properties:", error.message);
+      } else if (data) {
+        console.log(data)
+        setProfilesWhoHaveLikedThisProperty(data)
+        
+      }
+      // } else {
+      //     console.log("Row fetched successfully:", data);
+      //    setProfilesWhoHaveLikedThisProperty(data);
+      //    console.log(profilesWhoHaveLikedThisProperty)
+      // }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+  fetchWhoLiked();
+}, [propertyId]); // eslint-disable-line
+
+// useEffect(() => {
+//   console.log("Updated profilesWhoHaveLikedThisProperty:", profilesWhoHaveLikedThisProperty);
+// }, [profilesWhoHaveLikedThisProperty]);
 
 
   // add property to propertiesILiked
@@ -341,6 +376,20 @@ useEffect(() => {
         ))}
         <article className="px-2 py-4 text-lg font-bold">
           <h2>These people also liked this property...</h2>
+          <div>
+            {profilesWhoHaveLikedThisProperty?.map((profile) => (
+              <div
+                key={profile.profiles.id}
+                className="flex items-center justify-between py-4"
+              >
+                <div className="flex items-center">
+                <AvatarProfile uid={profile.profiles.id} url={`/${profile.profiles.avatar_url}`} size={80} />
+
+                  <p className="pl-4">{profile.profiles.username}</p>
+                </div>               
+              </div>
+            ))}
+          </div>
         </article>
       </main>
       {isMobile && <Footer pathnameUrl={pathname} />}
