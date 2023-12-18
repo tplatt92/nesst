@@ -10,6 +10,7 @@ import { Database } from "@/types/supabase";
 import React from "react";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/auth-helpers-nextjs";
+import LikedPropertiesItem from "../components/LikedPropertiesItem";
 
 interface PropertyData {
   id: string;
@@ -17,7 +18,7 @@ interface PropertyData {
   description: string | null;
   image: string[] | null;
 }
-const userId = "8d707790-820f-4ec5-b00d-111e9673995f";
+
 
 export default function Favourites() {
   const supabase = createClientComponentClient<Database>();
@@ -118,6 +119,15 @@ export default function Favourites() {
     <>
       <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-2">
         <ExploreNav setProperties={setProperties} />
+        {likedProperties?.map((property) => (
+          <LikedPropertiesItem
+            key={property.id}
+            id={property.id}
+            name={property.name}
+            description={property.description}
+            image={property.image}
+          />
+        ))}
         {isMobile && <Footer pathnameUrl={pathname} />}
       </main>
     </>
