@@ -9,6 +9,7 @@ import { Database } from "@/types/supabase";
 import Carousel from "../../components/CardCarousell";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
+import logoGrey from "public/logos/logoGrey.png";
 import AvatarProfile from "@/app/components/AvatarProfile";
 import {
   Card,
@@ -248,16 +249,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
               </svg>
             </div>
           </Link>
-          <div
-            className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg "
-            onClick={handleClick}
-          >
-            {isLiked ? (
-              <Heart width={20} fill="#212121" />
-            ) : (
-              <Heart width={20} />
-            )}
-          </div>
+          
         </div>
         {properties?.map((property) => (
           <Card key={property.id}>
@@ -310,8 +302,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                             ‘Book Property’ - Book out the entire property!
                             Heart - Add this property to your favourites! Nesst
                             - Add this property to Your Nessts! When the number
-                            of interested Nomads aligns with available beds,
-                            we'll reach out to lock in your booking and confirm
+                            of interested Nomads aligns with available beds, we
+                            will reach out to lock in your booking and confirm
                             payment details. Whichever way, get ready for an
                             awesome stay!
                           </AlertDialogDescription>
@@ -335,6 +327,20 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       Reserve Bed
                     </button>
                   </div>
+                </div>
+                <div>
+                  <div
+                    className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg "
+                    onClick={handleClick}
+                  >
+                    {isLiked ? (
+                      <Heart width={20} fill="#212121" />
+                    ) : (
+                      <Heart width={20} />
+                    )}
+                  </div>
+                  <div><p>NESST logo</p></div>
+                  <Image src={logoGrey} alt="nesst logo" width={30} height={30} />
                 </div>
                 <article>
                   <p className="font-medium border-b py-4">
