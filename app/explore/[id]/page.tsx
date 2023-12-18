@@ -33,8 +33,21 @@ import {
   Fan,
   Tv,
   Bed,
-  Bath,
+  Bath, Info
 } from "lucide-react";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 import CalendarWidget from "@/app/components/Calendar";
 import { set } from "date-fns";
@@ -286,6 +299,27 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     <CalendarWidget />
                   </div>
                   <div className="flex gap-2 sm:gap-12 md:gap-20 lg:gap-36">
+                  <AlertDialog>
+  <AlertDialogTrigger><Info/></AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Information</AlertDialogTitle>
+      <AlertDialogDescription>
+      ‘Book Property’ - Book out the entire property!
+
+Heart - Add this property to your favourites! 
+
+Nesst - Add this property to Your Nessts! When the number of interested Nomads aligns with available beds, we'll reach out to lock in your booking and confirm payment details. 
+
+Whichever way, get ready for an awesome stay!
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Close</AlertDialogCancel>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+
                     <button
                       type="submit"
                       className="bg-nesstYellow text-black font-bold px-2 py-2 rounded-lg font-2"
