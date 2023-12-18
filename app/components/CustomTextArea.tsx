@@ -12,7 +12,7 @@ const CustomTextarea: React.FC<TextareaElementProps> = ({
     placeholder={placeholder}
     value={value}
     onChange={onChange}
-    className="w-full p-2 pl-4 border border-white rounded-full mt-2 bg-black placeholder-white"
+    className="w-full p-2 pl-4 h-32 border border-white rounded-xl scroll-y-0 mt-2 bg-black placeholder-white"
   />
 );
 

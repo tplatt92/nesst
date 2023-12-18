@@ -33,6 +33,13 @@ export default function CreateAccountForm({
       drinker: formData.drinker,
       smoker: formData.smoker,
       avatar_url: formData.avatar_url,
+      occupation: formData.occupation,
+      languages: formData.languages,
+      personality_type: formData.personality_type,
+      star_sign: formData.star_sign,
+      location: formData.location,
+      nationality: formData.nationality,
+      hobbies: formData.hobbies,
     }));
   }, []); // eslint-disable-line
 
@@ -194,6 +201,18 @@ export default function CreateAccountForm({
               drinker: formData.drinker,
               smoker: formData.smoker,
               avatar_url: formData.avatar_url,
+              occupation: formData.occupation,
+              languages: formData.languages,
+              personality_type: formData.personality_type,
+              star_sign: formData.star_sign,
+              location: formData.location,
+              nationality: formData.nationality,
+              hobbies: formData.hobbies,
+              map(
+                arg0: (profile: any) => import("react").JSX.Element
+              ): unknown {
+                throw new Error("Method not implemented.");
+              },
             })
           }
           disabled={loading}

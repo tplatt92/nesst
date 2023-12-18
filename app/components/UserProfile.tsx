@@ -150,6 +150,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 </div>
               </div>
             </div>
+            {/* get to know me */}
             <div>
               <div className="flex flex-1 flex-col mt-4 py-4  bg-white rounded-lg shadow-lg  md:mt-48 lg:mt-0 px-4 max-w-5xl ">
                 <h3 className="pb-2 text-[#bfbfbf] font-semibold">

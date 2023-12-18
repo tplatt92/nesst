@@ -14,6 +14,16 @@ import Footer from "@/app/components/Footer";
 import AvatarProfile from "@/app/components/AvatarProfile";
 import UserConnections from "../../components/UserConnections";
 import supabase from "../../config/SuperbaseClient";
+import Image from "next/image";
+import {
+  Briefcase,
+  MapPin,
+  Bike,
+  Map,
+  Globe2,
+  User,
+  Sparkles,
+} from "lucide-react";
 
 type ProfileIdProps = {
   params: any | null;
@@ -60,9 +70,9 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     };
 
     fetchSession();
-  }, []);
+  }, []); // eslint-disable-line
 
-  // fetch data
+  // fetch profile data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -88,7 +98,9 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     };
 
     fetchData();
-  }, [user]);
+  }, [user]); // eslint-disable-line
+
+  console.log(profile);
 
   // fetch connections
 
@@ -116,7 +128,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     };
 
     fetchConnections();
-  }, [profile]);
+  }, [profile]); // eslint-disable-line
 
   return (
     <>
@@ -125,51 +137,129 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
           key={profile.id}
           className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 "
         >
-          <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen">
-            <div className="pb-4">
-              <AvatarProfile
-                uid={profile.id}
-                url={`/${profile.avatar_url}`}
-                size={150}
-              />
-            </div>
-
-            <h1 className="text-white text-4xl py-4">
-              {profile.first_name} {profile.last_name}
-            </h1>
-
-            <h2 className="text-2xl text-white">{profile.username}</h2>
-            <div className="pt-4 flex">
-              {renderSocialLink(
-                "/messages",
-                "/logos/instagramCircle.png",
-                "Instagram Logo"
-              )}
-              <Link href="/messages">
-                <ChatBubbleLeftEllipsisIcon className="h-10 text-[#d9a66d] px-8" />
-              </Link>
-              {renderSocialLink(
-                "/messages",
-                "/logos/linkedinCircle.png",
-                "LinkedIn Logo"
-              )}
-            </div>
-
-            <div className="bg-[#d9a66d] w-11/12 rounded-lg absolute  top-[87%] -bottom-[17%] px-4 text-white overflow-y-scroll">
-              <div className=" flex flex-row justify-between">
-                <h3 className="py-2 font-semibold">About Me</h3>
-                <h3 className="py-2 font-semibold">{profile.age} y/o</h3>
+          <div className=" flex flex-col items-center h-screen relative  bg-gray-100 lg:mt-12 lg:mb-32">
+            {/* profile header */}
+            <div className="relative">
+              <div className="flex flex-col items-center lg:flex-row py-20 shadow-lg lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
+                <div className="pb-4 lg:pb-0 lg:pl-24">
+                  <AvatarProfile
+                    uid={profile.id}
+                    url={`/${profile.avatar_url}`}
+                    size={150}
+                  />
+                </div>
+                <div>
+                  <h1 className="text-white text-4xl py-4 lg:pt-0">
+                    {profile.first_name} {profile.last_name}
+                  </h1>
+                  {/* social links */}
+                  <h2 className="text-2xl text-center lg:text-left pb-4 text-white">
+                    {profile.username}
+                  </h2>
+                  <p className="text-md text-center lg:text-left text-white">
+                    {profile.Location}
+                  </p>
+                  <div className="pt-4 flex" aria-label="Social icons list">
+                    {renderSocialLink(
+                      "/messages",
+                      "/logos/instagramCircle.png",
+                      "Instagram Logo"
+                    )}
+                    <Link href="/messages">
+                      <ChatBubbleLeftEllipsisIcon className="h-10 text-white px-8" />
+                    </Link>
+                    {renderSocialLink(
+                      "/messages",
+                      "/logos/linkedinCircle.png",
+                      "LinkedIn Logo"
+                    )}
+                  </div>
+                </div>
               </div>
-              <p className="pb-2">{profile.bio}</p>
+              {/* bio */}
+              <div className="w-full flex flex-col items-center my-4 shadow-lg">
+                <div className="bg-nesstDarkGrey w-11/12 lg:w-full max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
+                  <div className=" flex flex-row justify-between">
+                    <h3 className="py-2 font-semibold">About Me</h3>
+                    <h3 className="py-2 font-semibold">{profile.age} y/o</h3>
+                  </div>
+                  <p className="pb-2">{profile.bio}</p>
+                </div>
+              </div>
+            </div>
+            {/* connections */}
+            <div className="w-full mb-80 gap-4 px-5 lg:px-0 md:flex">
+              <div className="flex-1 bg-white rounded-lg shadow-lg mt-28 md:mt-48 lg:mt-0 px-4 py-4 max-w-5xl ">
+                <h3 className="pb-2 text-[#bfbfbf] font-semibold">
+                  Connections
+                </h3>
+                <div className="md:flex md:gap-8">
+                  <div className="flex flex-1 flex-col justify-evenly py-1 ">
+                    <UserConnections connections={connections} />
+                  </div>
+                </div>
+              </div>
+              {/* get to know me */}
+              <div>
+                <div className="flex flex-1 flex-col mt-4 py-4  bg-white rounded-lg shadow-lg  md:mt-48 lg:mt-0 px-4 max-w-5xl ">
+                  <h3 className="pb-2 text-[#bfbfbf] font-semibold">
+                    Get to know me
+                  </h3>
+
+                  {profile.Nationality && (
+                    <div className="py-2 flex gap-2">
+                      <Map /> <p>{profile.Nationality}</p>
+                    </div>
+                  )}
+
+                  {profile.personality_type && (
+                    <div className="py-2 flex gap-2">
+                      <User /> <p>{profile.personality_type}</p>
+                    </div>
+                  )}
+                  {profile.occupation && (
+                    <div className="py-2 flex gap-2">
+                      <Briefcase /> <p>{profile.occupation}</p>
+                    </div>
+                  )}
+                  {profile.languages && (
+                    <div className="py-2 flex gap-2">
+                      <Globe2 /> <p>{profile.languages}</p>
+                    </div>
+                  )}
+                  {profile.star_sign && (
+                    <div className="py-2 flex gap-2">
+                      <Sparkles /> <p>{profile.star_sign}</p>
+                    </div>
+                  )}
+                  {profile.Hobbies && (
+                    <div className="py-2 flex gap-2">
+                      <Bike /> <p>{profile.Hobbies.join(", ")}</p>
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col mt-4 mb-32 md:mb-0 py-4 bg-white rounded-lg shadow-lg px-4 max-w-5xl ">
+                  <h3 className="pb-2 text-[#bfbfbf] font-semibold">
+                    Current Nest
+                  </h3>
+                  <div className="flex gap-4">
+                    <Image
+                      src="/imagesTest/photo2.webp"
+                      alt="profileNest"
+                      width={80}
+                      height={100}
+                      className="rounded-r-full object-cover rounded-b-full border-4 border-gray-300"
+                    />
+                    <div>
+                      <p className="font-bold">Spacious Town House</p>
+                      <p>London</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="w-11/12 bg-white rounded-lg mt-24 px-4 ">
-            <h3 className="py-2 text-[#bfbfbf] font-semibold">Connections</h3>
-            <div className="flex justify-evenly py-2">
-              <UserConnections connections={connections} />
-            </div>
-          </div>
           <Footer pathnameUrl={pathname} />
         </div>
       ))}

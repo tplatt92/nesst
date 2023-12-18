@@ -33,6 +33,13 @@ export default function EditAccountForm({
       drinker: formData.drinker,
       smoker: formData.smoker,
       avatar_url: formData.avatar_url,
+      occupation: formData.occupation,
+      languages: formData.languages,
+      personality_type: formData.personality_type,
+      star_sign: formData.star_sign,
+      location: formData.location,
+      nationality: formData.nationality,
+      hobbies: formData.hobbies,
     }));
   }, []); // eslint-disable-line
 
@@ -105,6 +112,7 @@ export default function EditAccountForm({
           }
         />
       </div>
+
       <div className="w-5/6 pb-4">
         <label htmlFor="username">Username</label>
         <CustomInput
@@ -170,6 +178,113 @@ export default function EditAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="nationality">Nationality</label>
+        <CustomInput
+          id="nationality"
+          placeholder="Nationality"
+          type="text"
+          value={formData.nationality || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              Nationality: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="occupation">Occupation</label>
+        <CustomInput
+          id="occupation"
+          placeholder="Occupation"
+          type="text"
+          value={formData.occupation || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              occupation: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="hobbies">Hobbies</label>
+        <CustomInput
+          id="hobbies"
+          placeholder="Hobbies"
+          type="text"
+          value={formData.hobbies?.join(", ") || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              hobbies: e.target.value.split(", "),
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="location">Location</label>
+        <CustomInput
+          id="Location"
+          placeholder="Location"
+          type="text"
+          value={formData.location || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              Location: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="languages">Languages</label>
+        <CustomInput
+          id="languages"
+          placeholder="Languages"
+          type="text"
+          value={formData.languages?.join(", ") || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              languages: e.target.value.split(", "),
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="personality type">
+          Personality Type (Myers-Briggs)
+        </label>
+        <CustomInput
+          id="personality_type"
+          placeholder="Personality Type"
+          type="text"
+          value={formData.personality_type || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              personality_type: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="star_sign">Star Sign</label>
+        <CustomInput
+          id="star_sign"
+          placeholder="Star Sign"
+          type="text"
+          value={formData.star_sign || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              star_sign: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
         <button
           className="bg-[#d9a66d] w-full py-2 rounded-full "
           onClick={() =>
@@ -182,6 +297,18 @@ export default function EditAccountForm({
               drinker: formData.drinker,
               smoker: formData.smoker,
               avatar_url: formData.avatar_url,
+              occupation: formData.occupation,
+              languages: formData.languages,
+              personality_type: formData.personality_type,
+              star_sign: formData.star_sign,
+              location: formData.location,
+              nationality: formData.nationality,
+              hobbies: formData.hobbies,
+              map(
+                arg0: (profile: any) => import("react").JSX.Element
+              ): unknown {
+                throw new Error("Method not implemented.");
+              },
             })
           }
           disabled={loading}
