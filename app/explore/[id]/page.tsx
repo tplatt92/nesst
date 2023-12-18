@@ -61,32 +61,32 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     console.log(id);
   };
 
-  const removeProfileFromLikedColumn = async () => {
-    const { data, error } = await supabase
-      .from("properties")
-      .select("*")
-      .eq("id", id);
-    const array = data[0].who_has_liked;
-    console.log(array);
-    const index = array.indexOf("ioana");
-    array.splice(index, 1);
-    console.log(array);
-    try {
-      await supabase
-        .from("properties")
-        .update({ who_has_liked: array })
-        .eq("id", id);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+  // const removeProfileFromLikedColumn = async () => {
+  //   const { data, error } = await supabase
+  //     .from("properties")
+  //     .select("*")
+  //     .eq("id", id);
+  //   const array = {data[0].who_has_liked? ?? null};
+  //   console.log(array);
+  //   const index = array.indexOf("ioana");
+  //   array.splice(index, 1);
+  //   console.log(array);
+  //   try {
+  //     await supabase
+  //       .from("properties")
+  //       .update({ who_has_liked: array })
+  //       .eq("id", id);
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+  // };
 
   function handleClick() {
-    if (!isLiked) {
-      addToLikedColumn();
-    } else {
-      removeProfileFromLikedColumn();
-    }
+    // if (!isLiked) {
+    //   addToLikedColumn();
+    // } else {
+    //   removeProfileFromLikedColumn();
+    // }
     setIsLiked((prev) => !prev);
   }
 
