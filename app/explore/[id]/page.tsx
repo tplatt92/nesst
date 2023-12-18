@@ -106,6 +106,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     fetchProperties();
   }, [propertyId]); // eslint-disable-line
 
+  // add property to propertiesILiked
+
   const addToLikedColumn = async () => {
     try {
       const { data, error } = await supabase
@@ -121,6 +123,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       console.error("An unexpected error occurred:", error);
     }
   };
+
+  // remove property from propertiesILiked
 
   const removeProfileFromLikedColumn = async () => {
     try {
@@ -139,6 +143,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       console.error("An unexpected error occurred:", error);
     }
   };
+
+  // handles liking and disliking on button click
 
   function handleClick() {
     if (!isLiked) {
