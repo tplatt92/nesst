@@ -74,7 +74,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
   return (
     <>
       <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-100 pb-96 ">
-        <div className=" flex flex-col items-center h-screen relative  bg-gray-100 lg:mt-12">
+        <div className=" flex flex-col items-center h-screen relative  lg:mt-12">
           <div className="absolute right-8 md:right-20 lg:right-10 top-8 lg:top-4 z-50 w-6">
             <Link href="/profile/edit">
               <svg
@@ -175,7 +175,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 )}
                 {formData.languages && (
                   <div className="py-2 flex gap-2">
-                    <Globe2 /> <p>{formData.languages}</p>
+                    <Globe2 /> <p>{formData.languages.join(", ")}</p>
                   </div>
                 )}
                 {formData.star_sign && (

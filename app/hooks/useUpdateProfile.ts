@@ -36,9 +36,9 @@ export function useUpdateProfile(session: Session | null): ProfileUpdater {
         languages: data.languages,
         personality_type: data.personality_type,
         star_sign: data.star_sign,
-        location: data.location,
-        nationality: data.nationality,
-        hobbies: data.hobbies,
+        Location: data.location,
+        Nationality: data.nationality,
+        Hobbies: data.hobbies,
         map(arg0: (profile: any) => import("react").JSX.Element): unknown {
           throw new Error("Method not implemented.");
         },

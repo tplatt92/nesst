@@ -137,7 +137,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
           key={profile.id}
           className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 "
         >
-          <div className=" flex flex-col items-center h-screen relative  bg-gray-100 lg:mt-12 lg:mb-32">
+          <div className=" flex flex-col items-center h-screen relative lg:mt-12 lg:mb-32">
             {/* profile header */}
             <div className="relative">
               <div className="flex flex-col items-center lg:flex-row py-20 shadow-lg lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
@@ -224,7 +224,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
                   )}
                   {profile.languages && (
                     <div className="py-2 flex gap-2">
-                      <Globe2 /> <p>{profile.languages}</p>
+                      <Globe2 /> <p>{profile.languages.join(", ")}</p>
                     </div>
                   )}
                   {profile.star_sign && (
