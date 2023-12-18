@@ -31,7 +31,7 @@ export async function fetchLikedProperties(
     }
     const propertiesIds =
       propertiesData?.map((entry) => entry.property_id) || [];
-    console.log(propertiesIds);
+
     // Fetch properties data from properties table (2,4,7)
     const { data: propertyData, error: propertyError } = await supabase
       .from("properties")
@@ -44,7 +44,7 @@ export async function fetchLikedProperties(
     }
 
     // Return the fetched data
-    console.log(propertyData);
+
     return propertyData as PropertyData[];
   } catch (error) {
     console.error(error);

@@ -50,7 +50,6 @@ const Messages: React.FC<ProfileIdProps> = () => {
           return;
         }
         if (data) {
-          console.log(session?.user ?? null);
           setSession(data?.session ?? null);
         } else {
           setSession(null);
@@ -59,7 +58,6 @@ const Messages: React.FC<ProfileIdProps> = () => {
         console.error("An unexpected error occurred:", error);
       }
     };
-    console.log(session);
     fetchSession();
   }, []); // eslint-disable-line
 
@@ -67,6 +65,10 @@ const Messages: React.FC<ProfileIdProps> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // check to see if session is undefined
+        if (!session || !session.user || !session.user.id) {
+          return;
+        }
         const { data, error } = await supabase
           .from("profiles")
           .select("*")
@@ -97,19 +99,13 @@ const Messages: React.FC<ProfileIdProps> = () => {
     const fetchConnections = async () => {
       try {
         if (session) {
-          console.log("Session object:", session);
-
           const userId = profile && profile[0]?.id;
-          console.log(userId);
-
           if (userId) {
             const data = await fetchConnectionsData(userId);
             setConnections(data);
           } else {
             console.error("User ID is undefined in the session");
           }
-        } else {
-          console.error("User session is undefined");
         }
       } catch (error) {
         console.error("An unexpected error occurred:", error);

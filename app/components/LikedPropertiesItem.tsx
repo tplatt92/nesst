@@ -28,6 +28,7 @@ const LikedPropertiesItem: React.FC<PropertyData> = ({
           height={240}
           alt="property image"
           className="lg:w-[240px] lg:h-[140px] sm:w-[80px] w-[120px] h-[80px] rounded-xl"
+          priority
         />
       </div>
       <div className="border-y flex-1 py-8 lg:py-14">

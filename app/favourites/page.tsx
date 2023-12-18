@@ -1,6 +1,4 @@
-// import NextJsCarousel from "../components/CardCarousell";
 "use client";
-import ExploreNav from "../components/ExploreNav";
 import Footer from "../components/Footer";
 import { useMediaQuery } from "react-responsive";
 import { usePathname } from "next/navigation";
@@ -32,8 +30,6 @@ export default function Favourites() {
   const [likedProperties, setLikedProperties] = useState<PropertyData[] | null>(
     null
   );
-  const [properties, setProperties] = useState<null | any[]>(null);
-
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching profile"
   );
@@ -48,7 +44,6 @@ export default function Favourites() {
           return;
         }
         if (data) {
-          console.log(session?.user ?? null);
           setSession(data?.session ?? null);
         } else {
           setSession(null);
@@ -57,7 +52,7 @@ export default function Favourites() {
         console.error("An unexpected error occurred:", error);
       }
     };
-    console.log(session);
+
     fetchSession();
   }, []); // eslint-disable-line
 
@@ -65,6 +60,10 @@ export default function Favourites() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // check to see if session is undefined
+        if (!session || !session.user || !session.user.id) {
+          return;
+        }
         const { data, error } = await supabase
           .from("profiles")
           .select("*")
@@ -94,19 +93,12 @@ export default function Favourites() {
     const fetchLiked = async () => {
       try {
         if (session) {
-          console.log("Session object:", session);
-
           const userId = profile && profile[0]?.id;
-          console.log(userId);
 
           if (userId) {
             const data = await fetchLikedProperties(userId);
             setLikedProperties(data);
-          } else {
-            console.error("User ID is undefined in the session");
           }
-        } else {
-          console.error("User session is undefined");
         }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
