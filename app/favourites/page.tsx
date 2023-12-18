@@ -11,6 +11,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import LikedPropertiesItem from "../components/LikedPropertiesItem";
+import Link from "next/link";
+import DesktopNav from "../components/DesktopNav";
 
 interface PropertyData {
   id: string;
@@ -116,19 +118,25 @@ export default function Favourites() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center p-4 lg:px-8 pb-2">
-        <ExploreNav setProperties={setProperties} />
-        {likedProperties?.map((property) => (
-          <LikedPropertiesItem
-            key={property.id}
-            id={property.id}
-            name={property.name}
-            description={property.description}
-            image={property.image}
-          />
-        ))}
-        {isMobile && <Footer pathnameUrl={pathname} />}
+      <DesktopNav />
+      <main className="px-4 pt-4 flex flex-col items-center">
+        <h1 className=" text-center text-2xl lg:text-3xl font-bold py-4 md:py-8 border-b">
+          Favourites
+        </h1>
+        <div className="flex min-h-screen flex-col items-between px-4 lg:px-8 pb-2 w-full max-w-5xl lg:gap-8">
+          {likedProperties?.map((property) => (
+            <Link key={property.id} href={`/explore/${property.id}`}>
+              <LikedPropertiesItem
+                id={property.id}
+                name={property.name}
+                description={property.description}
+                image={property.image}
+              />
+            </Link>
+          ))}
+        </div>
       </main>
+      {isMobile && <Footer pathnameUrl={pathname} />}
     </>
   );
 }

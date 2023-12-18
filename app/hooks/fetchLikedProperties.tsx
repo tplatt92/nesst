@@ -22,15 +22,15 @@ export async function fetchLikedProperties(
     //fetch liked properties data
     const { data: propertiesData, error: likedPropertiesError } = await supabase
       .from("propertiesILiked")
-      .select("properties_id")
-      .eq("profiles_id", userId);
+      .select("property_id")
+      .eq("profile_id", userId);
     // 2,4,7
     if (likedPropertiesError) {
       console.error(likedPropertiesError);
       return null;
     }
     const propertiesIds =
-      propertiesData?.map((entry) => entry.properties_id) || [];
+      propertiesData?.map((entry) => entry.property_id) || [];
     console.log(propertiesIds);
     // Fetch properties data from properties table (2,4,7)
     const { data: propertyData, error: propertyError } = await supabase

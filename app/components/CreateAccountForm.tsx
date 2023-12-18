@@ -48,7 +48,7 @@ export default function CreateAccountForm({
 
   return (
     <div
-      className="form-widget flex flex-col items-center justify-evenly h-screen overflow-x-hidden overflow-y-scroll bg-black text-white"
+      className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl gap-4 pb-24"
       data-testid="CreateAccForm-id"
     >
       <div className="flex mt-16">
@@ -156,7 +156,7 @@ export default function CreateAccountForm({
           }
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4 ">
         <CustomSelect
           id="drinker"
           value={formData.drinker || ""}
@@ -175,7 +175,7 @@ export default function CreateAccountForm({
           ]}
         />
       </div>
-      <div className="w-5/6 pb-8 flex justify-between items-center">
+      <div className="w-5/6 pb-4 flex justify-between items-center">
         <label htmlFor="smoker">Do you Smoke?</label>
         <Switch
           id="smoker"
@@ -184,6 +184,104 @@ export default function CreateAccountForm({
             setFormData((prevFormData) => ({
               ...prevFormData,
               smoker: !formData.smoker,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <CustomInput
+          id="nationality"
+          placeholder="Nationality"
+          type="text"
+          value={formData.nationality || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              nationality: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <CustomInput
+          id="occupation"
+          placeholder="Occupation"
+          type="text"
+          value={formData.occupation || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              occupation: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <CustomInput
+          id="hobbies"
+          placeholder="Hobbies"
+          type="text"
+          value={formData.hobbies?.join(", ") || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              hobbies: e.target.value.split(", "),
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <CustomInput
+          id="Location"
+          placeholder="Location"
+          type="text"
+          value={formData.location || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              location: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <CustomInput
+          id="languages"
+          placeholder="Languages"
+          type="text"
+          value={formData.languages?.join(", ") || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              languages: e.target.value.split(", "),
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <CustomInput
+          id="personality_type"
+          placeholder="Personality Type"
+          type="text"
+          value={formData.personality_type || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              personality_type: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <CustomInput
+          id="star_sign"
+          placeholder="Star Sign"
+          type="text"
+          value={formData.star_sign || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              star_sign: e.target.value,
             }))
           }
         />

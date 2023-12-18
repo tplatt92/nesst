@@ -18,15 +18,21 @@ const LikedPropertiesItem: React.FC<PropertyData> = ({
 }) => {
   //check if image is an array and if it has at least one element in it
   const url = Array.isArray(image) && image?.length > 0 ? `${image[0]}` : "";
-  console.log(url);
+
   return (
     <div className="flex items-center gap-4 ">
       <div>
-        <Image src={`/${url}`} width={80} height={80} alt="property image" />
+        <Image
+          src={`${url}`}
+          width={80}
+          height={80}
+          alt="property image"
+          className="lg:w-[240px]"
+        />
       </div>
-      <div className="border-y flex-1 py-8">
+      <div className="border-y flex-1 py-8 lg:py-14">
         <div className="flex justify-between items-center font-bold">
-          <p className="text-lg font-semibold">{name}</p>
+          <p className="text-lg lg:text-2xl font-semibold">{name}</p>
         </div>
         <p className="text-sm font-normal">{description}</p>
       </div>

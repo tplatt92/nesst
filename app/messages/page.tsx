@@ -10,6 +10,7 @@ import { Session } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import Footer from "@/app/components/Footer";
 import MessageContainerItem from "../components/MessageContainerItem";
+import DesktopNav from "../components/DesktopNav";
 
 type ProfileIdProps = {
   params: any | null;
@@ -120,19 +121,20 @@ const Messages: React.FC<ProfileIdProps> = () => {
 
   return (
     <>
+      <DesktopNav />
       <main className="px-4 pt-4">
         <h1 className=" text-center text-2xl font-bold py-4 md:py-8">
           Messages
         </h1>
         <div className="text-center flex justify-evenly font-bold border-b py-4">
           <button
-            onClick={() => setIsNomads((prev) => !prev)}
+            onClick={() => setIsNomads(true)}
             className={`${isNomads ? "text-black" : "text-nesstDarkGrey"}`}
           >
             Nomads
           </button>
           <button
-            onClick={() => setIsNomads((prev) => !prev)}
+            onClick={() => setIsNomads(false)}
             className={`${!isNomads ? "text-black" : "text-nesstDarkGrey"}`}
           >
             Nests

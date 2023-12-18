@@ -21,7 +21,7 @@ export default function DesktopNav() {
           <div className="flex items-center justify-center pl-2">
             <Image
               alt="NESST"
-              src="/logos/fullegg.png"
+              src="/logos/nesstLogoGrey.png"
               priority={true}
               width={40}
               height={40}
@@ -30,12 +30,14 @@ export default function DesktopNav() {
           <div className="flex gap-2 lg:gap-8 lg:pr-8 text-sm lg:text-md">
             <div
               className={`${
-                pathnameUrl === "/explore" ? "text-nesstYellow" : "text-black"
+                pathnameUrl === "/explore"
+                  ? "text-nesstDarkGrey"
+                  : "text-nesstLightGrey"
               } `}
             >
               <Link
                 href="/explore"
-                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer "
+                className="text-center hover:underline  hover:text-nesstDarkGrey cursor-pointer "
               >
                 <p className=" text-md">Explore</p>
               </Link>
@@ -43,37 +45,39 @@ export default function DesktopNav() {
             <div
               className={`${
                 pathnameUrl === "/favourites"
-                  ? "text-nesstYellow"
+                  ? "text-nestDarkGrey"
                   : "text-black"
               } `}
             >
               <Link
                 href="/favourites"
-                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+                className="text-center hover:underline  hover:text-nesstDarkGrey cursor-pointer"
               >
                 <p className=" text-md">Favourites</p>
               </Link>
             </div>
             <div
               className={`${
-                pathnameUrl === "/messages" ? "text-nesstYellow" : "text-black"
+                pathnameUrl === "/messages"
+                  ? "text-nesstDarkGrey"
+                  : "text-black"
               } `}
             >
               <Link
                 href="/messages"
-                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+                className="text-center hover:underline  hover:text-nestDarkGrey cursor-pointer"
               >
                 <p className=" text-md">Messages</p>
               </Link>
             </div>
             <div
               className={`${
-                pathnameUrl === "/profile" ? "text-nesstYellow" : "text-black"
+                pathnameUrl === "/profile" ? "text-nestDarkGrey" : "text-black"
               } `}
             >
               <Link
                 href="/profile"
-                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
+                className="text-center hover:underline  hover:text-nestDarkGrey cursor-pointer"
               >
                 <p className=" text-md">Profile</p>
               </Link>
