@@ -8,7 +8,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
 import Carousel from "../../components/CardCarousell";
 import { Session } from "@supabase/auth-helpers-nextjs";
-import Image from "next/image"; 
+import Image from "next/image";
 import AvatarProfile from "@/app/components/AvatarProfile";
 import {
   Card,
@@ -46,7 +46,10 @@ type PropertyIdProps = {
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const supabase = createClientComponentClient<Database>();
   const [session, setSession] = useState<Session | null>(null);
-  const [profilesWhoHaveLikedThisProperty, setProfilesWhoHaveLikedThisProperty] = useState<null | any[]>(null);
+  const [
+    profilesWhoHaveLikedThisProperty,
+    setProfilesWhoHaveLikedThisProperty,
+  ] = useState<null | any[]>(null);
   const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
@@ -110,63 +113,61 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     fetchProperties();
   }, [propertyId]); // eslint-disable-line
 
-//check if property has already been liked
-useEffect(() => {
-  const checkIfLiked = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("propertiesILiked")
-        .select("*")
-        .eq("profiles_id", `${userId}`)
-        .eq("properties_id", `${propertyId}`);
+  //check if property has already been liked
+  useEffect(() => {
+    const checkIfLiked = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("propertiesILiked")
+          .select("*")
+          .eq("profiles_id", `${userId}`)
+          .eq("properties_id", `${propertyId}`);
 
-      if (error) {
-        console.error("Error fetching properties:", error.message);
-      } else {
-        // console.log("Row fetched successfully:", data);
-        if (data.length > 0) {
-          setIsLiked(true);
+        if (error) {
+          console.error("Error fetching properties:", error.message);
+        } else {
+          // console.log("Row fetched successfully:", data);
+          if (data.length > 0) {
+            setIsLiked(true);
+          }
         }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
       }
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
-    }
-  };
-  checkIfLiked();
-}, [propertyId, userId]); // eslint-disable-line
+    };
+    checkIfLiked();
+  }, [propertyId, userId]); // eslint-disable-line
 
-// fetch who has liked a property info
-useEffect(() => {
-  const fetchWhoLiked = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("propertiesILiked")
-        .select(`profiles (id, username, avatar_url)`)
-        .eq("properties_id", `${propertyId}`);
+  // fetch who has liked a property info
+  useEffect(() => {
+    const fetchWhoLiked = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("propertiesILiked")
+          .select(`profiles (id, username, avatar_url)`)
+          .eq("properties_id", `${propertyId}`);
 
-      if (error) {
-        console.error("Error fetching properties:", error.message);
-      } else if (data) {
-        console.log(data)
-        setProfilesWhoHaveLikedThisProperty(data)
-        
+        if (error) {
+          console.error("Error fetching properties:", error.message);
+        } else if (data) {
+          console.log(data);
+          setProfilesWhoHaveLikedThisProperty(data);
+        }
+        // } else {
+        //     console.log("Row fetched successfully:", data);
+        //    setProfilesWhoHaveLikedThisProperty(data);
+        //    console.log(profilesWhoHaveLikedThisProperty)
+        // }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
       }
-      // } else {
-      //     console.log("Row fetched successfully:", data);
-      //    setProfilesWhoHaveLikedThisProperty(data);
-      //    console.log(profilesWhoHaveLikedThisProperty)
-      // }
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
-    }
-  };
-  fetchWhoLiked();
-}, [propertyId]); // eslint-disable-line
+    };
+    fetchWhoLiked();
+  }, [propertyId]); // eslint-disable-line
 
-// useEffect(() => {
-//   console.log("Updated profilesWhoHaveLikedThisProperty:", profilesWhoHaveLikedThisProperty);
-// }, [profilesWhoHaveLikedThisProperty]);
-
+  // useEffect(() => {
+  //   console.log("Updated profilesWhoHaveLikedThisProperty:", profilesWhoHaveLikedThisProperty);
+  // }, [profilesWhoHaveLikedThisProperty]);
 
   // add property to propertiesILiked
 
@@ -382,11 +383,17 @@ useEffect(() => {
                 key={profile.profiles.id}
                 className="flex items-center justify-between py-4"
               >
-                <div className="flex items-center">
-                <AvatarProfile uid={profile.profiles.id} url={`/${profile.profiles.avatar_url}`} size={80} />
+                <Link href={`/profile/${profile.profiles.username}`}>
+                  <div className="flex items-center">
+                    <AvatarProfile
+                      uid={profile.profiles.id}
+                      url={`/${profile.profiles.avatar_url}`}
+                      size={80}
+                    />
 
-                  <p className="pl-4">{profile.profiles.username}</p>
-                </div>               
+                    <p className="pl-4">{profile.profiles.username}</p>
+                  </div>
+                </Link>
               </div>
             ))}
           </div>
