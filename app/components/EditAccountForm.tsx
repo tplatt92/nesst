@@ -187,7 +187,7 @@ export default function EditAccountForm({
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              Nationality: e.target.value,
+              nationality: e.target.value,
             }))
           }
         />
@@ -232,7 +232,7 @@ export default function EditAccountForm({
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              Location: e.target.value,
+              location: e.target.value,
             }))
           }
         />
