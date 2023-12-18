@@ -18,10 +18,6 @@ const images = [
 
 const userId = "8d707790-820f-4ec5-b00d-111e9673995f";
 
-fetchConnectionsData(userId).then((result) => {
-  console.log("Fetched connections data:", result);
-});
-
 export default function Favourites() {
   const pathname = usePathname();
   const isMobile = useMediaQuery({
