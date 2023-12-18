@@ -39,7 +39,6 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
   const user = params.user;
   const userId = session?.user;
   const supabase = createClientComponentClient<Database>();
-  console.log(pathname);
 
   useEffect(() => {
     const fetchProfile = async () => {

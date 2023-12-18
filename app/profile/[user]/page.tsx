@@ -100,18 +100,13 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     fetchData();
   }, [user]); // eslint-disable-line
 
-  console.log(profile);
-
   // fetch connections
 
   useEffect(() => {
     const fetchConnections = async () => {
       try {
         if (session) {
-          console.log("Session object:", session);
-
           const userId = profile && profile[0]?.id;
-          console.log(userId);
 
           if (userId) {
             const data = await fetchConnectionsData(userId);
