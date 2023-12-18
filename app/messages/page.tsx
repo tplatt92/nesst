@@ -34,7 +34,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
   const router = useRouter();
   const [connections, setConnections] = useState<ConnectionData[] | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(
-    "error fetching properties"
+    "error fetching profile"
   );
   const [profile, setProfile] = useState<null | any[]>(null);
   const [isNomads, setIsNomads] = useState<boolean>(true);
