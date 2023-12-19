@@ -11,6 +11,7 @@ import Link from "next/link";
 import Footer from "@/app/components/Footer";
 import MessageContainerItem from "../components/MessageContainerItem";
 import DesktopNav from "../components/DesktopNav";
+import { fetchNesstsData } from "../hooks/fetchNessts";
 
 type ProfileIdProps = {
   params: any | null;
@@ -39,6 +40,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
   );
   const [profile, setProfile] = useState<null | any[]>(null);
   const [isNomads, setIsNomads] = useState<boolean>(true);
+  const [nesst, setNesst] = useState<ConnectionData[] | null>(null);
 
   // get session
   useEffect(() => {
@@ -115,6 +117,25 @@ const Messages: React.FC<ProfileIdProps> = () => {
     fetchConnections();
   }, [profile]); // eslint-disable-line
 
+  useEffect(() => {
+    const fetchNessts = async () => {
+      try {
+        if (session) {
+          const userId = profile && profile[0]?.id;
+          if (userId) {
+            const data = await fetchNesstsData(userId);
+            setNesst(data);
+          } else {
+            console.error("User ID is undefined in the session");
+          }
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+
+    fetchNessts();
+  }, [profile]); // eslint-disable-line
   return (
     <>
       <header className="hidden md:block p-0">
@@ -143,21 +164,29 @@ const Messages: React.FC<ProfileIdProps> = () => {
           </button>
         </div>
 
-        {isNomads ? (
-          connections?.map((connection) => (
-            <Link key={connection.id} href={`/messages/${connection.id}`}>
-              <MessageContainerItem
-                id={connection.id}
-                first_name={connection.first_name}
-                last_name={connection.last_name}
-                avatar_url={connection.avatar_url}
-                username={connection.username}
-              />
-            </Link>
-          ))
-        ) : (
-          <h1>This</h1>
-        )}
+        {isNomads
+          ? connections?.map((connection) => (
+              <Link key={connection.id} href={`/messages/${connection.id}`}>
+                <MessageContainerItem
+                  id={connection.id}
+                  first_name={connection.first_name}
+                  last_name={connection.last_name}
+                  avatar_url={connection.avatar_url}
+                  username={connection.username}
+                />
+              </Link>
+            ))
+          : nesst?.map((nesst) => (
+              <Link key={nesst.id} href={`/messages/${nesst.id}`}>
+                <MessageContainerItem
+                  id={nesst.id}
+                  first_name={nesst.first_name}
+                  last_name={nesst.last_name}
+                  avatar_url={nesst.avatar_url}
+                  username={nesst.username}
+                />
+              </Link>
+            ))}
       </main>
       <nav className="md:hidden">
         <Footer pathnameUrl={pathname} />
