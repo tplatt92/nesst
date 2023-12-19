@@ -331,8 +331,13 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         {properties?.map((property) => (
           <Card key={property.id}>
             <CardHeader className="relative">
-              <div className="align-middle mx-auto">
+              <div className="align-middle mx-auto md:hidden">
                 <Carousel images={property.image} />
+              </div>
+              <div className="hidden md:visible">
+                {property.image.map((property) => (
+                  <div key={property} >
+                
               </div>
             </CardHeader>
             <CardContent>
@@ -399,7 +404,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     </button>
                   </div>
                 </div>
-                <div className="flex flex-row w-screen h-auto justify-evenly items-center border-b py-4 ">
+                <div className="flex flex-row w-auto h-auto justify-evenly items-center border-b py-4 ">
                   <div
                     className="flex flex-col items-center justify-center"
                     onClick={handleClickLike}
