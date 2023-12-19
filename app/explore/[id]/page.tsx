@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import logoGreyEmpty from "public/logos/logoGreyEmpty.png";
 import { useEffect, useState } from "react";
 import ExploreNav from "../../components/ExploreNav";
 import Footer from "@/app/components/Footer";
@@ -64,12 +65,14 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     profilesWhoHaveLikedThisProperty,
     setProfilesWhoHaveLikedThisProperty,
   ] = useState<null | any[]>(null);
+  const [inNesst, setInNesst] = useState<null | any[]>(null);
   const [availability, setAvailability] = useState<null | any[]>(null);
   const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
   const [isLiked, setIsLiked] = useState(false);
+  const [isNessted, setIsNessted] = useState(false);
 
   const pathname = usePathname();
   const propertyId = params.id;
@@ -138,9 +141,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           .eq("property_id", `${propertyId}`);
 
         if (error) {
-          console.error("Error fetching properties:", error.message);
+          console.error("Error fetching liked properties:", error.message);
         } else {
-          // console.log("Row fetched successfully:", data);
           if (data.length > 0) {
             setIsLiked(true);
           }
@@ -150,6 +152,30 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfLiked();
+  }, [propertyId, userId]); // eslint-disable-line
+
+  //check if property has already been nessted
+  useEffect(() => {
+    const checkIfNessted = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("nessts")
+          .select("*")
+          .eq("profile_id", `${userId}`)
+          .eq("property_id", `${propertyId}`);
+
+        if (error) {
+          console.error("Error fetching nessted properties:", error.message);
+        } else {
+          if (data.length > 0) {
+            setIsNessted(true);
+          }
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    checkIfNessted();
   }, [propertyId, userId]); // eslint-disable-line
 
   // fetch who has liked a property info
@@ -167,11 +193,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           console.log(data);
           setProfilesWhoHaveLikedThisProperty(data);
         }
-        // } else {
-        //     console.log("Row fetched successfully:", data);
-        //    setProfilesWhoHaveLikedThisProperty(data);
-        //    console.log(profilesWhoHaveLikedThisProperty)
-        // }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
       }
@@ -179,11 +200,27 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     fetchWhoLiked();
   }, [propertyId]); // eslint-disable-line
 
-  // useEffect(() => {
-  //   console.log("Updated profilesWhoHaveLikedThisProperty:", profilesWhoHaveLikedThisProperty);
-  // }, [profilesWhoHaveLikedThisProperty]);
+  // fetch who is in a nesst
+  useEffect(() => {
+    const fetchInNesstData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("nessts")
+          .select(`profiles (id, username, avatar_url)`)
+          .eq("property_id", `${propertyId}`);
 
-  // add property to propertiesILiked
+        if (error) {
+          console.error("Error fetching nessts properties:", error.message);
+        } else if (data) {
+          console.log(data);
+          setInNesst(data);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchInNesstData();
+  }, [propertyId]); // eslint-disable-line
 
   const addToLikedColumn = async () => {
     try {
@@ -198,6 +235,23 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
+    }
+  };
+
+  //add a user to the nessts table
+  const addToNesstsTable = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("nessts")
+        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
+
+      if (error) {
+        console.error("Error adding to nessts table:", error.message);
+      } else {
+        console.log("Row added to nessts successfully:", data);
+      }
+    } catch (error) {
+      console.error("An unexpected error with nessts table occurred:", error);
     }
   };
 
@@ -221,15 +275,49 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     }
   };
 
+  //removing a user from the nessts table
+
+  const removeProfileFromNesstsTable = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("nessts")
+        .delete()
+        .eq("profile_id", `${userId}`)
+        .eq("property_id", `${propertyId}`);
+
+      if (error) {
+        console.error("Error removing from nessts table:", error.message);
+      } else {
+        console.log("Row deleted from nessts table successfully:", data);
+      }
+    } catch (error) {
+      console.error(
+        "An unexpected error removing from nessts table occurred:",
+        error
+      );
+    }
+  };
+
   // handles liking and disliking on button click
 
-  function handleClick() {
+  function handleClickLike() {
     if (!isLiked) {
       addToLikedColumn();
     } else {
       removeProfileFromLikedColumn();
     }
     setIsLiked((prev) => !prev);
+  }
+
+  // handles nessting and unnesting on button click
+
+  function handleClickNesst() {
+    if (!isNessted) {
+      addToNesstsTable();
+    } else {
+      removeProfileFromNesstsTable();
+    }
+    setIsNessted((prev) => !prev);
   }
 
   return (
@@ -327,31 +415,34 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     </button>
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-row w-screen h-auto justify-evenly items-center border-b py-4 ">
                   <div
-                    className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg "
-                    onClick={handleClick}
+                    className="w-16 h-16 rounded-full bg-nesstYellow flex items-center justify-center shadow-lg "
+                    onClick={handleClickLike}
                   >
                     {isLiked ? (
-                      <Heart width={20} fill="#212121" />
+                      <Heart width={40} fill="#212121" />
                     ) : (
-                      <Heart width={20} />
+                      <Heart width={40} />
+                    )}
+                  </div>                  
+                  <div onClick={handleClickNesst} className="h-auto w-auto">
+                    {isNessted ? (
+                      <Image
+                        src={logoGrey}
+                        alt="nesst logo"
+                        width={40}
+                        height={40}
+                      />
+                    ) : (
+                      <Image
+                        src={logoGreyEmpty}
+                        alt="Empty nesst logo"
+                        width={40}
+                        height={40}
+                      />
                     )}
                   </div>
-                  <div>
-                    <p>NESST logo</p>
-                  </div>
-                  {isLiked ? (
-                    <Heart width={20} fill="#212121" />
-                  ) : (
-                    <Heart width={20} />
-                  )}
-                  <Image
-                    src={logoGrey}
-                    alt="nesst logo"
-                    width={40}
-                    height={40}
-                  />
                 </div>
                 <article>
                   <p className="font-medium border-b py-4">
@@ -429,10 +520,10 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           </Card>
         ))}
         <article className="px-2 py-4 text-lg font-bold">
-          <h2>These people also liked this property...</h2>
+          <h2>The current users in this Nesst</h2>
           <div className="relative overflow-x-auto ">
             <div className="flex items-center ">
-              {profilesWhoHaveLikedThisProperty?.map((profile) => (
+              {inNesst?.map((profile) => (
                 <div
                   key={profile.profiles.id}
                   className="flex flex-col items-center py-4"
