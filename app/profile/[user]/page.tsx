@@ -159,14 +159,36 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
   const addToConnections = async () => {
     try {
       const userId = profile && profile[0]?.id;
-      const { data, error } = await supabase
-        .from("connections")
-        .insert({ user_id: `${session?.user?.id}`, friend_id: `${userId}` });
 
-      if (error) {
-        console.error("Error adding to connections:", error.message);
+      // Insert the first connection
+      const { data: firstInsertData, error: firstInsertError } = await supabase
+        .from("connections")
+        .insert([{ user_id: `${session?.user?.id}`, friend_id: `${userId}` }]);
+
+      // Insert the second connection
+      const { data: secondInsertData, error: secondInsertError } =
+        await supabase
+          .from("connections")
+          .insert([
+            { user_id: `${userId}`, friend_id: `${session?.user?.id}` },
+          ]);
+
+      if (firstInsertError) {
+        console.error(
+          "Error adding first connection:",
+          firstInsertError.message
+        );
       } else {
-        console.log("Row added successfully:", data);
+        console.log("First connection added successfully:", firstInsertData);
+      }
+
+      if (secondInsertError) {
+        console.error(
+          "Error adding second connection:",
+          secondInsertError.message
+        );
+      } else {
+        console.log("Second connection added successfully:", secondInsertData);
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
@@ -178,16 +200,37 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
   const removeConnection = async () => {
     try {
       const userId = profile && profile[0]?.id;
-      const { data, error } = await supabase
+
+      // Delete the connection where the current user is the initiator
+      const { data: initiatorData, error: initiatorError } = await supabase
         .from("connections")
         .delete()
         .eq("user_id", `${session?.user?.id}`)
         .eq("friend_id", `${userId}`);
 
-      if (error) {
-        console.error("Error removing from connections column:", error.message);
+      // Delete the connection where the current user is the friend
+      const { data: friendData, error: friendError } = await supabase
+        .from("connections")
+        .delete()
+        .eq("user_id", `${userId}`)
+        .eq("friend_id", `${session?.user?.id}`);
+
+      if (initiatorError) {
+        console.error(
+          "Error removing initiator connection:",
+          initiatorError.message
+        );
       } else {
-        console.log("Connection deleted successfully:", data);
+        console.log(
+          "Initiator connection deleted successfully:",
+          initiatorData
+        );
+      }
+
+      if (friendError) {
+        console.error("Error removing friend connection:", friendError.message);
+      } else {
+        console.log("Friend connection deleted successfully:", friendData);
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
