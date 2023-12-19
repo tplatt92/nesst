@@ -48,7 +48,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     "error fetching properties"
   );
   const [profile, setProfile] = useState<null | any[]>(null);
-
+  console.log(profile);
   // get session
   useEffect(() => {
     const fetchSession = async () => {
@@ -96,7 +96,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
         console.error("An unexpected error occurred:", error);
       }
     };
-
+    console.log(profile);
     fetchData();
   }, [user]); // eslint-disable-line
 
@@ -124,6 +124,81 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
 
     fetchConnections();
   }, [profile]); // eslint-disable-line
+
+  //  //check if connected
+  //  useEffect(() => {
+  //   const checkIfConnected = async () => {
+  //     try {
+  //       const userId = profile && profile[0]?.id;
+  //       const { data, error } = await supabase
+  //         .from("connections")
+  //         .select("*")
+  //         .eq("user_id", `${userId}`)
+  //         .eq("friend_id", `${propertyId}`);
+
+  //       if (error) {
+  //         console.error("Error fetching properties:", error.message);
+  //       } else {
+  //         // console.log("Row fetched successfully:", data);
+  //         if (data.length > 0) {
+  //           setIsLiked(true);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   };
+  //   checkIfLiked();
+  // }, [propertyId, userId]); // eslint-disable-line
+
+  // // add property to propertiesILiked
+
+  // const addToLikedColumn = async () => {
+  //   try {
+  //     const { data, error } = await supabase
+  //       .from("propertiesILiked")
+  //       .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
+
+  //     if (error) {
+  //       console.error("Error adding to liked column:", error.message);
+  //     } else {
+  //       console.log("Row added successfully:", data);
+  //     }
+  //   } catch (error) {
+  //     console.error("An unexpected error occurred:", error);
+  //   }
+  // };
+
+  // // remove property from propertiesILiked
+
+  // const removeProfileFromLikedColumn = async () => {
+  //   try {
+  //     const { data, error } = await supabase
+  //       .from("propertiesILiked")
+  //       .delete()
+  //       .eq("profile_id", `${userId}`)
+  //       .eq("property_id", `${propertyId}`);
+
+  //     if (error) {
+  //       console.error("Error removing from liked column:", error.message);
+  //     } else {
+  //       console.log("Row deleted successfully:", data);
+  //     }
+  //   } catch (error) {
+  //     console.error("An unexpected error occurred:", error);
+  //   }
+  // };
+
+  // // handles liking and disliking on button click
+
+  // function handleClick() {
+  //   if (!isLiked) {
+  //     addToLikedColumn();
+  //   } else {
+  //     removeProfileFromLikedColumn();
+  //   }
+  //   setIsLiked((prev) => !prev);
+  // }
 
   return (
     <>
