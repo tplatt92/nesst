@@ -231,7 +231,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       if (error) {
         console.error("Error adding to liked column:", error.message);
       } else {
-        console.log("Row added successfully:", data);
+        console.log("Row added to liked table successfully:", data);
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
@@ -268,7 +268,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       if (error) {
         console.error("Error removing from liked column:", error.message);
       } else {
-        console.log("Row deleted successfully:", data);
+        console.log("Row deleted from liked table successfully:", data);
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
@@ -312,9 +312,13 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   // handles nessting and unnesting on button click
 
   function handleClickNesst() {
-    if (!isNessted) {
+    if (!isNessted && !isLiked) {
       addToNesstsTable();
-    } else {
+      addToLikedColumn();
+      setIsLiked(true);
+    } else if (!isNessted && isLiked) {
+      addToNesstsTable();
+    } else if (isNessted) {
       removeProfileFromNesstsTable();
     }
     setIsNessted((prev) => !prev);
@@ -324,20 +328,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     <>
       <main className="px-4 pt-4 pb-32">
         <ExploreNav setProperties={setProperties} />
-        <div className="flex justify-between">
-          <Link href="/explore">
-            <div className="w-8 h-8 rounded-full bg-nesstYellow flex items-center justify-center mb-2 shadow-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="16"
-                width="14"
-                viewBox="0 0 448 512"
-              >
-                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
-              </svg>
-            </div>
-          </Link>
-        </div>
         {properties?.map((property) => (
           <Card key={property.id}>
             <CardHeader className="relative">
@@ -386,7 +376,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                         <AlertDialogHeader>
                           <AlertDialogTitle>Information</AlertDialogTitle>
                           <AlertDialogDescription>
-                            ‘Book Property’ - Book out the entire property!
+                            Book Property - Book out the entire property!
                             Heart - Add this property to your favourites! Nesst
                             - Add this property to Your Nessts! When the number
                             of interested Nomads aligns with available beds, we
@@ -403,13 +393,13 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
 
                     <button
                       type="submit"
-                      className="bg-nesstYellow text-black font-bold px-2 py-2 rounded-lg font-2"
+                      className="bg-nesstDarkGrey text-white font-md px-2 py-2 rounded-lg font-2"
                     >
                       Reserve property
                     </button>
                     <button
                       type="submit"
-                      className="bg-nesstYellow text-black font-bold px-2 py-2 rounded-lg font-2"
+                      className="bg-nesstDarkGrey text-white font-md px-2 py-2 rounded-lg font-2"
                     >
                       Reserve Bed
                     </button>
@@ -417,31 +407,50 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 </div>
                 <div className="flex flex-row w-screen h-auto justify-evenly items-center border-b py-4 ">
                   <div
-                    className="w-16 h-16 rounded-full bg-nesstYellow flex items-center justify-center shadow-lg "
+                    className="flex flex-col items-center justify-center"
                     onClick={handleClickLike}
                   >
-                    {isLiked ? (
-                      <Heart width={40} fill="#212121" />
-                    ) : (
-                      <Heart width={40} />
-                    )}
-                  </div>                  
-                  <div onClick={handleClickNesst} className="h-auto w-auto">
-                    {isNessted ? (
-                      <Image
-                        src={logoGrey}
-                        alt="nesst logo"
-                        width={40}
-                        height={40}
-                      />
-                    ) : (
-                      <Image
-                        src={logoGreyEmpty}
-                        alt="Empty nesst logo"
-                        width={40}
-                        height={40}
-                      />
-                    )}
+                    <div className="w-14 h-14 rounded-full border-solid border-2 border-nesstLightGrey flex items-center justify-center">
+                      <div>
+                        {isLiked ? (
+                          <Heart width={50} fill="#6e6e6e" stroke="#6e6e6e" />
+                        ) : (
+                          <Heart width={50} stroke="#6e6e6e" />
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-center text-xs pt-2">
+                      <p>
+                        Add to<br></br>Favourites
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    onClick={handleClickNesst}
+                    className="flex flex-col items-center justify-center"
+                  >
+                    <div className="h-auto w-auto">
+                      {isNessted ? (
+                        <Image
+                          src={logoGrey}
+                          alt="nesst logo"
+                          width={40}
+                          height={40}
+                        />
+                      ) : (
+                        <Image
+                          src={logoGreyEmpty}
+                          alt="Empty nesst logo"
+                          width={40}
+                          height={40}
+                        />
+                      )}
+                    </div>
+                    <div className="text-center text-xs pt-2">
+                      <p>
+                        Join<br></br>Nesst
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <article>
