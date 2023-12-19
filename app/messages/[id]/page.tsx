@@ -2,7 +2,7 @@
 import React from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
-
+import Messages from "../../components/Messages";
 export default function Chat() {
   const supabase = createClientComponentClient<Database>();
 
@@ -26,6 +26,7 @@ export default function Chat() {
       <main className="flex flex-1 justify-between flex-col">
         <div className="overflow-y-scroll">
           <p>content</p>
+          <Messages />
         </div>
         <div className="p-4">
           <form onSubmit={handleSubmit}>
