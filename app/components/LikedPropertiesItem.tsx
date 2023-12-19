@@ -24,10 +24,10 @@ const LikedPropertiesItem: React.FC<PropertyData> = ({
       <div>
         <Image
           src={`${url}`}
-          width={240}
-          height={240}
+          width={100}
+          height={50}
           alt="property image"
-          className="lg:w-[240px] lg:h-[140px] sm:w-[80px] w-[120px] h-[80px] rounded-xl"
+          className="rounded-xl"
           priority
         />
       </div>

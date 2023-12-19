@@ -24,9 +24,7 @@ export default function Favourites() {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<null | any[]>(null);
   const pathname = usePathname();
-  const isMobile = useMediaQuery({
-    query: "(max-width:600px), { noSsr: true }",
-  });
+
   const [likedProperties, setLikedProperties] = useState<PropertyData[] | null>(
     null
   );
@@ -110,7 +108,9 @@ export default function Favourites() {
 
   return (
     <>
-      <DesktopNav />
+      <header className="hidden md:block p-0">
+        <DesktopNav />
+      </header>
       <main className="px-4 pt-4 flex flex-col items-center">
         <h1 className=" text-center text-2xl lg:text-3xl font-bold py-4 md:py-8 border-b">
           Favourites
@@ -128,7 +128,9 @@ export default function Favourites() {
           ))}
         </div>
       </main>
-      {isMobile && <Footer pathnameUrl={pathname} />}
+      <nav className="md:hidden">
+        <Footer pathnameUrl={pathname} />
+      </nav>
     </>
   );
 }

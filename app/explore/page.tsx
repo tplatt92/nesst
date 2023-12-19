@@ -32,9 +32,9 @@ export default function Explore() {
   );
   const pathname = usePathname();
 
-  const isMobile = useMediaQuery({
-    query: "(max-width:600px), { noSsr: true }",
-  });
+  // const isMobile = useMediaQuery({
+  //   query: "(max-width:600px), { noSsr: true }",
+  // });
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -108,7 +108,7 @@ export default function Explore() {
         ))}
       </div>
       {properties?.length == 0 && <p>No items match your search.</p>}
-      {isMobile && <Footer pathnameUrl={pathname} />}
+      <Footer pathnameUrl={pathname} />
     </main>
   );
 }

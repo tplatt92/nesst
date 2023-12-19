@@ -13,7 +13,9 @@ export default async function ViewProfile() {
 
   return (
     <div className="w-screen">
-      <DesktopNav />
+      <header className="hidden md:block p-0">
+        <DesktopNav />
+      </header>
       <UserProfile session={session} />
     </div>
   );

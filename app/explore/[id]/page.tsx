@@ -53,9 +53,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const propertyId = params.id;
   const userId = session?.user?.id;
 
-  const isMobile = useMediaQuery({
-    query: "(max-width:600px), { noSsr: true }",
-  });
+  // const isMobile = useMediaQuery({
+  //   query: "(max-width:600px), { noSsr: true }",
+  // });
 
   // get session
   useEffect(() => {
@@ -336,7 +336,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           <h2>These people also liked this property...</h2>
         </article>
       </div>
-      {isMobile && <Footer pathnameUrl={pathname} />}
+      <div className="md:hidden">
+        <Footer pathnameUrl={pathname} />
+      </div>
     </>
   );
 };

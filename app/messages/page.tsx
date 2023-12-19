@@ -117,7 +117,9 @@ const Messages: React.FC<ProfileIdProps> = () => {
 
   return (
     <>
-      <DesktopNav />
+      <header className="hidden md:block p-0">
+        <DesktopNav />
+      </header>
       <main className="px-4 pt-4">
         <h1 className=" text-center text-2xl font-bold py-4 md:py-8">
           Messages
@@ -157,7 +159,9 @@ const Messages: React.FC<ProfileIdProps> = () => {
           <h1>This</h1>
         )}
       </main>
-      <Footer pathnameUrl={pathname} />
+      <nav className="md:hidden">
+        <Footer pathnameUrl={pathname} />
+      </nav>
     </>
   );
 };
