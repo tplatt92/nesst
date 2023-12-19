@@ -160,7 +160,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     try {
       const userId = profile && profile[0]?.id;
       const { data, error } = await supabase
-        .from("connnections")
+        .from("connections")
         .insert({ user_id: `${session?.user?.id}`, friend_id: `${userId}` });
 
       if (error) {
@@ -175,34 +175,34 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
 
   // // remove property from propertiesILiked
 
-  // const removeProfileFromLikedColumn = async () => {
-  //   try {
-  //     const { data, error } = await supabase
-  //       .from("propertiesILiked")
-  //       .delete()
-  //       .eq("profile_id", `${userId}`)
-  //       .eq("property_id", `${propertyId}`);
+  const removeConnection = async () => {
+    try {
+      const userId = profile && profile[0]?.id;
+      const { data, error } = await supabase
+        .from("connections")
+        .delete()
+        .eq("user_id", `${session?.user?.id}`)
+        .eq("friend_id", `${userId}`);
 
-  //     if (error) {
-  //       console.error("Error removing from liked column:", error.message);
-  //     } else {
-  //       console.log("Row deleted successfully:", data);
-  //     }
-  //   } catch (error) {
-  //     console.error("An unexpected error occurred:", error);
-  //   }
-  // };
+      if (error) {
+        console.error("Error removing from connections column:", error.message);
+      } else {
+        console.log("Connection deleted successfully:", data);
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
+  };
 
   // // handles liking and disliking on button click
 
   async function handleClick() {
     if (!isConnected) {
-      addToConnections();
-      //   } else {
-      //     removeProfileFromLikedColumn();
-      //   }
-      setIsConnected((prev) => !prev);
+      await addToConnections();
+    } else {
+      await removeConnection();
     }
+    setIsConnected((prev) => !prev);
   }
 
   return (
@@ -249,7 +249,23 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
                       "LinkedIn Logo"
                     )}
                   </div>
-                  <button onClick={handleClick}>connect</button>
+                  <div className="w-full flex justify-center">
+                    {!isConnected ? (
+                      <button
+                        className="text-black font-bold mt-4 bg-white py-2 px-6 rounded-xl shadow-lg"
+                        onClick={handleClick}
+                      >
+                        Connect
+                      </button>
+                    ) : (
+                      <button
+                        className="text-black font-bold mt-4 bg-white py-2 px-6 rounded-xl shadow-lg"
+                        onClick={handleClick}
+                      >
+                        Disconnect
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
               {/* bio */}
