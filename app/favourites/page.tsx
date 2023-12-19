@@ -1,8 +1,7 @@
 "use client";
 import Footer from "../components/Footer";
-import { useMediaQuery } from "react-responsive";
 import { usePathname } from "next/navigation";
-import { fetchLikedProperties } from "../hooks/fetchLikedProperties";
+import { fetchUsersLikedProperties } from "../hooks/fetchUsersLikedProperties";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
 import React from "react";
@@ -94,7 +93,7 @@ export default function Favourites() {
           const userId = profile && profile[0]?.id;
 
           if (userId) {
-            const data = await fetchLikedProperties(userId);
+            const data = await fetchUsersLikedProperties(userId);
             setLikedProperties(data);
           }
         }

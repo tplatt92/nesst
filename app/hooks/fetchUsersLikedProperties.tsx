@@ -15,7 +15,7 @@ interface PropertyData {
   image: string[] | null;
 }
 
-export async function fetchLikedProperties(
+export async function fetchUsersLikedProperties(
   userId: string
 ): Promise<PropertyData[] | null> {
   try {
@@ -24,7 +24,7 @@ export async function fetchLikedProperties(
       .from("propertiesILiked")
       .select("property_id")
       .eq("profile_id", userId);
-    // 2,4,7
+
     if (likedPropertiesError) {
       console.error(likedPropertiesError);
       return null;
