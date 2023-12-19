@@ -48,7 +48,8 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     "error fetching properties"
   );
   const [profile, setProfile] = useState<null | any[]>(null);
-  console.log(profile);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  // console.log(profile);
   // get session
   useEffect(() => {
     const fetchSession = async () => {
@@ -96,7 +97,6 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
         console.error("An unexpected error occurred:", error);
       }
     };
-    console.log(profile);
     fetchData();
   }, [user]); // eslint-disable-line
 
@@ -125,49 +125,53 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     fetchConnections();
   }, [profile]); // eslint-disable-line
 
-  //  //check if connected
-  //  useEffect(() => {
-  //   const checkIfConnected = async () => {
-  //     try {
-  //       const userId = profile && profile[0]?.id;
-  //       const { data, error } = await supabase
-  //         .from("connections")
-  //         .select("*")
-  //         .eq("user_id", `${userId}`)
-  //         .eq("friend_id", `${propertyId}`);
+  //check if connected
+  useEffect(() => {
+    const checkIfConnected = async () => {
+      try {
+        const userId = profile && profile[0]?.id;
+        console.log(userId);
+        console.log(session?.user.id);
+        const { data, error } = await supabase
+          .from("connections")
+          .select("*")
+          .eq("friend_id", `${userId}`)
+          .eq("user_id", `${session?.user?.id}`);
 
-  //       if (error) {
-  //         console.error("Error fetching properties:", error.message);
-  //       } else {
-  //         // console.log("Row fetched successfully:", data);
-  //         if (data.length > 0) {
-  //           setIsLiked(true);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("An unexpected error occurred:", error);
-  //     }
-  //   };
-  //   checkIfLiked();
-  // }, [propertyId, userId]); // eslint-disable-line
+        console.log(data);
+        if (error) {
+          console.error("Error fetching connections:", error.message);
+        } else {
+          // console.log("Row fetched successfully:", data);
+          if (data.length > 0) {
+            setIsConnected(true);
+          }
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    checkIfConnected();
+  }, [profile]); // eslint-disable-line
 
-  // // add property to propertiesILiked
+  // // add connection to connections table
 
-  // const addToLikedColumn = async () => {
-  //   try {
-  //     const { data, error } = await supabase
-  //       .from("propertiesILiked")
-  //       .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
+  const addToConnections = async () => {
+    try {
+      const userId = profile && profile[0]?.id;
+      const { data, error } = await supabase
+        .from("connnections")
+        .insert({ user_id: `${session?.user?.id}`, friend_id: `${userId}` });
 
-  //     if (error) {
-  //       console.error("Error adding to liked column:", error.message);
-  //     } else {
-  //       console.log("Row added successfully:", data);
-  //     }
-  //   } catch (error) {
-  //     console.error("An unexpected error occurred:", error);
-  //   }
-  // };
+      if (error) {
+        console.error("Error adding to connections:", error.message);
+      } else {
+        console.log("Row added successfully:", data);
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
+  };
 
   // // remove property from propertiesILiked
 
@@ -191,14 +195,15 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
 
   // // handles liking and disliking on button click
 
-  // function handleClick() {
-  //   if (!isLiked) {
-  //     addToLikedColumn();
-  //   } else {
-  //     removeProfileFromLikedColumn();
-  //   }
-  //   setIsLiked((prev) => !prev);
-  // }
+  async function handleClick() {
+    if (!isConnected) {
+      addToConnections();
+      //   } else {
+      //     removeProfileFromLikedColumn();
+      //   }
+      setIsConnected((prev) => !prev);
+    }
+  }
 
   return (
     <>
@@ -244,6 +249,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
                       "LinkedIn Logo"
                     )}
                   </div>
+                  <button onClick={handleClick}>connect</button>
                 </div>
               </div>
               {/* bio */}
