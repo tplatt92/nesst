@@ -375,18 +375,12 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>Information</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Book Property - Book out the entire property!
-                            Heart - Add this property to your favourites! Nesst
-                            - Add this property to Your Nessts! When the number
-                            of interested Nomads aligns with available beds, we
-                            will reach out to lock in your booking and confirm
-                            payment details. Whichever way, get ready for an
-                            awesome stay!
+                          <AlertDialogDescription className="mr-6 text-nesstDarkGrey">                          
+                            <p>Reserve Property - Reserve the entire property!<br></br>Reserve bed - Share this property with other nomads<br></br>Heart - Add this property to your favourites!<br></br>Nesst- Add this property to Your Nesst and favourites. Go to messages to chat with other nomads in this Nesst.<br></br>Whichever way, get ready for an awesome stay!</p>
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Close</AlertDialogCancel>
+                          <AlertDialogCancel className="mr-6 text-nesstDarkGrey">Close</AlertDialogCancel>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -543,7 +537,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <div className="flex items-center">
                         <AvatarProfile
                           uid={profile.profiles.id}
-                          url={`/${profile.profiles.avatar_url}`}
+                          url={profile.profiles.avatar_url ? (`/${profile.profiles.avatar_url}`) : ""}
                           size={80}
                         />
                       </div>
