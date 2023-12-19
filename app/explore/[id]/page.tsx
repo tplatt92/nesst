@@ -331,16 +331,22 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         {properties?.map((property) => (
           <Card key={property.id}>
             <CardHeader className="relative">
-            <div className="align-middle mx-auto md:hidden">
-  <Carousel images={property.image} />
-</div>
-<div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
-  {property.image.map((property, index) => (
-    <div className="object-cover h-100 w-100" key={index}>
-      <Image src={property} alt="property image" width={800} height={400} className="h-full w-full"/>
-    </div>
-  ))}
-</div>
+              <div className="align-middle mx-auto md:hidden">
+                <Carousel images={property.image} />
+              </div>
+              <div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
+                {property.image.map((property: string, index: number) => (
+                  <div className="object-cover h-100 w-100" key={index}>
+                    <Image
+                      src={property}
+                      alt="property image"
+                      width={800}
+                      height={400}
+                      className="h-full w-full"
+                    />
+                  </div>
+                ))}
+              </div>
             </CardHeader>
             <CardContent>
               <CardTitle className="text-xl font-monserrat font-semibold">
@@ -382,12 +388,22 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>Information</AlertDialogTitle>
-                          <AlertDialogDescription className="mr-6 text-nesstDarkGrey">                          
-                            <p>Reserve Property - Reserve the entire property!<br></br>Reserve bed - Share this property with other nomads<br></br>Heart - Add this property to your favourites!<br></br>Nesst- Add this property to Your Nesst and favourites. Go to messages to chat with other nomads in this Nesst.<br></br>Whichever way, get ready for an awesome stay!</p>
+                          <AlertDialogDescription className="mr-6 text-nesstDarkGrey">
+                            <p>
+                              Reserve Property - Reserve the entire property!
+                              <br></br>Reserve bed - Share this property with
+                              other nomads<br></br>Heart - Add this property to
+                              your favourites!<br></br>Nesst- Add this property
+                              to Your Nesst and favourites. Go to messages to
+                              chat with other nomads in this Nesst.<br></br>
+                              Whichever way, get ready for an awesome stay!
+                            </p>
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel className="mr-6 text-nesstDarkGrey">Close</AlertDialogCancel>
+                          <AlertDialogCancel className="mr-6 text-nesstDarkGrey">
+                            Close
+                          </AlertDialogCancel>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -544,7 +560,11 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <div className="flex items-center">
                         <AvatarProfile
                           uid={profile.profiles.id}
-                          url={profile.profiles.avatar_url ? (`/${profile.profiles.avatar_url}`) : ""}
+                          url={
+                            profile.profiles.avatar_url
+                              ? `/${profile.profiles.avatar_url}`
+                              : ""
+                          }
                           size={80}
                         />
                       </div>
