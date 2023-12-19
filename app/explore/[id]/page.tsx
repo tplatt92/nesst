@@ -331,14 +331,16 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         {properties?.map((property) => (
           <Card key={property.id}>
             <CardHeader className="relative">
-              <div className="align-middle mx-auto md:hidden">
-                <Carousel images={property.image} />
-              </div>
-              <div className="hidden md:visible">
-                {property.image.map((property) => (
-                  <div key={property} >
-                
-              </div>
+            <div className="align-middle mx-auto md:hidden">
+  <Carousel images={property.image} />
+</div>
+<div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
+  {property.image.map((property, index) => (
+    <div className="object-cover h-100 w-100" key={index}>
+      <Image src={property} alt="property image" width={800} height={400} className="h-full w-full"/>
+    </div>
+  ))}
+</div>
             </CardHeader>
             <CardContent>
               <CardTitle className="text-xl font-monserrat font-semibold">
