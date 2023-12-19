@@ -8,8 +8,11 @@ export default function Chat() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { message } = Object.fromEntries(new FormData(e.currentTarget));
+    const form = e.currentTarget;
+    const { message } = Object.fromEntries(new FormData(form));
+
     if (typeof message === "string" && message.trim().length !== 0) {
+      form.reset();
       const { data, error } = await supabase
         .from("messages")
         .insert([{ content: message }]);
