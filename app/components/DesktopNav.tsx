@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+
 export default function DesktopNav() {
   const isMobile = useMediaQuery({
     query: "(max-width:600px), { noSsr: true}",
