@@ -337,29 +337,17 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 <Carousel images={property.image} />
               </div>
               <div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
-                {property.image
-                  .map((property: string, index: number) => (
-                    <div
-                      key={index}
-                      className={`object-cover h-100 w-100 ${
-                        index === 0 && window.innerWidth >= 1024
-                          ? "lg:col-span-2 lg:row-span-2"
-                          : ""
-                      }`}
-                    >
-                      <Image
-                        src={property}
-                        alt="property image"
-                        width={800}
-                        height={400}
-                        className="h-full w-full"
-                      />
-                    </div>
-                  ))
-                  .slice(
-                    0,
-                    window.innerWidth >= 1024 ? 3 : property.image.length
-                  )}
+                {property.image.map((property: string, index: number) => (
+                  <div className="object-cover h-100 w-100" key={index}>
+                    <Image
+                      src={property}
+                      alt="property image"
+                      width={800}
+                      height={400}
+                      className="h-full w-full"
+                    />
+                  </div>
+                ))}
               </div>
             </CardHeader>
             <CardContent>
@@ -581,6 +569,11 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <div className="flex items-center">
                         <AvatarProfile
                           uid={profile.profiles.id}
+                          url={
+                            profile.profiles.avatar_url
+                              ? `/${profile.profiles.avatar_url}`
+                              : ""
+                          }
                           url={
                             profile.profiles.avatar_url
                               ? `/${profile.profiles.avatar_url}`
