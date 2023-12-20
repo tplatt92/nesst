@@ -8,16 +8,16 @@ import { usePathname } from "next/navigation";
 
 
 export default function DesktopNav() {
-  const isMobile = useMediaQuery({
-    query: "(max-width:600px), { noSsr: true}",
-    //make sure to get rid of the hydration warning
-  });
+  // const isMobile = useMediaQuery({
+  //   query: "(max-width:600px), { noSsr: true}",
+  //   //make sure to get rid of the hydration warning
+  // });
 
   const pathnameUrl = usePathname();
 
   return (
-    <nav className="flex flex-row items-center relative w-full md:px-8 shadow-lg ">
-      {!isMobile && (
+    <nav className="flex flex-row items-center relative w-full md:px-8 shadow-lg hidden md:block">
+      
         <div className="flex flex-row items-center justify-between w-full gap-4 relative my-4">
           <div className="flex items-center justify-center pl-2">
             <Image
@@ -26,6 +26,7 @@ export default function DesktopNav() {
               priority={true}
               width={40}
               height={40}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
           <div className="flex gap-2 lg:gap-8 lg:pr-8 text-sm lg:text-md">
@@ -81,7 +82,6 @@ export default function DesktopNav() {
             </div>
           </div>
         </div>
-      )}
     </nav>
   );
 }

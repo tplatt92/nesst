@@ -9,15 +9,15 @@ import { useMediaQuery } from "react-responsive";
 import { usePathname } from "next/navigation";
 
 const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
-  const isMobile = useMediaQuery({
-    query: "(max-width:600px), { noSsr: true}",
-    //make sure to get rid of the hydration warning
-  });
+  // const isMobile = useMediaQuery({
+  //   query: "(max-width:600px), { noSsr: true}",
+  //   //make sure to get rid of the hydration warning
+  // });
   return (
     <>
-      {isMobile && (
+      
         <div
-          className="flex items-center justify-evenly py-4 border-t fixed border-gray-200 border-solid bottom-0 w-full bg-white"
+          className="flex items-center justify-evenly py-4 border-t fixed border-gray-200 border-solid bottom-0 w-full bg-white md:hidden"
           data-testid="footer-id"
         >
           <div
@@ -48,10 +48,11 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
             <Image
               alt="NESST"
               src="/logos/fullegg.png"
-              className="flex-1 text-center absolute bottom-5 "
+              className="flex-1 text-center absolute bottom-5  "
               priority={true}
               width={60}
               height={60}
+              style={{ width: "auto", height: "auto" }}
             />
             <p className="text-xs text-gray-400">NESST</p>
           </div>
@@ -81,7 +82,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
             </Link>
           </div>
         </div>
-      )}
+      
     </>
   );
 };

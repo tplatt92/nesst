@@ -11,6 +11,7 @@ export default function Home() {
             alt="Nesst Logo"
             width={40}
             height={20}
+            style={{ width: "auto", height: "auto" }}
             className="mr-4"
           />
           <h1 className="text-5xl lg:text-6xl tracking-[0.4em]">NESST</h1>

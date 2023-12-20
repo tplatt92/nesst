@@ -179,7 +179,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfNessted();
-  }, [propertyId, userId]); // eslint-disable-line
+  }, [ userId, propertyId]); // eslint-disable-line
 
   // // fetch who has liked a property info
   // useEffect(() => {
