@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type profileData = {
   map(arg0: (profile: any) => import("react").JSX.Element): unknown;
   first_name: string | null;
@@ -74,4 +76,27 @@ export interface FilterSheetProps {
 
 export type FooterProps = {
   pathnameUrl: string;
+};
+
+export type Profile = {
+  id: string;
+  username: string;
+};
+
+export type Message = {
+  id: string;
+  created_at: string;
+  content: string;
+  profile_id: string;
+  profile?: Profile;
+};
+
+export type MessagesProps = {
+  roomId: string;
+  profileCache: ProfileCache;
+  setProfileCache: Dispatch<SetStateAction<ProfileCache>>;
+};
+
+export type ProfileCache = {
+  [userId: string]: Profile;
 };

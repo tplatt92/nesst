@@ -1,6 +1,8 @@
 import { supabase } from "../utils/supabase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Session } from "@supabase/supabase-js";
+import MessageItem from "./Message";
+import { MessagesProps, Profile, ProfileCache } from "../../types/types.ts";
 
 type Message = {
   id: string;
@@ -9,8 +11,13 @@ type Message = {
   profile_id: string;
 };
 
-export default function Messages() {
+export default function Messages({
+  roomId,
+  profileCache,
+  setProfileCache,
+}: MessagesProps) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const messagesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -19,8 +26,24 @@ export default function Messages() {
         alert("No data found");
         return;
       }
-      console.log(data);
+
+      const newProfiles = Object.fromEntries(
+        data
+          .map((message) => message.profile)
+          .filter(Boolean) // is truthy
+          .map((profile) => [profile!.id, profile!])
+      );
+
+      setProfileCache((current) => ({
+        ...current,
+        ...newProfiles,
+      }));
+
       setMessages(data);
+
+      if (messagesRef.current) {
+        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      }
     };
     getData();
   }, []);
@@ -32,7 +55,7 @@ export default function Messages() {
 
   useEffect(() => {
     const supscription = supabase
-      .channel("channelOne")
+      .channel("channelTwo")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
@@ -48,9 +71,12 @@ export default function Messages() {
   return (
     <ul>
       {messages?.map((message) => (
-        <li className="w-1/2 bg-gray-100 m-4" key={message.id}>
-          {message.content}
-        </li>
+        <MessageItem
+          key={message.id}
+          message={message}
+          profile={profileCache[message.profile_id]}
+          setProfileCache={setProfileCache}
+        />
       ))}
     </ul>
   );
