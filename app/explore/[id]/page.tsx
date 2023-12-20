@@ -135,6 +135,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
 
   //check if property has already been liked
   useEffect(() => {
+    if (userId && propertyId) {
     const checkIfLiked = async () => {
       try {
         const { data, error } = await supabase
@@ -155,10 +156,12 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfLiked();
+  }
   }, [propertyId, userId]); // eslint-disable-line
 
   //check if property has already been nessted
   useEffect(() => {
+    if (userId && propertyId) {
     const checkIfNessted = async () => {
       try {
         const { data, error } = await supabase
@@ -179,6 +182,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfNessted();
+  }
   }, [ userId, propertyId]); // eslint-disable-line
 
   // // fetch who has liked a property info
