@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useFetchProperty } from "../../hooks/useFetchProperty";
 import logoGreyEmpty from "public/logos/logoGreyEmpty.png";
 import { useEffect, useState } from "react";
 import Footer from "@/app/components/Footer";
@@ -9,7 +8,7 @@ import DesktopNav from "@/app/components/DesktopNav";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
 import Carousel from "../../components/CardCarousell";
-//import { Session } from "@supabase/auth-helpers-nextjs";
+import { Session } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import logoGrey from "public/logos/logoGrey.png";
 import AvatarProfile from "@/app/components/AvatarProfile";
@@ -53,7 +52,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import CalendarWidget from "@/app/components/Calendar";
-//import { set } from "date-fns";
+import { set } from "date-fns";
 
 type PropertyIdProps = {
   params: any;
@@ -61,80 +60,75 @@ type PropertyIdProps = {
 
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const supabase = createClientComponentClient<Database>();
-  // const [session, setSession] = useState<Session | null>(null);
-  // const [
-  //   profilesWhoHaveLikedThisProperty,
-  //   setProfilesWhoHaveLikedThisProperty,
-  // ] = useState<null | any[]>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [
+    profilesWhoHaveLikedThisProperty,
+    setProfilesWhoHaveLikedThisProperty,
+  ] = useState<null | any[]>(null);
   const [inNesst, setInNesst] = useState<null | any[]>(null);
-  // const [availability, setAvailability] = useState<null | any[]>(null);
-  // const [properties, setProperties] = useState<null | any[]>(null);
-  // const [fetchError, setFetchError] = useState<string | null>(
-  //   "error fetching properties"
-  // );
+  const [availability, setAvailability] = useState<null | any[]>(null);
+  const [properties, setProperties] = useState<null | any[]>(null);
+  const [fetchError, setFetchError] = useState<string | null>(
+    "error fetching properties"
+  );
   const [isLiked, setIsLiked] = useState(false);
   const [isNessted, setIsNessted] = useState(false);
 
   const pathname = usePathname();
   const propertyId = params.id;
-  // const userId = session?.user?.id;
+  const userId = session?.user?.id;
 
   // const isMobile = useMediaQuery({
   //   query: "(max-width:600px), { noSsr: true }",
   // });
-  // const isMobile = useMediaQuery({
-  //   query: "(max-width:600px), { noSsr: true }",
-  // });
 
-  // // get session
-  // useEffect(() => {
-  //   const fetchSession = async () => {
-  //     try {
-  //       const { data, error } = await supabase.auth.getSession();
-  //       if (error) {
-  //         console.error("Error fetching session:", error);
-  //         return;
-  //       }
-  //       if (data) {
-  //         console.log(session?.user ?? null);
-  //         setSession(data?.session ?? null);
-  //       } else {
-  //         setSession(null);
-  //       }
-  //     } catch (error) {
-  //       console.error("An unexpected error occurred:", error);
-  //     }
-  //   };
-  //   fetchSession();
-  // }, []); // eslint-disable-line
+  // get session
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error("Error fetching session:", error);
+          return;
+        }
+        if (data) {
+          console.log(session?.user ?? null);
+          setSession(data?.session ?? null);
+        } else {
+          setSession(null);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchSession();
+  }, []); // eslint-disable-line
 
-  // // fetch properties
-  // useEffect(() => {
-  //   const fetchProperty = async () => {
-  //     try {
-  //       const { data, error } = await supabase
-  //         .from("properties")
-  //         .select("*")
-  //         .eq("id", propertyId)
-  //         .single();
+  // fetch properties
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*")
+          .eq("id", propertyId)
+          .single();
 
-  //       if (error) {
-  //         setFetchError("error fetching properties");
-  //         setProperties(null);
-  //         console.error(error);
-  //       }
-  //       if (data) {
-  //         setProperties([data]);
-  //         setFetchError(null);
-  //       }
-  //     } catch (error) {
-  //       console.error("An unexpected error occurred:", error);
-  //     }
-  //   };
-  //   fetchProperty();
-  // }, [propertyId]); // eslint-disable-line
-
-  const { properties, fetchError } = useFetchProperty(propertyId, supabase);
+        if (error) {
+          setFetchError("error fetching properties");
+          setProperties(null);
+          console.error(error);
+        }
+        if (data) {
+          setProperties([data]);
+          setFetchError(null);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchProperties();
+  }, [propertyId]); // eslint-disable-line
 
   //check if property has already been liked
   useEffect(() => {
@@ -143,7 +137,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         const { data, error } = await supabase
           .from("propertiesILiked")
           .select("*")
-          // .eq("profile_id", `${userId}`)
+          .eq("profile_id", `${userId}`)
           .eq("property_id", `${propertyId}`);
 
         if (error) {
@@ -158,7 +152,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfLiked();
-  }, [propertyId]); // eslint-disable-line
+  }, [propertyId, userId]); // eslint-disable-line
 
   //check if property has already been nessted
   useEffect(() => {
@@ -167,7 +161,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         const { data, error } = await supabase
           .from("nessts")
           .select("*")
-          // .eq("profile_id", `${userId}`)
+          .eq("profile_id", `${userId}`)
           .eq("property_id", `${propertyId}`);
 
         if (error) {
@@ -182,29 +176,29 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfNessted();
+  }, [propertyId, userId]); // eslint-disable-line
+
+  // fetch who has liked a property info
+  useEffect(() => {
+    const fetchWhoLiked = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("propertiesILiked")
+          .select(`profiles (id, username, avatar_url)`)
+          .eq("property_id", `${propertyId}`);
+
+        if (error) {
+          console.error("Error fetching properties:", error.message);
+        } else if (data) {
+          console.log(data);
+          setProfilesWhoHaveLikedThisProperty(data);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+    fetchWhoLiked();
   }, [propertyId]); // eslint-disable-line
-
-  // // fetch who has liked a property info
-  // useEffect(() => {
-  //   const fetchWhoLiked = async () => {
-  //     try {
-  //       const { data, error } = await supabase
-  //         .from("propertiesILiked")
-  //         .select(`profiles (id, username, avatar_url)`)
-  //         .eq("property_id", `${propertyId}`);
-
-  //       if (error) {
-  //         console.error("Error fetching properties:", error.message);
-  //       } else if (data) {
-  //         console.log(data);
-  //         setProfilesWhoHaveLikedThisProperty(data);
-  //       }
-  //     } catch (error) {
-  //       console.error("An unexpected error occurred:", error);
-  //     }
-  //   };
-  //   fetchWhoLiked();
-  // }, [propertyId]); // eslint-disable-line
 
   // fetch who is in a nesst
   useEffect(() => {
@@ -232,7 +226,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     try {
       const { data, error } = await supabase
         .from("propertiesILiked")
-        .insert({ property_id: `${propertyId}` });
+        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
 
       if (error) {
         console.error("Error adding to liked column:", error.message);
@@ -249,7 +243,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     try {
       const { data, error } = await supabase
         .from("nessts")
-        .insert({ property_id: `${propertyId}` });
+        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
 
       if (error) {
         console.error("Error adding to nessts table:", error.message);
@@ -268,7 +262,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       const { data, error } = await supabase
         .from("propertiesILiked")
         .delete()
-        // .eq("profile_id", `${userId}`)
+        .eq("profile_id", `${userId}`)
         .eq("property_id", `${propertyId}`);
 
       if (error) {
@@ -288,7 +282,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       const { data, error } = await supabase
         .from("nessts")
         .delete()
-        // .eq("profile_id", `${userId}`)
+        .eq("profile_id", `${userId}`)
         .eq("property_id", `${propertyId}`);
 
       if (error) {
@@ -355,31 +349,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     };
   }, []); // Empty dependency array ensures that the effect runs only once when the component mounts
 
-  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
-
-  const numImagesToShow = (width: number): number => {
-    if (width <= 1024) {
-      return 4;
-    } else if (width < 1280) {
-      return 3;
-    } else {
-      return 5;
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); // Empty dependency array ensures that the effect runs only once when the component mounts
-
   return (
     <>
     <div className="hiden md:block">
@@ -392,25 +361,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
               <div className="align-middle mx-auto md:hidden">
                 <Carousel images={property.image} />
               </div>
-              <div className="hidden md:grid md:grid-cols-2 md:grid-rows-2 lg:grid-rows-2 lg:grid-cols-3 xl:grid-rows-2 xl:grid-cols-4 gap-4">
-                {property.image
-                  .slice(0, numImagesToShow(screenWidth))
-                  .map((property: string, index: number) => (
-                    <div
-                      key={index}
-                      className={`object-cover h-100 w-100 ${
-                        index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''
-                      } ${index >= numImagesToShow(screenWidth) ? 'hidden' : ''}`}
-                    >
-                      <Image
-                        src={property}
-                        alt="property image"
-                        width={800}
-                        height={400}
-                        className="h-full w-full"
-                      />
-                    </div>
-                  ))}
               <div className="hidden md:grid md:grid-cols-2 md:grid-rows-2 lg:grid-rows-2 lg:grid-cols-3 xl:grid-rows-2 xl:grid-cols-4 gap-4">
                 {property.image
                   .slice(0, numImagesToShow(screenWidth))
@@ -577,12 +527,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     <span className="font-medium flex flex-col items-center">
                       <LampDesk size={36} stroke="#8f8f8f" />
 
-                      <p>Desk</p>
-                    </span>
-                  ) : null}{" "}
-                  {property.Washer ? (
-                    <span className="font-medium flex flex-col items-center">
-                      <Shirt size={36} stroke="#8f8f8f" />
                       <p>Desk</p>
                     </span>
                   ) : null}{" "}
