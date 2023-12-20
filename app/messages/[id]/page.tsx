@@ -17,6 +17,9 @@ export default function Chat() {
         .from("messages")
         .insert([{ content: message }]);
       console.log({ data });
+      if (error) {
+        alert(error.message);
+      }
     }
   };
 

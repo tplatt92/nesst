@@ -24,6 +24,22 @@ export default function Messages() {
     getData();
   }, []);
 
+  function handleInserts(payload: any) {
+    const newMessage = payload.new;
+    setMessages((currentMessages) => [...currentMessages, newMessage]);
+  }
+
+  useEffect(() => {
+    supabase
+      .channel("messages")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "messages" },
+        handleInserts
+      )
+      .subscribe();
+  });
+
   return (
     <ul>
       {messages?.map((message) => (
