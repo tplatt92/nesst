@@ -28,9 +28,8 @@ export default function Messages({ pathname }: MessagesProps) {
           alert("No data found");
           return;
         }
-      },
-      [];
-  });
+      }      
+  },[]);
 
   useEffect(() => {
     const getData = async () => {
