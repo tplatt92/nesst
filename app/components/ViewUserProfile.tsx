@@ -130,7 +130,9 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
               {renderUserPhoto("/userPhotos/user8.png", "user 4 Photo")}
             </div>
           </div>
-          <Footer pathnameUrl={pathname} />
+          <div className="md:hidden">
+            <Footer pathnameUrl={pathname} />
+          </div>
         </div>
       ))}
     </>

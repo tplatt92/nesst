@@ -29,9 +29,10 @@ const LikedPropertiesItem: React.FC<PropertyData> = ({
           alt="property image"
           className="rounded-xl"
           priority
+          style={{ width: "auto", height: "auto" }}
         />
       </div>
-      <div className="border-y flex-1 py-8 lg:py-14">
+      <div className="border-b flex-1 py-8 lg:py-14">
         <div className="flex justify-between items-center font-bold">
           <p className="text-lg lg:text-2xl font-semibold">{name}</p>
         </div>

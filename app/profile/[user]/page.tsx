@@ -1,6 +1,5 @@
 "use client";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
 import React from "react";
 import { useEffect, useState, useRef } from "react";
@@ -11,9 +10,9 @@ import { fetchConnectionsData } from "../../hooks/fetchConnections";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import Footer from "@/app/components/Footer";
+import DesktopNav from "@/app/components/DesktopNav";
 import AvatarProfile from "@/app/components/AvatarProfile";
 import UserConnections from "../../components/UserConnections";
-import supabase from "../../config/SuperbaseClient";
 import Image from "next/image";
 import {
   Briefcase,
@@ -49,7 +48,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
   );
   const [profile, setProfile] = useState<null | any[]>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  // console.log(profile);
+
   // get session
   useEffect(() => {
     const fetchSession = async () => {
@@ -60,7 +59,6 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
           return;
         }
         if (data) {
-          console.log(session?.user ?? null);
           setSession(data?.session ?? null);
         } else {
           setSession(null);
@@ -111,11 +109,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
           if (userId) {
             const data = await fetchConnectionsData(userId);
             setConnections(data);
-          } else {
-            console.error("User ID is undefined in the session");
           }
-        } else {
-          console.error("User session is undefined");
         }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
@@ -130,19 +124,15 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
     const checkIfConnected = async () => {
       try {
         const userId = profile && profile[0]?.id;
-        console.log(userId);
-        console.log(session?.user.id);
         const { data, error } = await supabase
           .from("connections")
           .select("*")
           .eq("friend_id", `${userId}`)
           .eq("user_id", `${session?.user?.id}`);
 
-        console.log(data);
         if (error) {
           console.error("Error fetching connections:", error.message);
         } else {
-          // console.log("Row fetched successfully:", data);
           if (data.length > 0) {
             setIsConnected(true);
           }
@@ -250,6 +240,9 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
 
   return (
     <>
+      <header className="hidden md:block">
+        <DesktopNav />
+      </header>
       {profile?.map((profile) => (
         <div
           key={profile.id}
@@ -394,10 +387,11 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
               </div>
             </div>
           </div>
-
-          <Footer pathnameUrl={pathname} />
         </div>
       ))}
+      <div className="md:hidden">
+        <Footer pathnameUrl={pathname} />
+      </div>
     </>
   );
 };

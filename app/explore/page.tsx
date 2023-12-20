@@ -61,19 +61,19 @@ export default function Explore() {
     <main className="flex min-h-screen w-screen flex-col items-center  pb-2">
       <ExploreNav setProperties={setProperties} />
       <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 p-8 lg:px-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 lg:gap-8 lg:mx-12 lg:my-12 p-8 lg:px-8"
         data-testid="card-id"
       >
         {properties?.map((properties) => (
           <Card key={properties.id}>
-            <CardHeader className="relative h-80 lg:h-50">
+            <CardHeader className="relative h-80 lg:h-60 lg:pb-2">
               <Carousel images={properties.image} />
             </CardHeader>
             <Link href={`/explore/${properties.id}`}>
               <CardContent>
-                <CardTitle className="text-xl lg:text-[10px] font-monserrat font-semibold flex justify-between items-center">
+                <CardTitle className="text-xl lg:text-[14px] font-monserrat font-semibold flex justify-between items-center">
                   {properties.name}
-                  <p className="text-sm lg:text-[10px] flex gap-2">
+                  <p className="text-sm lg:text-[14px] flex gap-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="16"
@@ -85,21 +85,21 @@ export default function Explore() {
                     {properties.beds}
                   </p>
                 </CardTitle>
-                <CardDescription className="text-nesstLightGrey text-sm lg:text-[10px] font-medium">
+                <CardDescription className="text-nesstLightGrey text-sm lg:text-[14px] font-medium">
                   {properties.location}
                 </CardDescription>
               </CardContent>
               <CardFooter className="flex justify-between">
-                <p className="font-bold lg:text-[10px]">
+                <p className="font-semibold lg:text-[14px]">
                   £{properties.price}/month
                 </p>
                 {/* ---------------new line */}
-                <p className="font-bold lg:text-[10px]">
+                <p className="font-semibold lg:text-[14px]">
                   £{Math.round(properties.price / properties.beds)}/pp
                 </p>
                 {/* ------------ new line */}
 
-                <p className="text-gray-400 lg:text-[10px]">
+                <p className="text-gray-400 lg:text-[14px]">
                   {properties.available ? "Available" : "Unavailable"}
                 </p>
               </CardFooter>

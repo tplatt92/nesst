@@ -206,6 +206,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
               priority={true}
               width={80}
               height={80}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
           <div className="flex flex-row relative w-full">

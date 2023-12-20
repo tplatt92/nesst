@@ -17,8 +17,9 @@ export default function DesktopNav() {
               alt="NESST"
               src="/logos/nesstLogoGrey.png"
               priority={true}
-              width={40}
-              height={40}
+              width={58}
+              height={58}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
           <div className="flex gap-2 lg:gap-8 lg:pr-8 text-sm lg:text-md">
