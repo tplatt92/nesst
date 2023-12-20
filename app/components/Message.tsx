@@ -19,6 +19,27 @@ const MessageItem = ({
   const userId = session?.user?.id;
 
   useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error("Error fetching session:", error);
+          return;
+        }
+        if (data) {
+          setSession(data?.session ?? null);
+        } else {
+          setSession(null);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred:", error);
+      }
+    };
+
+    fetchSession();
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
     const fetchProfile = async () => {
       const { data } = await supabase
         .from("profiles")
@@ -43,7 +64,7 @@ const MessageItem = ({
       key={message.id}
       className={
         message.profile_id === userId
-          ? "self-end rounded bg-blue-400 px-2"
+          ? "self-end rounded bg-gray-300 px-2"
           : "self-start rounded bg-gray-100 px-2"
       }
     >

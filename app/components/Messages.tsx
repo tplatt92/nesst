@@ -71,7 +71,7 @@ export default function Messages({ roomId }: MessagesProps) {
   }, []);
 
   return (
-    <ul className="flex flex-col justify-end space-y-1 p-4 w-full">
+    <ul className="flex flex-col justify-end space-y-2 p-4 w-full">
       {messages?.map((message) => (
         <MessageItem
           key={message.id}
