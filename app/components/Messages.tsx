@@ -11,13 +11,10 @@ type Message = {
   profile_id: string;
 };
 
-export default function Messages({
-  roomId,
-  profileCache,
-  setProfileCache,
-}: MessagesProps) {
+export default function Messages({ roomId }: MessagesProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesRef = useRef<HTMLDivElement>(null);
+  const [profileCache, setProfileCache] = useState<ProfileCache>({});
 
   useEffect(() => {
     const getData = async () => {
@@ -60,16 +57,21 @@ export default function Messages({
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
         handleInserts
-      )
-      .subscribe();
+      );
+
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+
+    const subscriptionObject = supscription.subscribe();
 
     return () => {
-      supabase.removeChannel(supscription);
+      supabase.removeChannel(subscriptionObject);
     };
   }, []);
 
   return (
-    <ul>
+    <ul className="flex flex-col justify-end space-y-2 p-4 w-full">
       {messages?.map((message) => (
         <MessageItem
           key={message.id}
