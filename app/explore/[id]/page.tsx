@@ -327,7 +327,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     setIsNessted((prev) => !prev);
   }
 
-  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 0
+  );
 
   const numImagesToShow = (width: number): number => {
     if (width <= 1024) {
@@ -490,6 +492,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                           alt="nesst logo"
                           width={40}
                           height={40}
+                          style={{ width: "auto", height: "auto" }}
                         />
                       ) : (
                         <Image
@@ -497,6 +500,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                           alt="Empty nesst logo"
                           width={40}
                           height={40}
+                          style={{ width: "auto", height: "auto" }}
                         />
                       )}
                     </div>
