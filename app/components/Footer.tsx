@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
               width={60}
               height={60}
             />
-            <p className="text-xs text-gray-400">My Nesst</p>
+            <p className="text-xs text-gray-400">NESST</p>
           </div>
 
           <div

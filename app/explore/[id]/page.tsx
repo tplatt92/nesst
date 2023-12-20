@@ -523,7 +523,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                 <h2 className="text-xl font-bold px-2 text-center">
                   Amenities
                 </h2>
-                <article className="grid grid-cols-2 sm:grid-cols-3 place-items-center gap-4 p-4 text-xs">
+                <article className="grid grid-cols-2 sm:grid-cols-3 place-items-center gap-4 p-4 text-xs lg:gap-8">
                   {property.TV ? (
                     <span className="font-medium flex flex-col items-center">
                       <Tv size={36} stroke="#8f8f8f" />
