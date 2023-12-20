@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useFetchProperty } from "../../hooks/useFetchProperty";
 import logoGreyEmpty from "public/logos/logoGreyEmpty.png";
 import { useEffect, useState } from "react";
 import ExploreNav from "../../components/ExploreNav";
@@ -60,75 +61,77 @@ type PropertyIdProps = {
 
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const supabase = createClientComponentClient<Database>();
-  const [session, setSession] = useState<Session | null>(null);
+  // const [session, setSession] = useState<Session | null>(null);
   const [
     profilesWhoHaveLikedThisProperty,
     setProfilesWhoHaveLikedThisProperty,
   ] = useState<null | any[]>(null);
   const [inNesst, setInNesst] = useState<null | any[]>(null);
-  const [availability, setAvailability] = useState<null | any[]>(null);
-  const [properties, setProperties] = useState<null | any[]>(null);
-  const [fetchError, setFetchError] = useState<string | null>(
-    "error fetching properties"
-  );
+  // const [availability, setAvailability] = useState<null | any[]>(null);
+  // const [properties, setProperties] = useState<null | any[]>(null);
+  // const [fetchError, setFetchError] = useState<string | null>(
+  //   "error fetching properties"
+  // );
   const [isLiked, setIsLiked] = useState(false);
   const [isNessted, setIsNessted] = useState(false);
 
   const pathname = usePathname();
   const propertyId = params.id;
-  const userId = session?.user?.id;
+  // const userId = session?.user?.id;
 
   const isMobile = useMediaQuery({
     query: "(max-width:600px), { noSsr: true }",
   });
 
-  // get session
-  useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const { data, error } = await supabase.auth.getSession();
-        if (error) {
-          console.error("Error fetching session:", error);
-          return;
-        }
-        if (data) {
-          console.log(session?.user ?? null);
-          setSession(data?.session ?? null);
-        } else {
-          setSession(null);
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
-      }
-    };
-    fetchSession();
-  }, []); // eslint-disable-line
+  // // get session
+  // useEffect(() => {
+  //   const fetchSession = async () => {
+  //     try {
+  //       const { data, error } = await supabase.auth.getSession();
+  //       if (error) {
+  //         console.error("Error fetching session:", error);
+  //         return;
+  //       }
+  //       if (data) {
+  //         console.log(session?.user ?? null);
+  //         setSession(data?.session ?? null);
+  //       } else {
+  //         setSession(null);
+  //       }
+  //     } catch (error) {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   };
+  //   fetchSession();
+  // }, []); // eslint-disable-line
 
-  // fetch properties
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("properties")
-          .select("*")
-          .eq("id", propertyId)
-          .single();
+  // // fetch properties
+  // useEffect(() => {
+  //   const fetchProperty = async () => {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from("properties")
+  //         .select("*")
+  //         .eq("id", propertyId)
+  //         .single();
 
-        if (error) {
-          setFetchError("error fetching properties");
-          setProperties(null);
-          console.error(error);
-        }
-        if (data) {
-          setProperties([data]);
-          setFetchError(null);
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
-      }
-    };
-    fetchProperties();
-  }, [propertyId]); // eslint-disable-line
+  //       if (error) {
+  //         setFetchError("error fetching properties");
+  //         setProperties(null);
+  //         console.error(error);
+  //       }
+  //       if (data) {
+  //         setProperties([data]);
+  //         setFetchError(null);
+  //       }
+  //     } catch (error) {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   };
+  //   fetchProperty();
+  // }, [propertyId]); // eslint-disable-line
+
+  const { properties, fetchError } = useFetchProperty(propertyId, supabase);
 
   //check if property has already been liked
   useEffect(() => {
@@ -137,7 +140,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         const { data, error } = await supabase
           .from("propertiesILiked")
           .select("*")
-          .eq("profile_id", `${userId}`)
+          // .eq("profile_id", `${userId}`)
           .eq("property_id", `${propertyId}`);
 
         if (error) {
@@ -152,7 +155,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfLiked();
-  }, [propertyId, userId]); // eslint-disable-line
+  }, [propertyId]); // eslint-disable-line
 
   //check if property has already been nessted
   useEffect(() => {
@@ -161,7 +164,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         const { data, error } = await supabase
           .from("nessts")
           .select("*")
-          .eq("profile_id", `${userId}`)
+          // .eq("profile_id", `${userId}`)
           .eq("property_id", `${propertyId}`);
 
         if (error) {
@@ -176,29 +179,29 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     checkIfNessted();
-  }, [propertyId, userId]); // eslint-disable-line
-
-  // fetch who has liked a property info
-  useEffect(() => {
-    const fetchWhoLiked = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("propertiesILiked")
-          .select(`profiles (id, username, avatar_url)`)
-          .eq("property_id", `${propertyId}`);
-
-        if (error) {
-          console.error("Error fetching properties:", error.message);
-        } else if (data) {
-          console.log(data);
-          setProfilesWhoHaveLikedThisProperty(data);
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
-      }
-    };
-    fetchWhoLiked();
   }, [propertyId]); // eslint-disable-line
+
+  // // fetch who has liked a property info
+  // useEffect(() => {
+  //   const fetchWhoLiked = async () => {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from("propertiesILiked")
+  //         .select(`profiles (id, username, avatar_url)`)
+  //         .eq("property_id", `${propertyId}`);
+
+  //       if (error) {
+  //         console.error("Error fetching properties:", error.message);
+  //       } else if (data) {
+  //         console.log(data);
+  //         setProfilesWhoHaveLikedThisProperty(data);
+  //       }
+  //     } catch (error) {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   };
+  //   fetchWhoLiked();
+  // }, [propertyId]); // eslint-disable-line
 
   // fetch who is in a nesst
   useEffect(() => {
@@ -226,7 +229,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     try {
       const { data, error } = await supabase
         .from("propertiesILiked")
-        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
+        .insert({ property_id: `${propertyId}` });
 
       if (error) {
         console.error("Error adding to liked column:", error.message);
@@ -243,7 +246,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     try {
       const { data, error } = await supabase
         .from("nessts")
-        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
+        .insert({ property_id: `${propertyId}` });
 
       if (error) {
         console.error("Error adding to nessts table:", error.message);
@@ -262,7 +265,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       const { data, error } = await supabase
         .from("propertiesILiked")
         .delete()
-        .eq("profile_id", `${userId}`)
+        // .eq("profile_id", `${userId}`)
         .eq("property_id", `${propertyId}`);
 
       if (error) {
@@ -282,7 +285,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       const { data, error } = await supabase
         .from("nessts")
         .delete()
-        .eq("profile_id", `${userId}`)
+        // .eq("profile_id", `${userId}`)
         .eq("property_id", `${propertyId}`);
 
       if (error) {
@@ -326,21 +329,38 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
 
   return (
     <>
-      <main className="px-4 pt-4 pb-32">
-        <ExploreNav setProperties={setProperties} />
+      <main className="px-4 pt-20 pb-32">
         {properties?.map((property) => (
           <Card key={property.id}>
             <CardHeader className="relative">
-            <div className="align-middle mx-auto md:hidden">
-  <Carousel images={property.image} />
-</div>
-<div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
-  {property.image.map((property, index) => (
-    <div className="object-cover h-100 w-100" key={index}>
-      <Image src={property} alt="property image" width={800} height={400} className="h-full w-full"/>
-    </div>
-  ))}
-</div>
+              <div className="align-middle mx-auto md:hidden">
+                <Carousel images={property.image} />
+              </div>
+              <div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
+                {property.image
+                  .map((property: string, index: number) => (
+                    <div
+                      key={index}
+                      className={`object-cover h-100 w-100 ${
+                        index === 0 && window.innerWidth >= 1024
+                          ? "lg:col-span-2 lg:row-span-2"
+                          : ""
+                      }`}
+                    >
+                      <Image
+                        src={property}
+                        alt="property image"
+                        width={800}
+                        height={400}
+                        className="h-full w-full"
+                      />
+                    </div>
+                  ))
+                  .slice(
+                    0,
+                    window.innerWidth >= 1024 ? 3 : property.image.length
+                  )}
+              </div>
             </CardHeader>
             <CardContent>
               <CardTitle className="text-xl font-monserrat font-semibold">
@@ -382,12 +402,22 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>Information</AlertDialogTitle>
-                          <AlertDialogDescription className="mr-6 text-nesstDarkGrey">                          
-                            <p>Reserve Property - Reserve the entire property!<br></br>Reserve bed - Share this property with other nomads<br></br>Heart - Add this property to your favourites!<br></br>Nesst- Add this property to Your Nesst and favourites. Go to messages to chat with other nomads in this Nesst.<br></br>Whichever way, get ready for an awesome stay!</p>
+                          <AlertDialogDescription className="mr-6 text-nesstDarkGrey">
+                            <p>
+                              Reserve Property - Reserve the entire property!
+                              <br></br>Reserve bed - Share this property with
+                              other nomads<br></br>Heart - Add this property to
+                              your favourites!<br></br>Nesst- Add this property
+                              to Your Nesst and favourites. Go to messages to
+                              chat with other nomads in this Nesst.<br></br>
+                              Whichever way, get ready for an awesome stay!
+                            </p>
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel className="mr-6 text-nesstDarkGrey">Close</AlertDialogCancel>
+                          <AlertDialogCancel className="mr-6 text-nesstDarkGrey">
+                            Close
+                          </AlertDialogCancel>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -462,71 +492,78 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
               </CardDescription>
             </CardContent>
 
-            <h2 className="text-xl font-bold px-2">Amenities</h2>
-            <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-4 p-4 text-xs border-b">
-              {property.TV ? (
-                <span className="font-medium flex flex-col items-center">
-                  <Tv size={36} stroke="#8f8f8f" />
-                  <p>TV</p>
-                </span>
-              ) : null}
-              {property.Desk ? (
-                <span className="font-medium flex flex-col items-center">
-                  <LampDesk size={36} stroke="#8f8f8f" />
+            <div className="md:flex flex-row items-center justify-center">
+              <div className="block">
+              <h2 className="text-xl font-bold px-2 text-center">Amenities</h2>
+              <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-4 p-4 text-xs border-b">
+                {property.TV ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <Tv size={36} stroke="#8f8f8f" />
+                    <p>TV</p>
+                  </span>
+                ) : null}
+                {property.Desk ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <LampDesk size={36} stroke="#8f8f8f" />
 
-                  <p>Desk</p>
-                </span>
-              ) : null}{" "}
-              {property.Washer ? (
-                <span className="font-medium flex flex-col items-center">
-                  <Shirt size={36} stroke="#8f8f8f" />
+                    <p>Desk</p>
+                  </span>
+                ) : null}{" "}
+                {property.Washer ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <Shirt size={36} stroke="#8f8f8f" />
 
-                  <p>Washer</p>
-                </span>
-              ) : null}
-              {property.SmokeAlarm ? (
-                <span className="font-medium flex flex-col items-center">
-                  <Radius size={36} stroke="#8f8f8f" />
-                  <p>Smoke Alarm</p>
-                </span>
-              ) : null}
-              {property.wifi ? (
-                <span className="font-medium flex flex-col items-center">
-                  <Wifi size={36} stroke="#8f8f8f" />
-                  <p>Wifi</p>
-                </span>
-              ) : null}
-              {property.Aircon ? (
-                <span className="font-medium flex flex-col items-center">
-                  <Fan size={36} stroke="#8f8f8f" />
-                  <p>Aircon</p>
-                </span>
-              ) : null}
-              {property.Kitchen ? (
-                <span className="font-medium flex flex-col items-center">
-                  <Utensils size={36} stroke="#8f8f8f" />
-                  <p>Kitchen</p>
-                </span>
-              ) : null}
-              {property.Parking ? (
-                <span className="font-medium flex flex-col items-center">
-                  <ParkingSquare size={36} stroke="#8f8f8f" />
-                  <p>Parking</p>
-                </span>
-              ) : null}
-              {property.Pool ? (
-                <span className="font-medium flex flex-col items-center">
-                  <Waves size={36} stroke="#8f8f8f" />
-                  <p>Pool</p>
-                </span>
-              ) : null}
-              {property.Pets ? (
-                <span className="font-medium flex flex-col items-center">
-                  <PawPrint size={36} stroke="#8f8f8f" />
-                  <p>Pets</p>
-                </span>
-              ) : null}
-            </article>
+                    <p>Washer</p>
+                  </span>
+                ) : null}
+                {property.SmokeAlarm ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <Radius size={36} stroke="#8f8f8f" />
+                    <p>Smoke Alarm</p>
+                  </span>
+                ) : null}
+                {property.wifi ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <Wifi size={36} stroke="#8f8f8f" />
+                    <p>Wifi</p>
+                  </span>
+                ) : null}
+                {property.Aircon ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <Fan size={36} stroke="#8f8f8f" />
+                    <p>Aircon</p>
+                  </span>
+                ) : null}
+                {property.Kitchen ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <Utensils size={36} stroke="#8f8f8f" />
+                    <p>Kitchen</p>
+                  </span>
+                ) : null}
+                {property.Parking ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <ParkingSquare size={36} stroke="#8f8f8f" />
+                    <p>Parking</p>
+                  </span>
+                ) : null}
+                {property.Pool ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <Waves size={36} stroke="#8f8f8f" />
+                    <p>Pool</p>
+                  </span>
+                ) : null}
+                {property.Pets ? (
+                  <span className="font-medium flex flex-col items-center">
+                    <PawPrint size={36} stroke="#8f8f8f" />
+                    <p>Pets</p>
+                  </span>
+                ) : null}
+              </article>
+              </div>
+              <div className="align-middle mx-auto hidden md:block">
+                <Carousel images={property.image} />
+              </div>
+            </div>
           </Card>
         ))}
         <article className="px-2 py-4 text-lg font-bold">
@@ -544,7 +581,11 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       <div className="flex items-center">
                         <AvatarProfile
                           uid={profile.profiles.id}
-                          url={profile.profiles.avatar_url ? (`/${profile.profiles.avatar_url}`) : ""}
+                          url={
+                            profile.profiles.avatar_url
+                              ? `/${profile.profiles.avatar_url}`
+                              : ""
+                          }
                           size={80}
                         />
                       </div>
