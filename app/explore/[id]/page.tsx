@@ -14,7 +14,6 @@ import Carousel from "../../components/CardCarousell";
 import Image from "next/image";
 import logoGrey from "public/logos/logoGrey.png";
 import AvatarProfile from "@/app/components/AvatarProfile";
-import DesktopNav from "@/app/components/DesktopNav";
 import {
   Card,
   CardContent,
