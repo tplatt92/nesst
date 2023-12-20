@@ -4,6 +4,7 @@ import logoGreyEmpty from "public/logos/logoGreyEmpty.png";
 import { useEffect, useState } from "react";
 import Footer from "@/app/components/Footer";
 import DesktopNav from "@/app/components/DesktopNav";
+import { useFetchProperty } from "../../hooks/useFetchProperty";
 // import { useMediaQuery } from "react-responsive";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
@@ -67,7 +68,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   ] = useState<null | any[]>(null);
   const [inNesst, setInNesst] = useState<null | any[]>(null);
   const [availability, setAvailability] = useState<null | any[]>(null);
-  const [properties, setProperties] = useState<null | any[]>(null);
+  //const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
@@ -105,30 +106,32 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   }, []); // eslint-disable-line
 
   // fetch properties
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("properties")
-          .select("*")
-          .eq("id", propertyId)
-          .single();
+  const { properties } = useFetchProperty(propertyId, supabase);
 
-        if (error) {
-          setFetchError("error fetching properties");
-          setProperties(null);
-          console.error(error);
-        }
-        if (data) {
-          setProperties([data]);
-          setFetchError(null);
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
-      }
-    };
-    fetchProperties();
-  }, [propertyId]); // eslint-disable-line
+  // useEffect(() => {
+  //   const fetchProperties = async () => {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from("properties")
+  //         .select("*")
+  //         .eq("id", propertyId)
+  //         .single();
+
+  //       if (error) {
+  //         setFetchError("error fetching properties");
+  //         setProperties(null);
+  //         console.error(error);
+  //       }
+  //       if (data) {
+  //         setProperties([data]);
+  //         setFetchError(null);
+  //       }
+  //     } catch (error) {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   };
+  //   fetchProperties();
+  // }, [propertyId]); // eslint-disable-line
 
   //check if property has already been liked
   useEffect(() => {
@@ -178,27 +181,27 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     checkIfNessted();
   }, [propertyId, userId]); // eslint-disable-line
 
-  // fetch who has liked a property info
-  useEffect(() => {
-    const fetchWhoLiked = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("propertiesILiked")
-          .select(`profiles (id, username, avatar_url)`)
-          .eq("property_id", `${propertyId}`);
+  // // fetch who has liked a property info
+  // useEffect(() => {
+  //   const fetchWhoLiked = async () => {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from("propertiesILiked")
+  //         .select(`profiles (id, username, avatar_url)`)
+  //         .eq("property_id", `${propertyId}`);
 
-        if (error) {
-          console.error("Error fetching properties:", error.message);
-        } else if (data) {
-          console.log(data);
-          setProfilesWhoHaveLikedThisProperty(data);
-        }
-      } catch (error) {
-        console.error("An unexpected error occurred:", error);
-      }
-    };
-    fetchWhoLiked();
-  }, [propertyId]); // eslint-disable-line
+  //       if (error) {
+  //         console.error("Error fetching properties:", error.message);
+  //       } else if (data) {
+  //         console.log(data);
+  //         setProfilesWhoHaveLikedThisProperty(data);
+  //       }
+  //     } catch (error) {
+  //       console.error("An unexpected error occurred:", error);
+  //     }
+  //   };
+  //   fetchWhoLiked();
+  // }, [propertyId]); // eslint-disable-line
 
   // fetch who is in a nesst
   useEffect(() => {
