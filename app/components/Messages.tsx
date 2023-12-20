@@ -11,6 +11,7 @@ type Message = {
 
 export default function Messages() {
   const [messages, setMessages] = useState<Message[]>([]);
+
   useEffect(() => {
     const getData = async () => {
       const { data } = await supabase.from("messages").select("*");
@@ -30,15 +31,19 @@ export default function Messages() {
   }
 
   useEffect(() => {
-    supabase
-      .channel("messages")
+    const supscription = supabase
+      .channel("channelOne")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
         handleInserts
       )
       .subscribe();
-  });
+
+    return () => {
+      supabase.removeChannel(supscription);
+    };
+  }, []);
 
   return (
     <ul>
