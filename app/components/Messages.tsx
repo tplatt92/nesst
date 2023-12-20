@@ -11,10 +11,26 @@ type Message = {
   profile_id: string;
 };
 
-export default function Messages({ roomId }: MessagesProps) {
+export default function Messages({ pathname }: MessagesProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesRef = useRef<HTMLDivElement>(null);
   const [profileCache, setProfileCache] = useState<ProfileCache>({});
+  const [roomId, setRoomId] = useState<string | null>("");
+  useEffect(() => {
+    const getNesstData = async () => {
+        const { data } = await supabase
+          .from("nesst_chats")
+          .select("*")
+          .eq("property_id", pathname);
+        console.log(data);
+
+        if (!data) {
+          alert("No data found");
+          return;
+        }
+      },
+      [];
+  });
 
   useEffect(() => {
     const getData = async () => {

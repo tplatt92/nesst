@@ -95,6 +95,7 @@ export type MessagesProps = {
   roomId: string;
   profileCache: ProfileCache;
   setProfileCache: Dispatch<SetStateAction<ProfileCache>>;
+  pathname: string;
 };
 
 export type ProfileCache = {

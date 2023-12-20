@@ -57,7 +57,7 @@ const MessageItem = ({
     if (!profile) {
       fetchProfile();
     }
-  }, [profile, message.profile_id]);
+  }, [profile, message.profile_id]); //eslint-disable-line
 
   return (
     <li

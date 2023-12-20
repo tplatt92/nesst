@@ -4,7 +4,10 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
 import Messages from "../../components/Messages";
 import { ProfileCache } from "@/types/types";
+import { usePathname } from "next/navigation";
+
 export default function Chat() {
+  const pathname = usePathname();
   const supabase = createClientComponentClient<Database>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,6 +36,7 @@ export default function Chat() {
       <main className="flex flex-1 justify-between flex-col max-h-[89%]">
         <div className="overflow-y-scroll">
           <Messages
+            pathname={pathname}
             roomId={""}
             profileCache={{}}
             setProfileCache={function (
