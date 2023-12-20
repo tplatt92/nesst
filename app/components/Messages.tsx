@@ -11,31 +11,18 @@ type Message = {
   profile_id: string;
 };
 
-export default function Messages({ pathname }: MessagesProps) {
+export default function Messages({ roomId }: MessagesProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesRef = useRef<HTMLDivElement>(null);
   const [profileCache, setProfileCache] = useState<ProfileCache>({});
-  const [roomId, setRoomId] = useState<string | null>("");
-  useEffect(() => {
-    const getNesstData = async () => {
-        const { data } = await supabase
-          .from("nesst_chats")
-          .select("*")
-          .eq("property_id", pathname);
-        console.log(data);
-
-        if (!data) {
-          alert("No data found");
-          return;
-        }
-      }      
-  },[]);
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await supabase.from("messages").select("*");
+      const { data } = await supabase
+        .from("messages")
+        .select("*")
+        .eq("room_id", roomId);
       if (!data) {
-        alert("No data found");
         return;
       }
 
@@ -58,7 +45,7 @@ export default function Messages({ pathname }: MessagesProps) {
       }
     };
     getData();
-  }, []);
+  }, [roomId]);
 
   function handleInserts(payload: any) {
     const newMessage = payload.new;
@@ -86,7 +73,7 @@ export default function Messages({ pathname }: MessagesProps) {
   }, []);
 
   return (
-    <ul className="flex flex-col justify-end space-y-2 p-4 w-full">
+    <ul className="flex flex-col self-end space-y-2 p-4 w-full">
       {messages?.map((message) => (
         <MessageItem
           key={message.id}

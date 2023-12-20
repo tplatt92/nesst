@@ -92,10 +92,9 @@ export type Message = {
 };
 
 export type MessagesProps = {
-  roomId: string;
+  roomId: string | null;
   profileCache: ProfileCache;
   setProfileCache: Dispatch<SetStateAction<ProfileCache>>;
-  pathname: string;
 };
 
 export type ProfileCache = {
