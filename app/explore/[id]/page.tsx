@@ -13,6 +13,7 @@ import { Session } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import logoGrey from "public/logos/logoGrey.png";
 import AvatarProfile from "@/app/components/AvatarProfile";
+import DesktopNav from "@/app/components/DesktopNav";
 import {
   Card,
   CardContent,
@@ -327,40 +328,40 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     setIsNessted((prev) => !prev);
   }
 
+      const screenWidth = window.innerWidth;  
+      
   return (
     <>
+    <div className="hidden md:block">
+      <DesktopNav />
+    </div>
       <main className="px-4 pt-20 pb-32">
         {properties?.map((property) => (
           <Card key={property.id}>
             <CardHeader className="relative">
-              <div className="align-middle mx-auto md:hidden">
-                <Carousel images={property.image} />
-              </div>
-              <div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
-                {property.image
-                  .map((property: string, index: number) => (
-                    <div
-                      key={index}
-                      className={`object-cover h-100 w-100 ${
-                        index === 0 && window.innerWidth >= 1024
-                          ? "lg:col-span-2 lg:row-span-2"
-                          : ""
-                      }`}
-                    >
-                      <Image
-                        src={property}
-                        alt="property image"
-                        width={800}
-                        height={400}
-                        className="h-full w-full"
-                      />
-                    </div>
-                  ))
-                  .slice(
-                    0,
-                    window.innerWidth >= 1024 ? 3 : property.image.length
-                  )}
-              </div>
+            <div className="align-middle mx-auto md:hidden">
+  <Carousel images={property.image} />
+</div>
+<div className="hidden md:grid md:grid-cols-2 md:grid-rows-2 lg:grid-rows-2 xl:grid-rows-2 xl:grid-col lg:grid lg:grid-cols-3 gap-4">
+
+
+  {property.image.slice(0, 5).map((property: string, index: number) => (
+    <div
+      key={index}
+      className={`object-cover h-100 w-100 ${
+        index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''
+      }`}
+    >
+      <Image
+        src={property}
+        alt="property image"
+        width={800}
+        height={400}
+        className="h-full w-full"
+      />
+    </div>
+  ))}
+</div>
             </CardHeader>
             <CardContent>
               <CardTitle className="text-xl font-monserrat font-semibold">
@@ -600,7 +601,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           </div>
         </article>
       </main>
-      {isMobile && <Footer pathnameUrl={pathname} />}
+    <div className="md:hidden"><Footer pathnameUrl={pathname} /></div> 
+    
     </>
   );
 };
