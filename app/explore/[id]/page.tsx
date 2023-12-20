@@ -3,13 +3,14 @@ import React from "react";
 import { useFetchProperty } from "../../hooks/useFetchProperty";
 import logoGreyEmpty from "public/logos/logoGreyEmpty.png";
 import { useEffect, useState } from "react";
-import ExploreNav from "../../components/ExploreNav";
+//import ExploreNav from "../../components/ExploreNav";
 import Footer from "@/app/components/Footer";
-import { useMediaQuery } from "react-responsive";
+import DesktopNav from "@/app/components/DesktopNav";
+//import { useMediaQuery } from "react-responsive";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/types/supabase";
 import Carousel from "../../components/CardCarousell";
-import { Session } from "@supabase/auth-helpers-nextjs";
+//import { Session } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import logoGrey from "public/logos/logoGrey.png";
 import AvatarProfile from "@/app/components/AvatarProfile";
@@ -53,7 +54,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import CalendarWidget from "@/app/components/Calendar";
-import { set } from "date-fns";
+//import { set } from "date-fns";
 
 type PropertyIdProps = {
   params: any;
@@ -62,10 +63,10 @@ type PropertyIdProps = {
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const supabase = createClientComponentClient<Database>();
   // const [session, setSession] = useState<Session | null>(null);
-  const [
-    profilesWhoHaveLikedThisProperty,
-    setProfilesWhoHaveLikedThisProperty,
-  ] = useState<null | any[]>(null);
+  // const [
+  //   profilesWhoHaveLikedThisProperty,
+  //   setProfilesWhoHaveLikedThisProperty,
+  // ] = useState<null | any[]>(null);
   const [inNesst, setInNesst] = useState<null | any[]>(null);
   // const [availability, setAvailability] = useState<null | any[]>(null);
   // const [properties, setProperties] = useState<null | any[]>(null);
@@ -79,9 +80,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const propertyId = params.id;
   // const userId = session?.user?.id;
 
-  const isMobile = useMediaQuery({
-    query: "(max-width:600px), { noSsr: true }",
-  });
+  // const isMobile = useMediaQuery({
+  //   query: "(max-width:600px), { noSsr: true }",
+  // });
 
   // // get session
   // useEffect(() => {
@@ -327,8 +328,36 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     setIsNessted((prev) => !prev);
   }
 
+  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
+
+  const numImagesToShow = (width: number): number => {
+    if (width <= 1024) {
+      return 4;
+    } else if (width < 1280) {
+      return 3;
+    } else {
+      return 5;
+    }
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // Empty dependency array ensures that the effect runs only once when the component mounts
+
   return (
     <>
+    <div className="hiden md:block">
+      <DesktopNav />
+    </div>
       <main className="px-4 pt-20 pb-32">
         {properties?.map((property) => (
           <Card key={property.id}>
@@ -336,16 +365,15 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
               <div className="align-middle mx-auto md:hidden">
                 <Carousel images={property.image} />
               </div>
-              <div className="hidden md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-4">
+              <div className="hidden md:grid md:grid-cols-2 md:grid-rows-2 lg:grid-rows-2 lg:grid-cols-3 xl:grid-rows-2 xl:grid-cols-4 gap-4">
                 {property.image
+                  .slice(0, numImagesToShow(screenWidth))
                   .map((property: string, index: number) => (
                     <div
                       key={index}
                       className={`object-cover h-100 w-100 ${
-                        index === 0 && window.innerWidth >= 1024
-                          ? "lg:col-span-2 lg:row-span-2"
-                          : ""
-                      }`}
+                        index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''
+                      } ${index >= numImagesToShow(screenWidth) ? 'hidden' : ''}`}
                     >
                       <Image
                         src={property}
@@ -355,11 +383,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                         className="h-full w-full"
                       />
                     </div>
-                  ))
-                  .slice(
-                    0,
-                    window.innerWidth >= 1024 ? 3 : property.image.length
-                  )}
+                  ))}
               </div>
             </CardHeader>
             <CardContent>
@@ -492,75 +516,77 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
               </CardDescription>
             </CardContent>
 
-            <div className="md:flex flex-row items-center justify-center">
+            <div className="md:flex flex-row items-center justify-evenly border-b">
               <div className="block">
-              <h2 className="text-xl font-bold px-2 text-center">Amenities</h2>
-              <article className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-4 p-4 text-xs border-b">
-                {property.TV ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <Tv size={36} stroke="#8f8f8f" />
-                    <p>TV</p>
-                  </span>
-                ) : null}
-                {property.Desk ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <LampDesk size={36} stroke="#8f8f8f" />
+                <h2 className="text-xl font-bold px-2 text-center">
+                  Amenities
+                </h2>
+                <article className="grid grid-cols-2 sm:grid-cols-3 place-items-center gap-4 p-4 text-xs">
+                  {property.TV ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <Tv size={36} stroke="#8f8f8f" />
+                      <p>TV</p>
+                    </span>
+                  ) : null}
+                  {property.Desk ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <LampDesk size={36} stroke="#8f8f8f" />
 
-                    <p>Desk</p>
-                  </span>
-                ) : null}{" "}
-                {property.Washer ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <Shirt size={36} stroke="#8f8f8f" />
+                      <p>Desk</p>
+                    </span>
+                  ) : null}{" "}
+                  {property.Washer ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <Shirt size={36} stroke="#8f8f8f" />
 
-                    <p>Washer</p>
-                  </span>
-                ) : null}
-                {property.SmokeAlarm ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <Radius size={36} stroke="#8f8f8f" />
-                    <p>Smoke Alarm</p>
-                  </span>
-                ) : null}
-                {property.wifi ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <Wifi size={36} stroke="#8f8f8f" />
-                    <p>Wifi</p>
-                  </span>
-                ) : null}
-                {property.Aircon ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <Fan size={36} stroke="#8f8f8f" />
-                    <p>Aircon</p>
-                  </span>
-                ) : null}
-                {property.Kitchen ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <Utensils size={36} stroke="#8f8f8f" />
-                    <p>Kitchen</p>
-                  </span>
-                ) : null}
-                {property.Parking ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <ParkingSquare size={36} stroke="#8f8f8f" />
-                    <p>Parking</p>
-                  </span>
-                ) : null}
-                {property.Pool ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <Waves size={36} stroke="#8f8f8f" />
-                    <p>Pool</p>
-                  </span>
-                ) : null}
-                {property.Pets ? (
-                  <span className="font-medium flex flex-col items-center">
-                    <PawPrint size={36} stroke="#8f8f8f" />
-                    <p>Pets</p>
-                  </span>
-                ) : null}
-              </article>
+                      <p>Washer</p>
+                    </span>
+                  ) : null}
+                  {property.SmokeAlarm ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <Radius size={36} stroke="#8f8f8f" />
+                      <p>Smoke Alarm</p>
+                    </span>
+                  ) : null}
+                  {property.wifi ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <Wifi size={36} stroke="#8f8f8f" />
+                      <p>Wifi</p>
+                    </span>
+                  ) : null}
+                  {property.Aircon ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <Fan size={36} stroke="#8f8f8f" />
+                      <p>Aircon</p>
+                    </span>
+                  ) : null}
+                  {property.Kitchen ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <Utensils size={36} stroke="#8f8f8f" />
+                      <p>Kitchen</p>
+                    </span>
+                  ) : null}
+                  {property.Parking ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <ParkingSquare size={36} stroke="#8f8f8f" />
+                      <p>Parking</p>
+                    </span>
+                  ) : null}
+                  {property.Pool ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <Waves size={36} stroke="#8f8f8f" />
+                      <p>Pool</p>
+                    </span>
+                  ) : null}
+                  {property.Pets ? (
+                    <span className="font-medium flex flex-col items-center">
+                      <PawPrint size={36} stroke="#8f8f8f" />
+                      <p>Pets</p>
+                    </span>
+                  ) : null}
+                </article>
               </div>
-              <div className="align-middle mx-auto hidden md:block">
+              <div className="align-middle hidden md:block pb-4">
                 <Carousel images={property.image} />
               </div>
             </div>
@@ -600,7 +626,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           </div>
         </article>
       </main>
-      {isMobile && <Footer pathnameUrl={pathname} />}
+      <div className="md:hidden">
+      <Footer pathnameUrl={pathname} />
+      </div>
     </>
   );
 };
