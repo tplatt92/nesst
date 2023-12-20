@@ -8,12 +8,11 @@ import { Database } from "@/types/supabase";
 
 const supabase = createClientComponentClient<Database>();
 
-interface NesstsData {
+export interface NesstsData {
   id: string;
-  first_name: string | null;
-  last_name: string | null;
-  avatar_url: string | null;
-  username: string | null;
+  name: string | null;
+  description: string | null;
+  image: string[] | null;
 }
 
 export async function fetchNesstsData(
@@ -22,29 +21,30 @@ export async function fetchNesstsData(
   try {
     //fetch Nessts data
     const { data: NesstsData, error: NesstsError } = await supabase
-      .from("nessts")
-      .select("profile_id")
+      .from("nesst_chats")
+      .select("property_id")
       .eq("profile_id", userId);
-
+    console.log(NesstsData);
     if (NesstsError) {
       console.error(NesstsError);
       return null;
     }
-    const friendIds = NesstsData?.map((entry) => entry.profile_id) || [];
+    const propertyIds = NesstsData?.map((entry) => entry.property_id) || [];
+    console.log(propertyIds);
 
     // Fetch profile data for Nessts
-    const { data: profilesData, error: profilesError } = await supabase
-      .from("profiles")
-      .select("id, first_name, last_name, username, avatar_url")
-      .in("id", friendIds);
+    const { data: propertiesData, error: propertiesError } = await supabase
+      .from("properties")
+      .select("id, name, description, image")
+      .in("id", propertyIds);
 
-    if (profilesError) {
-      console.error(profilesError);
+    if (propertiesError) {
+      console.error(propertiesError);
       return null;
     }
 
     // Return the fetched data
-    return profilesData as NesstsData[];
+    return propertiesData as unknown as NesstsData[];
   } catch (error) {
     console.error(error);
     return null;

@@ -12,6 +12,8 @@ import Footer from "@/app/components/Footer";
 import MessageContainerItem from "../components/MessageContainerItem";
 import DesktopNav from "../components/DesktopNav";
 import { fetchNesstsData } from "../hooks/fetchNessts";
+import { NesstsData } from "../hooks/fetchNessts";
+import NesstContainerItem from "../components/NesstContainerItem";
 
 type ProfileIdProps = {
   params: any | null;
@@ -40,7 +42,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
   );
   const [profile, setProfile] = useState<null | any[]>(null);
   const [isNomads, setIsNomads] = useState<boolean>(true);
-  const [nesst, setNesst] = useState<ConnectionData[] | null>(null);
+  const [nesst, setNesst] = useState<NesstsData[] | null>(null);
 
   // get session
   useEffect(() => {
@@ -178,12 +180,11 @@ const Messages: React.FC<ProfileIdProps> = () => {
             ))
           : nesst?.map((nesst) => (
               <Link key={nesst.id} href={`/messages/${nesst.id}`}>
-                <MessageContainerItem
+                <NesstContainerItem
                   id={nesst.id}
-                  first_name={nesst.first_name}
-                  last_name={nesst.last_name}
-                  avatar_url={nesst.avatar_url}
-                  username={nesst.username}
+                  name={nesst.name}
+                  description={nesst.description}
+                  image={nesst.image}
                 />
               </Link>
             ))}
