@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import logoGreyEmpty from "public/logos/logoGreyEmpty.png";
+// import logoGreyEmpty from "public/logos/logoGreyEmpty.png";
 import { useEffect, useState } from "react";
 import Footer from "@/app/components/Footer";
 import DesktopNav from "@/app/components/DesktopNav";
@@ -11,7 +11,7 @@ import { Database } from "@/types/supabase";
 import Carousel from "../../components/CardCarousell";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
-import logoGrey from "public/logos/logoGrey.png";
+// import logoGrey from "public/logos/logoGrey.png";
 import AvatarProfile from "@/app/components/AvatarProfile";
 import {
   Card,
@@ -492,7 +492,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     <div className="h-auto w-auto">
                       {isNessted ? (
                         <Image
-                          src={logoGrey}
+                          src="/logos/logoGrey.png"
                           alt="nesst logo"
                           width={40}
                           height={40}
@@ -500,7 +500,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                         />
                       ) : (
                         <Image
-                          src={logoGreyEmpty}
+                          src="/logos/logoGreyEmpty.png"
                           alt="Empty nesst logo"
                           width={40}
                           height={40}
