@@ -363,6 +363,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     <div className="hiden md:block">
       <DesktopNav />
     </div>
+    <div className="w-screen flex flex-col items-center justify-center">
+    <div className="lg:max-w-6xl">
       <main className="px-4 pt-20 pb-32">
         {properties?.map((property) => (
           <Card key={property.id}>
@@ -637,6 +639,9 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       <div className="md:hidden">
         <Footer pathnameUrl={pathname} />
       </div>
+      </div>
+      </div>
+      
     </>
   );
 };
