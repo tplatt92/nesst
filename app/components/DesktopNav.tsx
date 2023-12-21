@@ -23,7 +23,7 @@ export default function DesktopNav() {
               style={{ width: "auto", height: "auto" }}
             />
           </div>
-          <div className="flex gap-2 lg:gap-8 lg:pr-8 text-sm lg:text-md">
+          <div className="flex gap-2 lg:gap-10 lg:pr-8 text-sm lg:text-lg">
             <div
               className={`${
                 pathnameUrl === "/explore"
@@ -33,7 +33,7 @@ export default function DesktopNav() {
             >
               <Link
                 href="/explore"
-                className="text-center hover:underline  hover:text-nesstDarkGrey cursor-pointer "
+                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer "
               >
                 <p className=" text-md">Explore</p>
               </Link>
@@ -41,13 +41,13 @@ export default function DesktopNav() {
             <div
               className={`${
                 pathnameUrl === "/favourites"
-                  ? "text-nestDarkGrey"
+                  ? "text-nesstDarkGrey"
                   : "text-black"
               } `}
             >
               <Link
                 href="/favourites"
-                className="text-center hover:underline  hover:text-nesstDarkGrey cursor-pointer"
+                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
               >
                 <p className=" text-md">Favourites</p>
               </Link>
@@ -61,19 +61,19 @@ export default function DesktopNav() {
             >
               <Link
                 href="/messages"
-                className="text-center hover:underline  hover:text-nestDarkGrey cursor-pointer"
+                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
               >
                 <p className=" text-md">Messages</p>
               </Link>
             </div>
             <div
               className={`${
-                pathnameUrl === "/profile" ? "text-nestDarkGrey" : "text-black"
+                pathnameUrl === "/profile" ? "text-nesstDarkGrey" : "text-black"
               } `}
             >
               <Link
                 href="/profile"
-                className="text-center hover:underline  hover:text-nestDarkGrey cursor-pointer"
+                className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
               >
                 <p className=" text-md">Profile</p>
               </Link>

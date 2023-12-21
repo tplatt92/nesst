@@ -7,14 +7,17 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 import dynamic from "next/dynamic";
+import ExploreNav from "../components/ExploreNav";
+import Footer from "../components/Footer";
+import DesktopNav from "../components/DesktopNav";
 
-const ExploreNav = dynamic(() => import("../components/ExploreNav"), {
-  ssr: false,
-});
+// const ExploreNav = dynamic(() => import("../components/ExploreNav"), {
+//   ssr: false,
+// });
 
-const Footer = dynamic(() => import("../components/Footer"), {
-  ssr: false,
-});
+// const Footer = dynamic(() => import("../components/Footer"), {
+//   ssr: false,
+// });
 
 import {
   Card,
@@ -54,6 +57,10 @@ export default function Explore() {
   }, []);
 
   return (
+    <>
+    <div className="hidden md:block">
+      <DesktopNav />
+    </div>
     <main className="flex min-h-screen w-screen flex-col items-center  pb-2">
       <ExploreNav setProperties={setProperties} />
       <div
@@ -104,7 +111,10 @@ export default function Explore() {
         ))}
       </div>
       {properties?.length == 0 && <p>No items match your search.</p>}
-      <Footer pathnameUrl={pathname} />
     </main>
+      <div className="md:hidden">
+      <Footer pathnameUrl={pathname} />
+      </div>
+    </>
   );
 }

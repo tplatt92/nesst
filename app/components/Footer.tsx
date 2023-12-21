@@ -43,7 +43,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
           <div className="relative self-end">
             <Image
               alt="NESST"
-              src="/logos/logoGrey.png"
+              src="/logos/nesstLogoGrey.png"
               className="flex-1 text-center absolute bottom-5  "
               priority={true}
               width={60}

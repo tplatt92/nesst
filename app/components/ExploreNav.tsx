@@ -146,14 +146,14 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   const pathnameUrl = usePathname();
   return (
     <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-8 w-full shadow-lg ">
-      {isMobile ? (
+      {/* {isMobile ? ( */}
         <>
           <div className="flex flex-row relative py-8 w-full">
             <form
               className="flex items-center w-full justify-between"
               onSubmit={handleSubmit}
             >
-              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-14 lg:h-10 items-center lg:max-w-xs shadow-lg">
+              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-14 lg:h-10 items-center lg:max-w-sm shadow-lg">
                 <input
                   className="h-13 lg:h-6 items-center flex-1 rounded-l-full pl-4 text-[14px] lg:text-xs focus:outline-none"
                   placeholder={"Where - Add destination"}
@@ -197,7 +197,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             onWasherChange={setWasher}
           />
         </>
-      ) : (
+      {/* ) : (
         <div className="flex flex-row items-center gap-4 relative my-4 w-full">
           <div className="flex items-center justify-center pl-2">
             <Image
@@ -308,7 +308,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
             onWasherChange={setWasher}
           />
         </div>
-      )}
+      )} */}
     </nav>
   );
 };
