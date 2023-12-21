@@ -1,5 +1,5 @@
 import { supabase } from "../utils/supabase";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 
 import MessageItem from "./Message";
 import { MessagesProps, Profile, ProfileCache } from "../../types/types.ts";
@@ -44,7 +44,7 @@ export default function Messages({ roomId }: MessagesProps) {
   }, [roomId]);
 
   // scrolls to bottom of screen when new message is fetched
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
