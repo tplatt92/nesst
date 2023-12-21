@@ -133,7 +133,7 @@ export default function CreateAccountForm({
       <div className="w-5/6 pb-4">
         <label htmlFor="bio">Bio</label>
         <CustomTextArea
-          id="Bio"
+          id="bio"
           placeholder="Bio"
           value={formData.bio || ""}
           onChange={(e) =>
@@ -147,7 +147,8 @@ export default function CreateAccountForm({
       <div className="w-5/6 pb-8">
         <label htmlFor="drinking habits">Drinking Habits</label>
         <CustomSelect
-          id="drinker"
+          id="drinking habits"
+          name="drinking habits"
           value={formData.drinker || ""}
           onChange={(e) =>
             setFormData((prevFormData) => ({
@@ -168,6 +169,7 @@ export default function CreateAccountForm({
         <label htmlFor="smoker">Do you Smoke?</label>
         <Switch
           id="smoker"
+          aria-label="smoker"
           checked={formData.smoker}
           onCheckedChange={() =>
             setFormData((prevFormData) => ({
@@ -315,14 +317,6 @@ export default function CreateAccountForm({
         >
           {loading ? "Loading ..." : "Submit"}
         </button>
-      </div>
-
-      <div>
-        <form action="/auth/signout" method="post">
-          <button className="button block" type="submit">
-            Sign out
-          </button>
-        </form>
       </div>
     </div>
   );

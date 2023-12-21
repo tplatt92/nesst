@@ -134,7 +134,7 @@ export default function EditAccountForm({
       <div className="w-5/6 pb-4">
         <label htmlFor="bio">Bio</label>
         <CustomTextArea
-          id="Bio"
+          id="bio"
           placeholder="Bio"
           value={formData.bio || ""}
           onChange={(e) =>
@@ -148,8 +148,9 @@ export default function EditAccountForm({
       <div className="w-5/6 pb-8">
         <label htmlFor="drinking habits">Drinking Habits</label>
         <CustomSelect
-          id="drinker"
+          id="drinking habits"
           value={formData.drinker || ""}
+          name={"drinking habits"}
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
@@ -169,6 +170,7 @@ export default function EditAccountForm({
         <label htmlFor="smoker">Do you Smoke?</label>
         <Switch
           id="smoker"
+          aria-label="smoker"
           checked={formData.smoker}
           onCheckedChange={() =>
             setFormData((prevFormData) => ({
