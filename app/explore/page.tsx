@@ -61,8 +61,9 @@ export default function Explore() {
     <div className="hidden md:block">
       <DesktopNav />
     </div>
-    <main className="flex min-h-screen w-screen flex-col items-center  pb-2">
+    <main className="flex min-h-screen w-screen flex-col items-center  pb-16 md:pb-0">
       <ExploreNav setProperties={setProperties} />
+      
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-6 lg:gap-8 lg:mx-12 lg:my-12 p-8 lg:px-8"
         data-testid="card-id"
