@@ -21,7 +21,7 @@ export default function Chat() {
   const supabase = createClientComponentClient<Database>();
   const [roomId, setRoomId] = useState<string | null>("");
   const [properties, setProperties] = useState<null | PropertiesProps>(null);
-  console.log(properties);
+
   const actualPathname = pathname.split("/").pop();
   useEffect(() => {
     const getProperty = async () => {
@@ -39,7 +39,7 @@ export default function Chat() {
       }
     };
     getProperty();
-  }, [actualPathname]);
+  }, [actualPathname]); // eslint-disable-line
 
   // get the room with property id
 
@@ -58,7 +58,7 @@ export default function Chat() {
       }
     };
     getRooms();
-  }, []);
+  }, []); // eslint-disable-line
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,7 +70,7 @@ export default function Chat() {
       const { data, error } = await supabase
         .from("messages")
         .insert([{ content: message, room_id: roomId }]);
-      console.log({ data });
+
       if (error) {
         alert(error.message);
       }
@@ -94,7 +94,7 @@ export default function Chat() {
         </Link>
         <AvatarProfile
           uid={pathname}
-          url={`${properties?.image[0]}`}
+          url={`/${properties?.image[0]}`}
           size={60}
         />
         <div>

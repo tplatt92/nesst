@@ -7,7 +7,7 @@ interface MessageContainerItemProps {
   id: string;
   name: string | null;
   description: string | null;
-  image: string[];
+  image: string[] | null;
 }
 
 const NesstContainerItem: React.FC<MessageContainerItemProps> = ({
@@ -19,7 +19,7 @@ const NesstContainerItem: React.FC<MessageContainerItemProps> = ({
   return (
     <div className="flex items-center gap-4 ">
       <div>
-        <AvatarProfile uid={id} url={`${image[0]}`} size={80} />
+        <AvatarProfile uid={id} url={`${image?.[0]}`} size={80} />
       </div>
 
       <div className="border-y flex-1 py-8">

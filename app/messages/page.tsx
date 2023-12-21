@@ -27,10 +27,6 @@ interface ConnectionData {
   username: string | null;
 }
 
-interface MessageContainerItemProps {
-  connections: ConnectionData[] | null;
-}
-
 const Messages: React.FC<ProfileIdProps> = () => {
   const supabase = createClientComponentClient<Database>();
   const [session, setSession] = useState<Session | null>(null);

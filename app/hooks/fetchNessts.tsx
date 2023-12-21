@@ -24,13 +24,12 @@ export async function fetchNesstsData(
       .from("nesst_chats")
       .select("property_id")
       .eq("profile_id", userId);
-    console.log(NesstsData);
+
     if (NesstsError) {
       console.error(NesstsError);
       return null;
     }
     const propertyIds = NesstsData?.map((entry) => entry.property_id) || [];
-    console.log(propertyIds);
 
     // Fetch profile data for Nessts
     const { data: propertiesData, error: propertiesError } = await supabase

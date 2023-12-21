@@ -32,10 +32,6 @@ export default function Explore() {
   );
   const pathname = usePathname();
 
-  // const isMobile = useMediaQuery({
-  //   query: "(max-width:600px), { noSsr: true }",
-  // });
-
   useEffect(() => {
     const fetchProperties = async () => {
       try {
