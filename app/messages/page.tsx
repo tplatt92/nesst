@@ -158,7 +158,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
               !isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
             }`}
           >
-            Nests
+            Nessts
           </button>
         </div>
 
