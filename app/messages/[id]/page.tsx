@@ -78,25 +78,22 @@ export default function Chat() {
     }
   };
   type ImageType = {
-    src: string | null;
+    src: string | undefined;
     height: number;
     width: number;
   };
-
+  let src = properties?.image[0];
   type PropertyProfileProps = {
     properties?: { image: ImageType[] };
   };
   //component for header
-  function PropertyProfile({ properties }: PropertyProfileProps) {
-    if (!properties || !properties.image || !properties.image[0]) {
-      return null; // or a default image or loading indicator
-    } else 
+  function PropertyProfile() {
     return (
       <div>
         <Image
           width={60}
           height={60}
-          src={properties?.image[0]}
+          src={src || ""}
           alt="property"
           className="avatar image rounded-r-full object-cover rounded-b-full border-4 border-white"
           style={{ height: 60, width: 60 }}
@@ -104,7 +101,7 @@ export default function Chat() {
       </div>
     );
   }
-  console.log(properties?.image[0]);
+
   return (
     <div className="flex flex-col h-screen">
       <header className="flex items-center gap-8 p-4 pt-8 md:pt-4 bg-gray-100">
