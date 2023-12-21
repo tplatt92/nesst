@@ -145,7 +145,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
 
   const pathnameUrl = usePathname();
   return (
-    <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-8 w-full shadow-lg ">
+    <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-8 w-full shadow-lg pt-8 md:pt-0">
       {/* {isMobile ? ( */}
         <>
           <div className="flex flex-row relative py-8 w-full">

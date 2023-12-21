@@ -29,7 +29,7 @@ export default function Home() {
             href="/register"
             className="w-screen lg:w-full flex justify-center"
           >
-            <button className="bg-[#d9a66d] w-5/6 md:w-1/2 py-2 rounded-full">
+            <button className="bg-nesstDarkGrey w-5/6 md:w-1/2 py-2 rounded-full text-white border border-white">
               Register
             </button>
           </Link>
@@ -37,7 +37,7 @@ export default function Home() {
             href="/login"
             className="w-screen lg:w-full flex justify-center"
           >
-            <button className="border border-white w-5/6 md:w-1/2 py-2 rounded-full">
+            <button className="border border-white w-5/6 md:w-1/2 py-2 rounded-full bg-nesstDarkGrey">
               Log in
             </button>
           </Link>

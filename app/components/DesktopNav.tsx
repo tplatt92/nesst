@@ -16,7 +16,7 @@ export default function DesktopNav() {
           <div className="flex items-center justify-center pl-2">
             <Image
               alt="NESST"
-              src="/logos/nesstLogoGrey.png"
+              src="/logos/fullegg.png"
               priority={true}
               width={58}
               height={58}
