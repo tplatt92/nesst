@@ -51,7 +51,7 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         nesstYellow: "#d9a66d",
-        nesstLightGrey: "#8f8f8f",
+        nesstLightGrey: "#6e6e6e",
         nesstDarkGrey: "#39393a",
       },
       borderRadius: {

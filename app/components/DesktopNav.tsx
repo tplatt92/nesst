@@ -5,12 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+
 export default function DesktopNav() {
   const pathnameUrl = usePathname();
 
   return (
-    <>
-      <nav className="flex flex-row items-center relative w-full md:px-8 shadow-lg ">
+    <nav className="flex flex-row items-center relative w-full md:px-8 shadow-lg hidden md:block">
+      
         <div className="flex flex-row items-center justify-between w-full gap-4 relative my-4">
           <div className="flex items-center justify-center pl-2">
             <Image
@@ -79,7 +80,6 @@ export default function DesktopNav() {
             </div>
           </div>
         </div>
-      </nav>
-    </>
+    </nav>
   );
 }

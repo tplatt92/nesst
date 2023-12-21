@@ -47,11 +47,8 @@ export default function CreateAccountForm({
   const { updateProfile } = useUpdateProfile(session);
 
   return (
-    <div
-      className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl gap-4 pb-24"
-      data-testid="CreateAccForm-id"
-    >
-      <div className="flex mt-16">
+    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl">
+      <div className="flex mt-16 pb-4">
         <Image
           src="/logos/emptyegg.png"
           alt="Nesst Logo"
@@ -61,7 +58,7 @@ export default function CreateAccountForm({
         />
         <h1 className="text-5xl tracking-[0.4em]">NESST</h1>
       </div>
-      <div>
+      <div className="pb-4">
         <Avatar
           uid={user?.id ?? ""}
           url={formData.avatar_url ?? null}
@@ -74,7 +71,8 @@ export default function CreateAccountForm({
           }}
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="email">Email</label>
         <CustomInput
           id="email"
           placeholder="Email"
@@ -84,7 +82,8 @@ export default function CreateAccountForm({
           required
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4 ">
+        <label htmlFor="firstName">First Name</label>
         <CustomInput
           id="firstName"
           placeholder="First Name"
@@ -98,7 +97,8 @@ export default function CreateAccountForm({
           }
         />
       </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="lastName">Last Name</label>
         <CustomInput
           id="lastName"
           placeholder="Last Name"
@@ -112,7 +112,9 @@ export default function CreateAccountForm({
           }
         />
       </div>
-      <div className="w-5/6 ">
+
+      <div className="w-5/6 pb-4">
+        <label htmlFor="username">Username</label>
         <CustomInput
           id="username"
           placeholder="Username minimum 2 characters"
@@ -128,22 +130,8 @@ export default function CreateAccountForm({
           required
         />
       </div>
-      <div className="w-5/6 ">
-        <CustomInput
-          id="age"
-          placeholder="Age"
-          required
-          type="number"
-          value={formData.age || ""}
-          onChange={(e) =>
-            setFormData((prevFormData) => ({
-              ...prevFormData,
-              age: Number(e.target.value),
-            }))
-          }
-        />
-      </div>
-      <div className="w-5/6 ">
+      <div className="w-5/6 pb-4">
+        <label htmlFor="bio">Bio</label>
         <CustomTextArea
           id="Bio"
           placeholder="Bio"
@@ -156,7 +144,8 @@ export default function CreateAccountForm({
           }
         />
       </div>
-      <div className="w-5/6 pb-4 ">
+      <div className="w-5/6 pb-8">
+        <label htmlFor="drinking habits">Drinking Habits</label>
         <CustomSelect
           id="drinker"
           value={formData.drinker || ""}
@@ -189,6 +178,7 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="nationality">Nationality</label>
         <CustomInput
           id="nationality"
           placeholder="Nationality"
@@ -203,6 +193,7 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="occupation">Occupation</label>
         <CustomInput
           id="occupation"
           placeholder="Occupation"
@@ -217,6 +208,7 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="hobbies">Hobbies</label>
         <CustomInput
           id="hobbies"
           placeholder="Hobbies"
@@ -231,6 +223,7 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="location">Location</label>
         <CustomInput
           id="Location"
           placeholder="Location"
@@ -245,6 +238,7 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="languages">Languages</label>
         <CustomInput
           id="languages"
           placeholder="Languages"
@@ -259,6 +253,9 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="personality type">
+          Personality Type (Myers-Briggs)
+        </label>
         <CustomInput
           id="personality_type"
           placeholder="Personality Type"
@@ -273,6 +270,7 @@ export default function CreateAccountForm({
         />
       </div>
       <div className="w-5/6 pb-4">
+        <label htmlFor="star_sign">Star Sign</label>
         <CustomInput
           id="star_sign"
           placeholder="Star Sign"
