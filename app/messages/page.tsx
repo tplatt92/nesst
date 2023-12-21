@@ -34,7 +34,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
     "error fetching profile"
   );
   const [profile, setProfile] = useState<null | any[]>(null);
-  const [isNomads, setIsNomads] = useState<boolean>(true);
+  const [isNomads, setIsNomads] = useState<boolean>(false);
   const [nesst, setNesst] = useState<NesstsData[] | null>(null);
 
   // get session
@@ -155,7 +155,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
               !isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
             }`}
           >
-            Nests
+            Nessts
           </button>
         </div>
 

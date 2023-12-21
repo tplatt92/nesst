@@ -3,6 +3,8 @@ import { cookies } from "next/headers";
 import { Database } from "@/types/supabase";
 import Profile from "../../components/EditAccountForm";
 import EditAccountForm from "../../components/EditAccountForm";
+// import { Link } from "lucide-react";
+
 
 export default async function EditProfile() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -13,7 +15,7 @@ export default async function EditProfile() {
 
   return (
     <div className="w-screen">
-      <EditAccountForm session={session} />
+       <EditAccountForm session={session} />
     </div>
   );
 }

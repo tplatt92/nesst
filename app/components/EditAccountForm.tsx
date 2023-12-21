@@ -9,6 +9,7 @@ import Image from "next/image";
 import Avatar from "./Avatar";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
+import Link from "next/link";
 
 export default function EditAccountForm({
   session,
@@ -47,7 +48,19 @@ export default function EditAccountForm({
   const { updateProfile } = useUpdateProfile(session);
 
   return (
-    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl">
+    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl relative">
+      <Link href="/profile">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center mb-2 bg-white m-4 absolute left-2 ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+          </div>
+        </Link>
       <div className="flex mt-16 pb-4">
         <Image
           src="/logos/emptyegg.png"
