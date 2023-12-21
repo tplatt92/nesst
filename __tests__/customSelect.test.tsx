@@ -1,28 +1,24 @@
-// __tests__/CustomSelect.test.js
-
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import CustomSelect from "../app/components/CustomSelect"; // adjust the path accordingly
+import CustomSelect from "../app/components/CustomSelect";
 describe("CustomSelect component", () => {
   const defaultProps = {
     id: "test-select",
-    value: "option1", // Set the default value
+    value: "option1",
     onChange: jest.fn(),
+    name: "test-select",
     options: [
       { value: "option1", label: "Option 1" },
       { value: "option2", label: "Option 2" },
-      // Add more options as needed
     ],
   };
 
   it("renders with the correct options", () => {
     const { getByTestId } = render(<CustomSelect {...defaultProps} />);
-    const selectElement = getByTestId("test-select") as HTMLSelectElement; // Cast to HTMLSelectElement
+    const selectElement = getByTestId("test-select") as HTMLSelectElement;
 
-    // Check if the selected value matches the expected default value
     expect(selectElement.value).toBe(defaultProps.value);
 
-    // Check the text content of each option
     defaultProps.options.forEach((option) => {
       expect(selectElement).toHaveTextContent(option.label);
     });
@@ -30,10 +26,8 @@ describe("CustomSelect component", () => {
 
   it("updates value on change", () => {
     const { getByTestId } = render(<CustomSelect {...defaultProps} />);
-    const selectElement = getByTestId("test-select") as HTMLSelectElement; // Cast to HTMLSelectElement
+    const selectElement = getByTestId("test-select") as HTMLSelectElement;
     fireEvent.change(selectElement, { target: { value: "option2" } });
     expect(defaultProps.onChange).toHaveBeenCalledWith(expect.any(Object));
   });
-
-  // Add more tests as needed for specific cases or additional functionality.
 });

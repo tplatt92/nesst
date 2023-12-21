@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
-import CustomTextarea from "../app/components/CustomTextArea.tsx"; // Adjust the import path based on your project structure
+import CustomTextarea from "../app/components/CustomTextArea.tsx";
 
 afterEach(() => {
   cleanup();
