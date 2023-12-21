@@ -1,7 +1,7 @@
 import { supabase } from "../utils/supabase";
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 
-import MessageItem from "./Message";
+import MessageItem from "./MessageItem.tsx";
 import { MessagesProps, Profile, ProfileCache } from "../../types/types.ts";
 
 type Message = {

@@ -15,31 +15,31 @@ describe("Footer", () => {
 
   it('displays "Explore" link as active when pathname is /explore', () => {
     render(<Footer pathnameUrl="/explore" />);
-    const exploreLink = screen.getByText("Explore");
+    const exploreLink = screen.getByText(/explore/i);
     expect(exploreLink).toHaveClass("text-xs");
   });
 
   it('displays "Favourites" link as active when pathname is /favourites', () => {
     render(<Footer pathnameUrl="/favourites" />);
-    const favouritesLink = screen.getByText("Favourites");
+    const favouritesLink = screen.getByText(/favourites/i);
     expect(favouritesLink).toHaveClass("text-xs");
   });
 
   it('displays "Messages" link as active when pathname is /messages', () => {
     render(<Footer pathnameUrl="/messages" />);
-    const messagesLink = screen.getByText("Messages");
+    const messagesLink = screen.getByText(/messages/i);
     expect(messagesLink).toHaveClass("text-xs");
   });
 
   it('displays "Profile" link as active when pathname is /profile', () => {
     render(<Footer pathnameUrl="/profile" />);
-    const profileLink = screen.getByText("Profile");
+    const profileLink = screen.getByText(/profile/i);
     expect(profileLink).toHaveClass("text-xs");
   });
 
   it('changes active link when clicking on "Favourites" link', () => {
     render(<Footer pathnameUrl="/explore" />);
-    const favouritesLink = screen.getByText("Favourites");
+    const favouritesLink = screen.getByText(/favourites/i);
     fireEvent.click(favouritesLink);
     expect(favouritesLink).toHaveClass("text-xs");
   });

@@ -93,7 +93,7 @@ export default function Chat() {
         <Image
           width={60}
           height={60}
-          src={src || ""}
+          src={src ? src : "/images/placeholder.png"}
           alt="property"
           className="avatar image rounded-r-full object-cover rounded-b-full border-4 border-white"
           style={{ height: 60, width: 85 }}
@@ -159,9 +159,9 @@ export default function Chat() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-send-horizontal"
               >
                 <path d="m3 3 3 9-3 9 19-9Z" />

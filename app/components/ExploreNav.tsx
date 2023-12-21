@@ -138,65 +138,59 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     setBathRange(value);
   };
 
-  const isMobile = useMediaQuery({
-    query: "(max-width:600px), { noSsr: true}",
-    //make sure to get rid of the hydration warning
-  });
-
   const pathnameUrl = usePathname();
   return (
-    <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-8 w-full shadow-lg pt-8 md:pt-0">
-      {/* {isMobile ? ( */}
-        <>
-          <div className="flex flex-row relative py-8 w-full">
-            <form
-              className="flex items-center w-full justify-between"
-              onSubmit={handleSubmit}
-            >
-              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-14 lg:h-10 items-center lg:max-w-sm shadow-lg">
-                <input
-                  className="h-13 lg:h-6 items-center flex-1 rounded-l-full pl-4 text-[14px] lg:text-xs focus:outline-none"
-                  placeholder={"Where - Add destination"}
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-                <button type="submit">
-                  <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstDarkGrey p-1 rounded-full" />
-                </button>
-              </div>
-            </form>
-          </div>
-          <FilterSheet
-            onPriceRangeChange={handlePriceRangeChange}
-            onBedRangeChange={handleBedRangeChange}
-            onBathRangeChange={handleBathRangeChange}
-            onReset={handleReset}
+    <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-20 w-full pt-8 md:pt-0">
+      <>
+        <div className="flex flex-row relative py-8 lg:pt-8 w-full">
+          <form
+            className="flex items-center w-full justify-between"
             onSubmit={handleSubmit}
-            priceRange={priceRange}
-            bedRange={bedRange}
-            bathRange={bathRange}
-            smokeAlarm={smokeAlarm}
-            onSmokeAlarmChange={setSmokeAlarm}
-            pets={pets}
-            onPetsChange={setPets}
-            pool={pool}
-            onPoolChange={setPool}
-            wifi={wifi}
-            onWifiChange={setWifi}
-            parking={parking}
-            onParkingChange={setParking}
-            kitchen={kitchen}
-            onKitchenChange={setKitchen}
-            aircon={aircon}
-            onAirconChange={setAircon}
-            tv={tv}
-            onTvChange={setTv}
-            desk={desk}
-            onDeskChange={setDesk}
-            washer={washer}
-            onWasherChange={setWasher}
-          />
-        </>
+          >
+            <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-14 lg:h-10 items-center lg:max-w-sm shadow-lg">
+              <input
+                className="h-13 lg:h-6 items-center flex-1 rounded-l-full pl-4 text-[14px] lg:text-xs focus:outline-none"
+                placeholder={"Where - Add destination"}
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+              <button type="submit">
+                <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstDarkGrey p-1 rounded-full" />
+              </button>
+            </div>
+          </form>
+        </div>
+        <FilterSheet
+          onPriceRangeChange={handlePriceRangeChange}
+          onBedRangeChange={handleBedRangeChange}
+          onBathRangeChange={handleBathRangeChange}
+          onReset={handleReset}
+          onSubmit={handleSubmit}
+          priceRange={priceRange}
+          bedRange={bedRange}
+          bathRange={bathRange}
+          smokeAlarm={smokeAlarm}
+          onSmokeAlarmChange={setSmokeAlarm}
+          pets={pets}
+          onPetsChange={setPets}
+          pool={pool}
+          onPoolChange={setPool}
+          wifi={wifi}
+          onWifiChange={setWifi}
+          parking={parking}
+          onParkingChange={setParking}
+          kitchen={kitchen}
+          onKitchenChange={setKitchen}
+          aircon={aircon}
+          onAirconChange={setAircon}
+          tv={tv}
+          onTvChange={setTv}
+          desk={desk}
+          onDeskChange={setDesk}
+          washer={washer}
+          onWasherChange={setWasher}
+        />
+      </>
       {/* ) : (
         <div className="flex flex-row items-center gap-4 relative my-4 w-full">
           <div className="flex items-center justify-center pl-2">

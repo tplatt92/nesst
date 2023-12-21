@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
-import MessageItem from "../app/components/Message";
+import MessageItem from "../app/components/MessageItem";
 
 describe("MessageItem Component", () => {
   const mockMessage = {
