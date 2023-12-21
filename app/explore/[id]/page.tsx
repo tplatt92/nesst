@@ -520,7 +520,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                     {property.longDescription}
                   </p>
                 </article>
-              </CardDescription>
             </CardContent>
             <div className="md:flex flex-row items-center justify-evenly border-b">
               <div className="block">
@@ -598,6 +597,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
             </div>
            
           </Card>
+          
         ))}
         
         <article className="px-2 py-4 text-lg font-bold">
