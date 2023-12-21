@@ -13,9 +13,13 @@ type Message = {
 
 export default function Messages({ roomId }: MessagesProps) {
   const [messages, setMessages] = useState<Message[]>([]);
-  const messagesRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<HTMLUListElement>(null);
   const [profileCache, setProfileCache] = useState<ProfileCache>({});
-
+  const scrollToBottom = () => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  };
   useEffect(() => {
     const getData = async () => {
       const { data } = await supabase
@@ -39,10 +43,7 @@ export default function Messages({ roomId }: MessagesProps) {
       }));
 
       setMessages(data);
-
-      if (messagesRef.current) {
-        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-      }
+      scrollToBottom();
     };
     getData();
   }, [roomId]);
@@ -61,19 +62,20 @@ export default function Messages({ roomId }: MessagesProps) {
         handleInserts
       );
 
-    if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-    }
+    scrollToBottom();
 
     const subscriptionObject = supscription.subscribe();
 
     return () => {
       supabase.removeChannel(subscriptionObject);
     };
-  }, []);
+  }, [messages]);
 
   return (
-    <ul className="flex flex-col self-end space-y-2 p-4 w-full">
+    <ul
+      ref={messagesRef}
+      className="flex flex-col self-end space-y-2 p-4 w-full"
+    >
       {messages?.map((message) => (
         <MessageItem
           key={message.id}
