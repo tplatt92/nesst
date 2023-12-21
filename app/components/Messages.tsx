@@ -1,6 +1,6 @@
 import { supabase } from "../utils/supabase";
 import { useEffect, useState, useRef } from "react";
-import { Session } from "@supabase/supabase-js";
+
 import MessageItem from "./Message";
 import { MessagesProps, Profile, ProfileCache } from "../../types/types.ts";
 
@@ -15,11 +15,7 @@ export default function Messages({ roomId }: MessagesProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesRef = useRef<HTMLUListElement>(null);
   const [profileCache, setProfileCache] = useState<ProfileCache>({});
-  const scrollToBottom = () => {
-    if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-    }
-  };
+
   useEffect(() => {
     const getData = async () => {
       const { data } = await supabase
@@ -43,16 +39,24 @@ export default function Messages({ roomId }: MessagesProps) {
       }));
 
       setMessages(data);
-      scrollToBottom();
     };
     getData();
   }, [roomId]);
 
+  // scrolls to bottom of screen when new message is fetched
+  useEffect(() => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // sets messages to include new message
   function handleInserts(payload: any) {
     const newMessage = payload.new;
     setMessages((currentMessages) => [...currentMessages, newMessage]);
   }
 
+  // subscribes to new messages
   useEffect(() => {
     const supscription = supabase
       .channel("channelTwo")
@@ -61,8 +65,6 @@ export default function Messages({ roomId }: MessagesProps) {
         { event: "INSERT", schema: "public", table: "messages" },
         handleInserts
       );
-
-    scrollToBottom();
 
     const subscriptionObject = supscription.subscribe();
 
@@ -73,8 +75,8 @@ export default function Messages({ roomId }: MessagesProps) {
 
   return (
     <ul
+      className="flex flex-col self-end space-y-2 p-4 overflow-y-auto w-full"
       ref={messagesRef}
-      className="flex flex-col self-end space-y-2 p-4 w-full"
     >
       {messages?.map((message) => (
         <MessageItem
