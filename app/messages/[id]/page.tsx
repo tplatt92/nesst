@@ -139,7 +139,7 @@ export default function Chat() {
         <div className="p-4">
           <form onSubmit={handleSubmit}>
             <input
-              className=" py-2 w-[83%] fixed bottom-2 left-2 flex justify-center shadow-inner rounded-full border-gray-400 border-2"
+              className="px-4 py-2 w-[83%] fixed bottom-2 left-2 flex justify-center shadow-inner rounded-full border-gray-400 border-2"
               type="message"
               name="message"
             ></input>
