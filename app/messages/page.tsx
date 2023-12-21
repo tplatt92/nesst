@@ -15,9 +15,7 @@ import { fetchNesstsData } from "../hooks/fetchNessts";
 import { NesstsData } from "../hooks/fetchNessts";
 import NesstContainerItem from "../components/NesstContainerItem";
 
-type ProfileIdProps = {
-  params: any | null;
-};
+type ProfileIdProps = {};
 
 interface ConnectionData {
   id: string;
@@ -31,7 +29,6 @@ const Messages: React.FC<ProfileIdProps> = () => {
   const supabase = createClientComponentClient<Database>();
   const [session, setSession] = useState<Session | null>(null);
   const pathname = usePathname();
-  const router = useRouter();
   const [connections, setConnections] = useState<ConnectionData[] | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching profile"
