@@ -64,13 +64,11 @@ const MessageItem = ({
       key={message.id}
       className={
         message.profile_id === userId
-          ? "self-end rounded-xl bg-[#E6CAAC] px-2  "
-          : "self-start rounded-xl  px-2 bg-[#ECE0D3] "
+          ? "self-end rounded-xl bg-[#e7d0b6] p-2 text-right "
+          : "self-start rounded-xl  p-2 bg-[#ececec] "
       }
     >
-      <span className="block text-xs">
-        {profile?.username ?? "Loading..."}
-      </span>
+      <span className="block text-xs">{profile?.username ?? "Loading..."}</span>
       <span className="font-semibold">{message.content}</span>
     </li>
   );
