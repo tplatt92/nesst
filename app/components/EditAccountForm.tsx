@@ -287,7 +287,7 @@ export default function EditAccountForm({
       </div>
       <div className="w-5/6 pb-4">
         <button
-          className="bg-[#d9a66d] w-full py-2 rounded-full "
+          className="bg-nesstDarkGrey text-white w-full py-2 rounded-full "
           onClick={() =>
             updateProfile({
               first_name: formData.first_name,
