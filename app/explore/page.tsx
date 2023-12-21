@@ -64,7 +64,7 @@ export default function Explore() {
     <main className="flex min-h-screen w-screen flex-col items-center  pb-2">
       <ExploreNav setProperties={setProperties} />
       <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 lg:gap-8 lg:mx-12 lg:my-12 p-8 lg:px-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 lg:mx-12 lg:my-12 p-8 lg:px-8 xl:grid-cols-4 2xl:grid-cols-6"
         data-testid="card-id"
       >
         {properties?.map((properties) => (
