@@ -94,7 +94,7 @@ export default function Chat() {
         </Link>
         <AvatarProfile
           uid={pathname}
-          url={`/${properties?.image[0]}`}
+          url={`${properties?.image[0]}`}
           size={60}
         />
         <div>
