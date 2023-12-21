@@ -87,11 +87,11 @@ export default function Explore() {
               </CardContent>
               <CardFooter className="flex justify-between">
                 <p className="font-semibold lg:text-[14px]">
-                  £{properties.price}/month
+                  £{properties.price * properties.beds}/month
                 </p>
                 {/* ---------------new line */}
                 <p className="font-semibold lg:text-[14px]">
-                  £{Math.round(properties.price / properties.beds)}/pp
+                  £{properties.price}/pp
                 </p>
                 {/* ------------ new line */}
 

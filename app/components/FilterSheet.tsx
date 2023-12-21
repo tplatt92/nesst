@@ -58,7 +58,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
           <Slider
             defaultValue={priceRange}
             min={0}
-            max={5000}
+            max={2000}
             step={100}
             minStepsBetweenThumbs={1}
             value={priceRange}
@@ -128,7 +128,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
 
           <SheetClose asChild>
             <button
-              className="bg-[#d9a66d] font-bold w-full mt-12 md:mt-4 lg:mt-12 py-2 rounded-full"
+              className="bg-nesstDarkGrey font-bold w-full mt-12 md:mt-4 lg:mt-12 py-2 rounded-full"
               type="submit"
             >
               Apply

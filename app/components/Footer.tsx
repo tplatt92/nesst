@@ -25,7 +25,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
           >
             <Link href="/explore" className="flex-1 text-center">
               <MagnifyingGlassIcon className="h-8  px-4" />
-              <p className=" text-xs">Explore</p>
+              <p className=" text-xs">EXPLORE</p>
             </Link>
           </div>
           <div
@@ -37,20 +37,20 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
           >
             <Link href="/favourites" className="flex-1 text-center">
               <HeartIcon className="h-8  px-4" />
-              <p className=" text-xs">Favourites</p>
+              <p className=" text-xs">FAVOURITES</p>
             </Link>
           </div>
           <div className="relative self-end">
             <Image
               alt="NESST"
-              src="/logos/fullegg.png"
+              src="/logos/logoGrey.png"
               className="flex-1 text-center absolute bottom-5  "
               priority={true}
               width={60}
               height={60}
               style={{ width: "auto", height: "auto" }}
             />
-            <p className="text-xs text-gray-400">NESST</p>
+            <p className="text-sm text-gray-400">NESST</p>
           </div>
 
           <div
@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
           >
             <Link href="/messages" className="flex-1 text-center">
               <ChatBubbleLeftEllipsisIcon className="h-8  px-4" />
-              <p className=" text-xs ">Messages</p>
+              <p className=" text-xs ">MESSAGES</p>
             </Link>
           </div>
           <div
@@ -74,7 +74,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
           >
             <Link href="/profile" className="flex-1 text-center">
               <UserIcon className="h-8  px-4" />
-              <p className=" text-xs">Profile</p>
+              <p className=" text-xs">PROFILE</p>
             </Link>
           </div>
         </div>

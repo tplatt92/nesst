@@ -22,7 +22,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     "error fetching properties"
   );
   const [location, setLocation] = useState<string>("");
-  const [priceRange, setPriceRange] = useState<number[]>([0, 5000]);
+  const [priceRange, setPriceRange] = useState<number[]>([0, 2000]);
   const [bedRange, setBedRange] = useState<number[]>([0, 10]);
   const [bathRange, setBathRange] = useState<number[]>([0, 10]);
   const [smokeAlarm, setSmokeAlarm] = useState<boolean>(false);
@@ -44,7 +44,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
 
   const resetFilters = () => {
     setLocation("");
-    setPriceRange([0, 5000]);
+    setPriceRange([0, 2000]);
     setBedRange([0, 10]);
     setBathRange([0, 10]);
     setPool(false);
