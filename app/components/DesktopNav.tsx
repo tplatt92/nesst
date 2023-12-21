@@ -10,7 +10,7 @@ export default function DesktopNav() {
   const pathnameUrl = usePathname();
 
   return (
-    <nav className="flex flex-row items-center relative w-full md:px-8 shadow-lg hidden md:block">
+    <nav className="hidden md:flex flex-row items-center relative w-full md:px-8 shadow-lg">
       
         <div className="flex flex-row items-center justify-between w-full gap-4 relative my-4">
           <div className="flex items-center justify-center pl-2">

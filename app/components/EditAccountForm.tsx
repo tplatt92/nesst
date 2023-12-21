@@ -54,6 +54,7 @@ export default function EditAccountForm({
           alt="Nesst Logo"
           width={40}
           height={20}
+          style={{ width: "auto", height: "auto" }}
           className="mr-4"
         />
         <h1 className="text-5xl tracking-[0.4em]">NESST</h1>
