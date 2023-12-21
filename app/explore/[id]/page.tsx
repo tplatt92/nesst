@@ -62,18 +62,19 @@ type PropertyIdProps = {
 const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const supabase = createClientComponentClient<Database>();
   const [session, setSession] = useState<Session | null>(null);
-  const [
-    profilesWhoHaveLikedThisProperty,
-    setProfilesWhoHaveLikedThisProperty,
-  ] = useState<null | any[]>(null);
+  // const [
+  //   profilesWhoHaveLikedThisProperty,
+  //   setProfilesWhoHaveLikedThisProperty,
+  // ] = useState<null | any[]>(null);
   const [inNesst, setInNesst] = useState<null | any[]>(null);
-  const [availability, setAvailability] = useState<null | any[]>(null);
+  // const [availability, setAvailability] = useState<null | any[]>(null);
   //const [properties, setProperties] = useState<null | any[]>(null);
   const [fetchError, setFetchError] = useState<string | null>(
     "error fetching properties"
   );
   const [isLiked, setIsLiked] = useState(false);
   const [isNessted, setIsNessted] = useState(false);
+  const [roomID, setRoomID] = useState<string | null>(null);
 
   const pathname = usePathname();
   const propertyId = params.id;
@@ -107,6 +108,31 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
 
   // fetch properties
   const { properties } = useFetchProperty(propertyId, supabase);
+
+  //fetch room id
+  useEffect(() => {
+     if(propertyId) {
+    const fetchRoomId = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("rooms")
+          .select("*")
+          .eq("property_id", `${propertyId}`);
+        
+
+        if (error) {
+          console.error("Error fetching room id:", error.message);
+        } else if (data) {
+          // console.log("this is the rooms table id" + data[0].id);
+          setRoomID(data[0].id);
+        }
+      } catch (error) {
+        console.error("An unexpected error occurred getting room id:", error);
+      }
+    }
+    fetchRoomId();
+  }
+  }, [propertyId]); // eslint-disable-line
 
   // useEffect(() => {
   //   const fetchProperties = async () => {
@@ -165,7 +191,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     const checkIfNessted = async () => {
       try {
         const { data, error } = await supabase
-          .from("nessts")
+          .from("nesst_chats")
           .select("*")
           .eq("profile_id", `${userId}`)
           .eq("property_id", `${propertyId}`);
@@ -212,14 +238,14 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     const fetchInNesstData = async () => {
       try {
         const { data, error } = await supabase
-          .from("nessts")
+          .from("nesst_chats")
           .select(`profiles (id, username, avatar_url)`)
           .eq("property_id", `${propertyId}`);
 
         if (error) {
           console.error("Error fetching nessts properties:", error.message);
         } else if (data) {
-          console.log(data);
+          // console.log(data);
           setInNesst(data);
         }
       } catch (error) {
@@ -249,8 +275,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const addToNesstsTable = async () => {
     try {
       const { data, error } = await supabase
-        .from("nessts")
-        .insert({ profile_id: `${userId}`, property_id: `${propertyId}` });
+        .from("nesst_chats")
+        .insert({ room_id:`${roomID}`, profile_id: `${userId}`, property_id: `${propertyId}` });
 
       if (error) {
         console.error("Error adding to nessts table:", error.message);
@@ -287,7 +313,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   const removeProfileFromNesstsTable = async () => {
     try {
       const { data, error } = await supabase
-        .from("nessts")
+        .from("nesst_chats")
         .delete()
         .eq("profile_id", `${userId}`)
         .eq("property_id", `${propertyId}`);
