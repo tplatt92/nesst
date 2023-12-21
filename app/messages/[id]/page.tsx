@@ -96,7 +96,7 @@ export default function Chat() {
           src={src || ""}
           alt="property"
           className="avatar image rounded-r-full object-cover rounded-b-full border-4 border-white"
-          style={{ height: 60, width: 60 }}
+          style={{ height: 60, width: 70 }}
         />
       </div>
     );
