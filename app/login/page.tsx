@@ -14,15 +14,6 @@ export default function Login() {
 
   const user = session?.user?.id;
 
-  const customTheme = {
-    default: {
-      colors: {
-        brand: "#d9a66d",
-        brandButtonText: "#FFF",
-      },
-    },
-  };
-
   useEffect(() => {
     const checkAuthState = async (event: string, session: any) => {
       if (event === "SIGNED_IN" && session.user) {
@@ -40,7 +31,7 @@ export default function Login() {
 
     // Clean up the event listener when the component unmounts
     return () => unsubscribe.data.subscription.unsubscribe();
-  }, [supabase]);
+  }, []);
 
   // supabase.auth.onAuthStateChange(async (event) => {
   //   if (event == "SIGNED_IN") {
