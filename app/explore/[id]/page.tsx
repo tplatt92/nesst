@@ -106,7 +106,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           if (error) {
             console.error("Error fetching room id:", error.message);
           } else if (data) {
-            // console.log("this is the rooms table id" + data[0].id);
             setRoomID(data[0].id);
           }
         } catch (error) {
@@ -181,7 +180,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
         if (error) {
           console.error("Error fetching nessts properties:", error.message);
         } else if (data) {
-          // console.log(data);
           setInNesst(data);
         }
       } catch (error) {

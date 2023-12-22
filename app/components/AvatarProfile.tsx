@@ -38,7 +38,7 @@ export default function AvatarProfile({
         const url = URL.createObjectURL(data);
         setAvatarUrl(url);
       } catch (error) {
-        console.log();
+        console.error(error);
       }
     }
 
