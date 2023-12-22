@@ -22,7 +22,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
         >
           <Link href="/explore" className="flex-1 text-center">
             <MagnifyingGlassIcon className="h-8  px-4" />
-            <p className=" text-xs">EXPLORE</p>
+            <p className=" text-xs">Explore</p>
           </Link>
         </div>
         <div
@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
             className="flex-1 flex flex-col items-center justify-center text-center"
           >
             <HeartIcon className="h-8  px-4" />
-            <p className=" text-xs">FAVOURITES</p>
+            <p className=" text-xs">Favourites</p>
           </Link>
         </div>
         <div className="relative self-end">
@@ -60,7 +60,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
         >
           <Link href="/messages" className="flex-1 text-center">
             <ChatBubbleLeftEllipsisIcon className="h-8  px-4" />
-            <p className=" text-xs ">MESSAGES</p>
+            <p className=" text-xs ">Messages</p>
           </Link>
         </div>
         <div
@@ -70,7 +70,7 @@ const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
         >
           <Link href="/profile" className="flex-1 text-center">
             <UserIcon className="h-8  px-4" />
-            <p className=" text-xs">PROFILE</p>
+            <p className=" text-xs">Profile</p>
           </Link>
         </div>
       </div>

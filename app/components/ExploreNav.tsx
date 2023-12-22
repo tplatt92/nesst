@@ -142,7 +142,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
   return (
     <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-20 w-full pt-8 md:pt-0">
       <>
-        <div className="flex flex-row relative py-8 lg:pt-8 w-full">
+        <div className="flex flex-row relative lg:pt-8 w-full">
           <form
             className="flex items-center w-full justify-between"
             onSubmit={handleSubmit}
