@@ -126,8 +126,8 @@ export default function CreateAccountForm({
               username: e.target.value,
             }))
           }
-          onError={(e) => alert("Username must be at least 3 characters")}
-          required
+          onError={(e) => alert("Username is required and must be at least 3 characters")}
+          required={true}
         />
       </div>
       <div className="w-5/6 pb-4">
