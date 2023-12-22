@@ -246,9 +246,9 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
       {profile?.map((profile) => (
         <div
           key={profile.id}
-          className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 "
+          className=" flex flex-col items-center overflow-x-hidden bg-gray-200 "
         >
-          <div className=" flex flex-col items-center h-screen relative lg:mt-12 lg:mb-32">
+          <div className=" flex flex-col items-center relative lg:mt-12 lg:mb-32">
             {/* profile header */}
             <div className="relative">
               <div className="flex flex-col items-center lg:flex-row py-20 shadow-lg lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
@@ -260,7 +260,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
                   />
                 </div>
                 <div>
-                  <h1 className="text-white text-4xl py-4 lg:pt-0">
+                  <h1 className="text-white text-4xl py-4 lg:pt-0 text-center">
                     {profile.first_name} {profile.last_name}
                   </h1>
                   {/* social links */}
@@ -270,7 +270,10 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
                   <p className="text-md text-center lg:text-left text-white">
                     {profile.Location}
                   </p>
-                  <div className="pt-4 flex" aria-label="Social icons list">
+                  <div
+                    className="pt-4 flex justify-center lg:justify-start"
+                    aria-label="Social icons list"
+                  >
                     {renderSocialLink(
                       "/messages",
                       "/logos/instagramCircle.png",
@@ -285,7 +288,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
                       "LinkedIn Logo"
                     )}
                   </div>
-                  <div className="w-full flex justify-center">
+                  <div className="w-full flex justify-center lg:justify-start">
                     {!isConnected ? (
                       <button
                         className="text-black font-bold mt-4 bg-white py-2 px-6 rounded-xl shadow-lg"
@@ -316,7 +319,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params }) => {
               </div>
             </div>
             {/* connections */}
-            <div className="w-full mb-80 gap-4 px-5 lg:px-0 md:flex">
+            <div className="w-full mb-32 mt-4 gap-4 px-5 lg:px-0 md:flex">
               <div className="flex-1 bg-white rounded-lg shadow-lg mt-28 md:mt-48 lg:mt-0 px-4 py-4 max-w-5xl ">
                 <h3 className="pb-2 text-[#bfbfbf] font-semibold">
                   Connections

@@ -80,7 +80,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
       {profile?.map((profile) => (
         <div
           key={profile.id}
-          className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-200 "
+          className=" flex flex-col items-center overflow-x-hidden overflow-y-scroll bg-gray-200 "
         >
           <div className="flex flex-col py-20 items-center bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen">
             <div className="pb-4">
@@ -91,12 +91,12 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
               />
             </div>
 
-            <h1 className="text-white text-4xl py-4">
+            <h1 className="text-white text-4xl py-4 text-center">
               {profile.first_name} {profile.last_name}
             </h1>
 
             <h2 className="text-2xl text-white">{profile.username}</h2>
-            <div className="pt-4 flex">
+            <div className="pt-4 flex justify-center lg:justify-start">
               {renderSocialLink(
                 "/messages",
                 "/logos/instagramCircle.png",
