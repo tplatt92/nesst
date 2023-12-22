@@ -75,7 +75,28 @@ export default function UserProfile({ session }: { session: Session | null }) {
     <>
       <div className=" flex flex-col items-center overflow-x-hidden bg-gray-100  ">
         <div className=" flex flex-col items-center relative lg:mt-12">
-          <div className="absolute right-14 md:right-20 lg:right-10 top-8 lg:top-4 z-50 w-6">
+          <div className="absolute right-8 md:right-20 lg:right-10 top-4 lg:top-4 z-50 w-6">
+            {" "}
+            <form action="/auth/signout" method="post">
+              <button className="button block" type="submit" name="Sign out">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-log-out"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" x2="9" y1="12" y2="12" />
+                </svg>
+              </button>
+            </form>
             <Link href="/profile/edit">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
