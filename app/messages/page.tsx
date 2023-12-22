@@ -136,52 +136,54 @@ const Messages: React.FC<ProfileIdProps> = () => {
       <header className="hidden md:block p-0">
         <DesktopNav />
       </header>
-      <main className="px-4 pt-4">
-        <h1 className=" text-center text-2xl font-bold py-4 md:py-8">
-          Messages
-        </h1>
-        <div className="text-center flex justify-evenly font-bold border-b py-4">
-          <button
-            onClick={() => setIsNomads(true)}
-            className={`${
-              isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
-            }`}
-          >
-            Nomads
-          </button>
-          <button
-            onClick={() => setIsNomads(false)}
-            className={`${
-              !isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
-            }`}
-          >
-            Nessts
-          </button>
-        </div>
+      <div className="flex flex-col items-center w-screen">
+        <main className="px-4 pt-4 max-w-5xl w-full">
+          <h1 className=" text-center text-2xl font-bold py-4 md:py-8">
+            Messages
+          </h1>
+          <div className="text-center flex justify-evenly font-bold border-b py-4">
+            <button
+              onClick={() => setIsNomads(true)}
+              className={`${
+                isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
+              }`}
+            >
+              Nomads
+            </button>
+            <button
+              onClick={() => setIsNomads(false)}
+              className={`${
+                !isNomads ? "text-nesstDarkGrey" : "text-nesstLightGrey"
+              }`}
+            >
+              Nessts
+            </button>
+          </div>
 
-        {isNomads
-          ? connections?.map((connection) => (
-              <Link key={connection.id} href={`/messages/${connection.id}`}>
-                <MessageContainerItem
-                  id={connection.id}
-                  first_name={connection.first_name}
-                  last_name={connection.last_name}
-                  avatar_url={connection.avatar_url}
-                  username={connection.username}
-                />
-              </Link>
-            ))
-          : nesst?.map((nesst) => (
-              <Link key={nesst.id} href={`/messages/${nesst.id}`}>
-                <NesstContainerItem
-                  id={nesst.id}
-                  name={nesst.name}
-                  description={nesst.description}
-                  image={nesst.image}
-                />
-              </Link>
-            ))}
-      </main>
+          {isNomads
+            ? connections?.map((connection) => (
+                <Link key={connection.id} href={`/messages/${connection.id}`}>
+                  <MessageContainerItem
+                    id={connection.id}
+                    first_name={connection.first_name}
+                    last_name={connection.last_name}
+                    avatar_url={connection.avatar_url}
+                    username={connection.username}
+                  />
+                </Link>
+              ))
+            : nesst?.map((nesst) => (
+                <Link key={nesst.id} href={`/messages/${nesst.id}`}>
+                  <NesstContainerItem
+                    id={nesst.id}
+                    name={nesst.name}
+                    description={nesst.description}
+                    image={nesst.image}
+                  />
+                </Link>
+              ))}
+        </main>
+      </div>
       <nav className="md:hidden">
         <Footer pathnameUrl={pathname} />
       </nav>

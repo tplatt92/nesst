@@ -327,10 +327,36 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       </div>
       <div className="w-screen flex flex-col items-center justify-center">
         <div className="lg:max-w-6xl w-full">
-          <main className="md:pt-8 lg:pt-20 pb-32 w-full px-4">
+          <main className="md:pt-2 lg:pt-10 pb-32 w-full px-4">
             {properties?.map((property) => (
               <Card key={property.id}>
-                <CardHeader className="relative">
+                <CardTitle className="text-xl w-full font-monserrat font-semibold p-4 pt-8">
+                  <div className="flex justify-between items-center ">
+                    {property.name} - {property.location}
+                    <p className="text-sm ">
+                      {property.area} m<sup>2</sup>
+                    </p>
+                  </div>
+                  <div className="flex gap-4 items-center justify-between  border-b pb-4">
+                    <div className="flex gap-4">
+                      <span className="flex items-center gap-2">
+                        <Bed size={20} stroke="#8f8f8f" />
+                        <p>{property.beds}</p>
+                      </span>
+
+                      <span className="flex items-center gap-2">
+                        <Bath size={20} stroke="#8f8f8f" />
+
+                        <p>{property.bathrooms}</p>
+                      </span>
+                    </div>
+                    <p className="font-medium text-sm">
+                      £ {property.price * property.beds}/month - £{" "}
+                      {property.price}/pp
+                    </p>
+                  </div>
+                </CardTitle>
+                <CardHeader className="relative border-b pb-5">
                   <div className="align-middle mx-auto md:hidden">
                     <Carousel images={property.image} />
                   </div>
@@ -360,130 +386,117 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                   </div>
                 </CardHeader>
 
-                <CardTitle className="text-xl font-monserrat font-semibold">
-                  <div className="flex justify-between md:justify-evenly">
-                    {property.name} - {property.location}
-                    <p className="text-sm ">
-                      {property.area} m<sup>2</sup>
-                    </p>
-                  </div>
-                </CardTitle>
                 <CardContent className="text-black text-base font-medium pb-4">
-                  <div className="flex gap-4 items-center justify-between md:justify-evenly border-b pb-4">
-                    <div className="flex gap-4">
-                      <span className="flex items-center gap-2">
-                        <Bed size={20} stroke="#8f8f8f" />
-                        <p>{property.beds}</p>
-                      </span>
+                  {/* calendar and reserve */}
+                  <div className="grid grid-cols-1 md:grid-cols-2">
+                    <div className="flex flex-col justify-center items-center py-4 border-b gap-4">
+                      <div className="flex flex-col gap-4 ">
+                        <div className="text-black flex gap-2">
+                          <AlertDialog>
+                            <AlertDialogTrigger>
+                              <Info />
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Information</AlertDialogTitle>
+                                <AlertDialogDescription className="mr-6 text-nesstDarkGrey">
+                                  <p>
+                                    Reserve Property - Reserve the entire
+                                    property!
+                                    <br></br>Reserve bed - Share this property
+                                    with other nomads<br></br>Heart - Add this
+                                    property to your favourites!<br></br>Nesst-
+                                    Add this property to Your Nesst and
+                                    favourites. Go to messages to chat with
+                                    other nomads in this Nesst.<br></br>
+                                    Whichever way, get ready for an awesome
+                                    stay!
+                                  </p>
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel className="mr-6 text-nesstDarkGrey">
+                                  Close
+                                </AlertDialogCancel>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                          <CalendarWidget />
+                        </div>
 
-                      <span className="flex items-center gap-2">
-                        <Bath size={20} stroke="#8f8f8f" />
+                        <button
+                          type="submit"
+                          className="bg-nesstDarkGrey text-white font-md px-2 py-2 rounded-lg font-2"
+                        >
+                          Reserve property
+                        </button>
 
-                        <p>{property.bathrooms}</p>
-                      </span>
+                        <button
+                          type="submit"
+                          className="bg-nesstDarkGrey text-white font-md px-2 py-2 rounded-lg font-2"
+                        >
+                          Reserve Bed
+                        </button>
+                      </div>
                     </div>
-                    <p className="font-medium text-sm">
-                      £ {property.price * property.beds}/month - £{" "}
-                      {property.price}/pp
-                    </p>
-                  </div>
-                  <div className="flex flex-col justify-center items-center py-4 border-b gap-4">
-                    <div className="text-black">
-                      <CalendarWidget />
-                    </div>
-                    <div className="flex gap-2 sm:gap-12 md:gap-20 lg:gap-36">
-                      <AlertDialog>
-                        <AlertDialogTrigger>
-                          <Info />
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Information</AlertDialogTitle>
-                            <AlertDialogDescription className="mr-6 text-nesstDarkGrey">
-                              <p>
-                                Reserve Property - Reserve the entire property!
-                                <br></br>Reserve bed - Share this property with
-                                other nomads<br></br>Heart - Add this property
-                                to your favourites!<br></br>Nesst- Add this
-                                property to Your Nesst and favourites. Go to
-                                messages to chat with other nomads in this
-                                Nesst.<br></br>
-                                Whichever way, get ready for an awesome stay!
-                              </p>
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel className="mr-6 text-nesstDarkGrey">
-                              Close
-                            </AlertDialogCancel>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
 
-                      <button
-                        type="submit"
-                        className="bg-nesstDarkGrey text-white font-md px-2 py-2 rounded-lg font-2"
+                    {/* add to buttons */}
+                    <div className="flex flex-row w-auto h-auto justify-evenly items-center border-b py-4 ">
+                      <div
+                        className="flex flex-col items-center justify-center"
+                        onClick={handleClickLike}
                       >
-                        Reserve property
-                      </button>
-                      <button
-                        type="submit"
-                        className="bg-nesstDarkGrey text-white font-md px-2 py-2 rounded-lg font-2"
-                      >
-                        Reserve Bed
-                      </button>
-                    </div>
-                  </div>
-                  <div className="flex flex-row w-auto h-auto justify-evenly items-center border-b py-4 ">
-                    <div
-                      className="flex flex-col items-center justify-center"
-                      onClick={handleClickLike}
-                    >
-                      <div className="w-14 h-14 rounded-full border-solid border-2 border-nesstLightGrey flex items-center justify-center">
-                        <div>
-                          {isLiked ? (
-                            <Heart width={50} fill="#6e6e6e" stroke="#6e6e6e" />
-                          ) : (
-                            <Heart width={50} stroke="#6e6e6e" />
-                          )}
+                        <div className="w-14 h-14 rounded-full border-solid border-2 border-nesstLightGrey flex items-center justify-center">
+                          <div>
+                            {isLiked ? (
+                              <Heart
+                                width={50}
+                                fill="#6e6e6e"
+                                stroke="#6e6e6e"
+                              />
+                            ) : (
+                              <Heart width={50} stroke="#6e6e6e" />
+                            )}
+                          </div>
+                        </div>
+                        <div className="text-center text-xs pt-2">
+                          <p>
+                            Add to<br></br>Favourites
+                          </p>
                         </div>
                       </div>
-                      <div className="text-center text-xs pt-2">
-                        <p>
-                          Add to<br></br>Favourites
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      onClick={handleClickNesst}
-                      className="flex flex-col items-center justify-center"
-                    >
-                      <div className="h-auto w-auto">
-                        {isNessted ? (
-                          <Image
-                            src="/logos/logoGrey.png"
-                            alt="nesst logo"
-                            width={40}
-                            height={40}
-                            style={{ width: "auto", height: "auto" }}
-                          />
-                        ) : (
-                          <Image
-                            src="/logos/logoGreyEmpty.png"
-                            alt="Empty nesst logo"
-                            width={40}
-                            height={40}
-                            style={{ width: "auto", height: "auto" }}
-                          />
-                        )}
-                      </div>
-                      <div className="text-center text-xs pt-2">
-                        <p>
-                          Join<br></br>Nesst
-                        </p>
+                      <div
+                        onClick={handleClickNesst}
+                        className="flex flex-col items-center justify-center"
+                      >
+                        <div className="h-auto w-auto">
+                          {isNessted ? (
+                            <Image
+                              src="/logos/logoGrey.png"
+                              alt="nesst logo"
+                              width={40}
+                              height={40}
+                              style={{ width: "auto", height: "auto" }}
+                            />
+                          ) : (
+                            <Image
+                              src="/logos/logoGreyEmpty.png"
+                              alt="Empty nesst logo"
+                              width={40}
+                              height={40}
+                              style={{ width: "auto", height: "auto" }}
+                            />
+                          )}
+                        </div>
+                        <div className="text-center text-xs pt-2">
+                          <p>
+                            Join<br></br>Nesst
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  {/* description */}
                   <article>
                     <p className="font-medium border-b py-4">
                       {property.longDescription}
@@ -578,8 +591,8 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                       style={{ minWidth: "140px" }}
                     >
                       <Link href={`/profile/${profile.profiles.username}`}>
-                        <div className="px-4 ">
-                          <div className="flex items-center">
+                        <div className="px-4 flex flex-col justify-center">
+                          <div className="flex items-center justify-center">
                             <AvatarProfile
                               uid={profile.profiles.id}
                               url={

@@ -73,17 +73,17 @@ export default function UserProfile({ session }: { session: Session | null }) {
 
   return (
     <>
-      <div className=" flex flex-col items-center h-screen overflow-x-hidden bg-gray-100 pb-96 ">
-        <div className=" flex flex-col items-center h-screen relative  lg:mt-12">
+      <div className=" flex flex-col items-center overflow-x-hidden bg-gray-100  ">
+        <div className=" flex flex-col items-center relative lg:mt-12">
           <div className="absolute right-14 md:right-20 lg:right-10 top-8 lg:top-4 z-50 w-6">
             <Link href="/profile/edit">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="1"
                 stroke="#fff"
-                className="w-12 h-12"
+                className="w-10 h-12"
               >
                 <path
                   strokeLinecap="round"
@@ -95,6 +95,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
           </div>
           <div className="relative">
             <div className="flex flex-col items-center lg:flex-row py-20 shadow-lg lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
+              {" "}
               <div className="pb-4 lg:pb-0 lg:pl-24">
                 <AvatarProfile
                   uid={user?.id ?? ""}
@@ -103,7 +104,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 />
               </div>
               <div>
-                <h1 className="text-white text-4xl py-4 lg:pt-0">
+                <h1 className="text-white text-4xl py-4 lg:pt-0 text-center">
                   {formData.first_name} {formData.last_name}
                 </h1>
                 <h2 className="text-2xl text-center lg:text-left pb-4 text-white">
@@ -112,7 +113,10 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 <p className="text-md text-center lg:text-left text-white">
                   {formData.location}
                 </p>
-                <div className="pt-4 flex" aria-label="Social icons list">
+                <div
+                  className="pt-4 flex justify-center lg:justify-start"
+                  aria-label="Social icons list"
+                >
                   {renderSocialLink(
                     "/messages",
                     "/logos/instagramCircle.png",
@@ -129,6 +133,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 </div>
               </div>
             </div>
+
             {/* bio */}
             <div className="w-full flex flex-col items-center my-4 shadow-lg">
               <div className="bg-nesstDarkGrey w-11/12 lg:w-full max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
@@ -141,7 +146,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
             </div>
           </div>
           {/* connections */}
-          <div className="w-full mb-80 gap-4 px-5 lg:px-0 md:flex">
+          <div className="w-full mb-32 gap-4 px-5 lg:px-0 md:flex">
             <div className="flex-1 bg-white rounded-lg shadow-lg mt-28 md:mt-48 lg:mt-0 px-4 py-4 max-w-5xl ">
               <h3 className="pb-2 text-[#bfbfbf] font-semibold">Connections</h3>
               <div className="md:flex md:gap-8">
@@ -189,7 +194,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                   </div>
                 )}
               </div>
-              <div className="flex flex-1 flex-col mt-4 mb-32 md:mb-0 py-4 bg-white rounded-lg shadow-lg px-4 max-w-5xl ">
+              <div className="flex flex-1 flex-col mt-4 md:mb-0 py-4 bg-white rounded-lg shadow-lg px-4 max-w-5xl ">
                 <h3 className="pb-2 text-[#bfbfbf] font-semibold">
                   Current Nest
                 </h3>
