@@ -81,9 +81,9 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="1"
                 stroke="#fff"
-                className="w-12 h-12"
+                className="w-10 h-12"
               >
                 <path
                   strokeLinecap="round"
@@ -95,6 +95,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
           </div>
           <div className="relative">
             <div className="flex flex-col items-center lg:flex-row py-20 shadow-lg lg:gap-16 bg-[url('/backgroundImages/profile3.jpg')] relative bg-cover w-screen max-w-5xl  lg:rounded-lg">
+              {" "}
               <div className="pb-4 lg:pb-0 lg:pl-24">
                 <AvatarProfile
                   uid={user?.id ?? ""}
@@ -132,6 +133,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
                 </div>
               </div>
             </div>
+
             {/* bio */}
             <div className="w-full flex flex-col items-center my-4 shadow-lg">
               <div className="bg-nesstDarkGrey w-11/12 lg:w-full max-w-5xl rounded-lg absolute lg:static left-[4%] top-[87%] -bottom-[17%] md:-bottom-[32%] px-4  text-white overflow-y-scroll md:overflow-hidden">
