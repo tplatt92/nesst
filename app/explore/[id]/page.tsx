@@ -78,7 +78,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
           return;
         }
         if (data) {
-          console.log(session?.user ?? null);
           setSession(data?.session ?? null);
         } else {
           setSession(null);

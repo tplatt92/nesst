@@ -141,33 +141,35 @@ export default function Chat() {
             }}
           />
         </div>
-        <div className="p-4">
+        <div className="p-4 ">
           <form onSubmit={handleSubmit}>
-            <input
-              className="px-4 py-2 w-[83%] fixed bottom-2 left-2 flex justify-center shadow-xl rounded-full bg-[#f7f7f7] border-2 border-gray-200"
-              type="message"
-              name="message"
-            ></input>
-            <button
-              type="submit"
-              className="bg-nesstDarkGrey py-2 w-[10%] fixed bottom-2 right-2 flex justify-center border shadow-2xl rounded-full color-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-send-horizontal"
+            <div className="flex justify-center w-full">
+              <input
+                className="px-4 py-2 w-[83%] fixed bottom-2 left-2 flex justify-center shadow-xl rounded-full bg-[#f7f7f7] border-2 border-gray-200"
+                type="message"
+                name="message"
+              ></input>
+              <button
+                type="submit"
+                className="bg-nesstDarkGrey py-2 w-12 fixed bottom-2 right-2 flex justify-center border shadow-2xl rounded-full color-white"
               >
-                <path d="m3 3 3 9-3 9 19-9Z" />
-                <path d="M6 12h16" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-send-horizontal"
+                >
+                  <path d="m3 3 3 9-3 9 19-9Z" />
+                  <path d="M6 12h16" />
+                </svg>
+              </button>
+            </div>
           </form>
         </div>
       </main>
