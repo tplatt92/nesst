@@ -29,8 +29,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.js",
-    "__tests__/register.test.tsx"
+    "__tests__/register.test.tsx",
+    "cypress/e2e/1-getting-started/todo.cy.js",
+    "cypress/e2e/1-getting-started/todo.cy.js"
   ],
   "exclude": ["node_modules"],
-  "types": ["node", "jest", "@testing-library/jest-dom"]
+  "types": ["node", "jest", "@testing-library/jest-dom", "cypress"]
 }
