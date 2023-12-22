@@ -73,7 +73,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
 
   return (
     <>
-      <div className=" flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-gray-100 pb-96 ">
+      <div className=" flex flex-col items-center h-screen overflow-x-hidden bg-gray-100 pb-96 ">
         <div className=" flex flex-col items-center h-screen relative  lg:mt-12">
           <div className="absolute right-14 md:right-20 lg:right-10 top-8 lg:top-4 z-50 w-6">
             <Link href="/profile/edit">
