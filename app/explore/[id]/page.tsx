@@ -604,7 +604,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
                           </div>
                         </div>
                         <div className="text-center">
-                          {profile.profiles.username ? <p>{profile.profiles.username}</p> : <p> </p>}
+                          <p>{profile.profiles.username}</p>
                         </div>
                       </Link>
                     </div>
