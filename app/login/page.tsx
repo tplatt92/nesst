@@ -10,28 +10,9 @@ import { useEffect, useState } from "react";
 
 export default function Login() {
   const supabase = createClientComponentClient<Database>();
-  const [session, setSession] = useState<Session | null>(null);
+  // const [session, setSession] = useState<Session | null>(null);
 
-  const user = session?.user?.id;
-
-  // useEffect(() => {
-  //   const checkAuthState = async (event: string, session: any) => {
-  //     if (event === "SIGNED_IN" && session.user) {
-  //       // User is signed in, redirect to "/explore"
-  //       window.location.href = "/explore";
-  //     }
-  //   };
-
-  //   // Check authentication state when the component mounts
-  //   const initialSession = session;
-  //   checkAuthState("INIT", initialSession);
-
-  //   // Set up event listener for future changes in authentication state
-  //   const unsubscribe = supabase.auth.onAuthStateChange(checkAuthState);
-
-  //   // Clean up the event listener when the component unmounts
-  //   return () => unsubscribe.data.subscription.unsubscribe();
-  // }, []);
+  // const user = session?.user?.id;
 
   supabase.auth.onAuthStateChange(async (event) => {
     if (event == "SIGNED_IN") {
