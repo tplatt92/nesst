@@ -1,13 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cookies } from "next/headers";
 
 export default function Home() {
-
-    if ({cookies}) {
-      window.location.href = "/explore";
-    }
-
 
   return (
     <div className=" h-screen w-screen flex flex-col lg:flex-row items-center lg:justify-between justify-center text-white overflow-hidden bg-[url('/backgroundImages/home2.jpg')] lg:bg-none lg:bg-black bg-cover">
