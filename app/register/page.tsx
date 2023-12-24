@@ -40,7 +40,7 @@ export default function SignUp() {
             }}
             showLinks={false}
             providers={["google", "apple", "facebook"]}
-            redirectTo="http://localhost:3000/auth/register"
+            redirectTo="https://nesst.vercel.app/auth/register"
           />
           <Link
             className="hover:underline focus:underline text-sm"

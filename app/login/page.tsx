@@ -69,6 +69,7 @@ export default function Login() {
           }}
           showLinks={false}
           providers={["google", "apple", "facebook"]}
+          redirectTo="https://nesst.vercel.app/auth/login"
         />
         <Link
           className="hover:underline focus:underline text-sm"
