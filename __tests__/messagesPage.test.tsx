@@ -22,7 +22,7 @@ describe("MessagesPage", () => {
     render(<MessagesPage />);
 
     const nomadsButton = screen.getByText(/Nomads/i);
-    const nestsButton = screen.getByText(/Nests/i);
+    const nestsButton = screen.getByText(/Nessts/i);
 
     expect(nomadsButton).toBeInTheDocument();
     expect(nestsButton).toBeInTheDocument();

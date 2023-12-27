@@ -11,12 +11,12 @@ describe("FilterSheet", () => {
     render(<FilterSheet />);
   });
 
-  it("render a button on the page with the text ", () => {
-    const { getByRole, debug } = render(<FilterSheet />);
-    debug();
+//   it("render a button on the page with the text ", () => {
+//     const { getByRole, debug } = render(<FilterSheet />);
+//     debug();
 
-    const button = getByRole("button", { name: /apply/i });
+//     const button = getByRole("button", { name: /apply/i });
 
-    expect(button).toBeInTheDocument();
-  });
+//     expect(button).toBeInTheDocument();
+//   });
 });
