@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, cleanup } from "@testing-library/react";
+import { render, fireEvent, cleanup, screen } from "@testing-library/react";
 import FilterSheet from "../app/components/FilterSheet";
 
 afterEach(() => {
@@ -11,12 +11,22 @@ describe("FilterSheet", () => {
     render(<FilterSheet />);
   });
 
-//   it("render a button on the page with the text ", () => {
-//     const { getByRole, debug } = render(<FilterSheet />);
-//     debug();
+  it("render apply button on the page  ", () => {
+    const { getByRole, debug } = render(<FilterSheet />);
+    debug();
 
-//     const button = getByRole("button", { name: /apply/i });
+    const button = getByRole("button", { name: /apply/i });
 
-//     expect(button).toBeInTheDocument();
-//   });
+    expect(button).toBeInTheDocument();
+  });
+
+  test("renders theapply buttons", () => {
+    render(<FilterSheet />);
+
+    const applyButton = screen.getByText(/apply/i);
+   
+
+    expect(applyButton).toBeInTheDocument();
+    
+  });
 });
