@@ -1,6 +1,5 @@
+//component to render out all properties that a user has favourited
 import React from "react";
-import AvatarProfile from "./AvatarProfile";
-import Link from "next/link";
 import Image from "next/image";
 
 interface PropertyData {

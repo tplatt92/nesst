@@ -1,4 +1,4 @@
-// FilterSheet.tsx
+// FilterSheet.tsx using shadcn components sheet, switch, slider
 import React from "react";
 import {
   Sheet,

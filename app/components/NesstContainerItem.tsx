@@ -1,4 +1,4 @@
-// components/UserConnections.tsx
+// components/UserConnections.tsx  renderes out user's current nessts on Nessts page
 import React from "react";
 import AvatarProfile from "./AvatarProfile";
 import Link from "next/link";

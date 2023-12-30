@@ -6,7 +6,7 @@ import { UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import Image from "next/image";
 import { FooterProps } from "@/types/types";
-import { usePathname } from "next/navigation";
+
 
 const Footer: React.FC<FooterProps> = ({ pathnameUrl }) => {
   return (

@@ -1,3 +1,4 @@
+//larger text area for the form bio
 import React from "react";
 import { TextareaElementProps } from "@/types/types";
 

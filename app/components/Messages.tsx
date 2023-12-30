@@ -1,3 +1,4 @@
+//getting all of the messages data related to the roomID
 import { supabase } from "../utils/supabase";
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 
@@ -56,7 +57,7 @@ export default function Messages({ roomId }: MessagesProps) {
     setMessages((currentMessages) => [...currentMessages, newMessage]);
   }
 
-  // subscribes to new messages
+  // subscribes to new messages (realtime connection to the messages database for updates)
   useEffect(() => {
     const supscription = supabase
       .channel("channelTwo")

@@ -1,16 +1,13 @@
+//search & filter logic
 "use client";
 import React, {
   useState,
-  useEffect,
   MouseEventHandler,
   FormEvent,
 } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import supabase from "../config/SuperbaseClient";
 import FilterSheet from "./FilterSheet";
-import { useMediaQuery } from "react-responsive";
-import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 type SearchProps = {
@@ -64,6 +61,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     fetchProperties();
   };
 
+  //builds a query string based on the current values of the filters & then fetches properties based on those values
   const fetchProperties = async () => {
     try {
       let query = supabase.from("properties").select("*");
@@ -138,9 +136,9 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
     setBathRange(value);
   };
 
-  const pathnameUrl = usePathname();
+
   return (
-    <nav className="flex flex-row items-center gap-4 relative px-8 lg:px-20 w-full pt-8 md:pt-0">
+    <div aria-label="search bar and filter button" className="flex flex-row items-center gap-4 relative px-8 lg:px-20 w-full pt-8 md:pt-0">
       <>
         <div className="flex flex-row relative lg:pt-8 w-full">
           <form
@@ -191,119 +189,7 @@ const Search: React.FC<SearchProps> = ({ setProperties }) => {
           onWasherChange={setWasher}
         />
       </>
-      {/* ) : (
-        <div className="flex flex-row items-center gap-4 relative my-4 w-full">
-          <div className="flex items-center justify-center pl-2">
-            <Image
-              alt="NESST"
-              src="/logos/nesstLogoGrey.png"
-              priority={true}
-              width={80}
-              height={80}
-              style={{ width: "auto", height: "auto" }}
-            />
-          </div>
-          <div className="flex flex-row relative w-full">
-            <form className="flex items-center w-full " onSubmit={handleSubmit}>
-              <div className="flex flex-1 border-2 rounded-full pl-4 pr-2 left-0 h-12 lg:h-10 items-center md:max-w-xs lg:max-w-md shadow-lg">
-                <input
-                  className="h-13 lg:h-6 items-center flex-1 rounded-l-full lg:text-xs focus:outline-none"
-                  type="text"
-                  placeholder="Where - Add destination"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-                <button type="submit">
-                  <MagnifyingGlassIcon className="h-8 lg:h-7 text-white ml-3 bg-nesstDarkGrey p-1 rounded-full" />
-                </button>
-              </div>
-            </form>
-          </div>
-          <div className="flex gap-2 lg:gap-8 lg:pr-8 text-sm lg:text-md">
-            <div
-              className={`${
-                pathnameUrl === "/explore" ? "text-nesstDarkGrey" : "text-black"
-              } `}
-            >
-              <Link
-                href="/explore"
-                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer "
-              >
-                <p className=" text-md">Explore</p>
-              </Link>
-            </div>
-            <div
-              className={`${
-                pathnameUrl === "/favourites"
-                  ? "text-nesstYellow"
-                  : "text-black"
-              } `}
-            >
-              <Link
-                href="/favourites"
-                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
-              >
-                <p className=" text-md">Favourites</p>
-              </Link>
-            </div>
-            <div
-              className={`${
-                pathnameUrl === "/messages" ? "text-nesstYellow" : "text-black"
-              } `}
-            >
-              <Link
-                href="/messages"
-                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
-              >
-                <p className=" text-md">Messages</p>
-              </Link>
-            </div>
-            <div
-              className={`${
-                pathnameUrl === "/profile" ? "text-nesstYellow" : "text-black"
-              } `}
-            >
-              <Link
-                href="/profile"
-                className="flex-1 text-center hover:underline  hover:text-nesstYellow cursor-pointer"
-              >
-                <p className=" text-md">Profile</p>
-              </Link>
-            </div>
-          </div>
-          <FilterSheet
-            onPriceRangeChange={handlePriceRangeChange}
-            onBedRangeChange={handleBedRangeChange}
-            onBathRangeChange={handleBathRangeChange}
-            onReset={handleReset}
-            onSubmit={handleSubmit}
-            priceRange={priceRange}
-            bedRange={bedRange}
-            bathRange={bathRange}
-            smokeAlarm={smokeAlarm}
-            onSmokeAlarmChange={setSmokeAlarm}
-            pets={pets}
-            onPetsChange={setPets}
-            pool={pool}
-            onPoolChange={setPool}
-            wifi={wifi}
-            onWifiChange={setWifi}
-            parking={parking}
-            onParkingChange={setParking}
-            kitchen={kitchen}
-            onKitchenChange={setKitchen}
-            aircon={aircon}
-            onAirconChange={setAircon}
-            tv={tv}
-            onTvChange={setTv}
-            desk={desk}
-            onDeskChange={setDesk}
-            washer={washer}
-            onWasherChange={setWasher}
-          />
-        </div>
-      )} */}
-    </nav>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-// components/UserConnections.tsx
+// components/UserConnections.tsx gets user's connections from the database, maps and renders them out on user profile page
 import React from "react";
 import AvatarProfile from "./AvatarProfile";
 import Link from "next/link";

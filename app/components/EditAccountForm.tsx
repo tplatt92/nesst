@@ -1,3 +1,4 @@
+//see also CreateAccountForm.tsx [with extra update button]
 "use client";
 import { useEffect } from "react";
 import { Session } from "@supabase/auth-helpers-nextjs";
@@ -141,7 +142,7 @@ export default function EditAccountForm({
             }))
           }
           onError={(e) => alert("Username must be at least 3 characters")}
-          required
+          required={true}
         />
       </div>
       <div className="w-5/6 pb-4">

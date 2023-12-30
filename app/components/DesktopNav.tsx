@@ -1,3 +1,4 @@
+//desktop navigation bar to be used on medium screens and above [no search bar]
 "use client";
 import React from "react";
 
