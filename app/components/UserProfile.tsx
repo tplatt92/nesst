@@ -244,14 +244,3 @@ export default function UserProfile({ session }: { session: Session | null }) {
   );
 }
 
-
-
-
-<h2>Confirm your signup</h2>
-
-<p>Follow this link to confirm your user:</p>
-<p>
-  <a href="https://your-api-endpoint.com/auth/confirm?token_hash={{ .TokenHash }}&type=email"
-    >Confirm your email</a
-  >
-</p>
