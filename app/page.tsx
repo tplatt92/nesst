@@ -3,6 +3,8 @@ import Link from "next/link";
 
 export default function Home() {
 
+  
+
   return (
     <div className=" h-screen w-screen flex flex-col lg:flex-row items-center lg:justify-between justify-center text-white overflow-hidden bg-[url('/backgroundImages/home2.jpg')] lg:bg-none lg:bg-black bg-cover">
       <div className="lg:bg-[url('/backgroundImages/home5.jpg')] lg:h-screen lg:flex-1 lg:bg-cover lg:flex lg:flex-col lg:items-center">

@@ -16,6 +16,7 @@ export default function SignUp() {
           <Auth
             supabaseClient={supabase}
             view="sign_up"
+            // emailRedirectTo="https://nesst.vercel.app/auth/register"
             appearance={{
               theme: ThemeSupa,
               style: {
@@ -41,11 +42,11 @@ export default function SignUp() {
             showLinks={false}
             providers={["google", "apple", "facebook"]}
             redirectTo="https://nesst.vercel.app/auth/register"
-          />
+            />
           <Link
             className="hover:underline focus:underline text-sm"
             href="/login"
-          >
+            >
             Already have an account? Sign in.
           </Link>
         </div>

@@ -71,17 +71,6 @@ export default function CreateAccountForm({
           }}
         />
       </div>
-      <div className="w-5/6 pb-4">
-        <label htmlFor="email">Email</label>
-        <CustomInput
-          id="email"
-          placeholder="Email"
-          type="text"
-          value={session?.user.email || ""}
-          onChange={(e) => e.preventDefault()}
-          required
-        />
-      </div>
       <div className="w-5/6 pb-4 ">
         <label htmlFor="firstName">First Name</label>
         <CustomInput
