@@ -304,7 +304,8 @@ export default function CreateAccountForm({
           }
           disabled={loading}
         >
-          {loading ? "Loading ..." : "Submit"}
+          {/* {loading ? "Loading ..." : "Submit"} */}
+          Submit
         </button>
       </div>
     </div>
