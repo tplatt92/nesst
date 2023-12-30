@@ -1,7 +1,9 @@
-export default {
+const config = {
   e2e: {
-    setupNodeEvents(on, config) {
+    setupNodeEvents(on: any, config: any) {
       // implement node event listeners here
     },
   },
 };
+
+export default config;
