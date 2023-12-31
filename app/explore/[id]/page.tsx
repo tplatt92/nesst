@@ -1,3 +1,4 @@
+//more property info page
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -277,7 +278,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     setIsLiked((prev) => !prev);
   }
 
-  // handles nessting and unnesting on button click
+  // handles nessting and unnesting on button click plus adding to liked column
 
   function handleClickNesst() {
     if (!isNessted && !isLiked) {
@@ -292,6 +293,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     setIsNessted((prev) => !prev);
   }
 
+  //responsive styling for images
   const [screenWidth, setScreenWidth] = useState<number>(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
@@ -306,6 +308,12 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     }
   };
 
+  // In this specific example, the useEffect hook is used to add an event listener to the resize event of the window object. The event listener is a function called handleResize, which updates the screenWidth state variable with the current inner width of the window.
+
+  // The useEffect hook takes two arguments: a callback function and a dependency array. The callback function is executed after the component renders and whenever any of the dependencies in the dependency array change. In this case, the dependency array is empty [], which means the effect will only run once when the component mounts.
+
+  // The callback function sets up the event listener for the resize event using window.addEventListener. Whenever the resize event is triggered, the handleResize function is called, updating the screenWidth state variable.
+  
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);

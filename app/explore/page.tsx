@@ -1,5 +1,5 @@
 "use client";
-
+// main landing page for explore
 import supabase from "../config/SuperbaseClient";
 import { useEffect, useState } from "react";
 import Carousel from "../components/CardCarousell";
@@ -10,14 +10,6 @@ import dynamic from "next/dynamic";
 import ExploreNav from "../components/ExploreNav";
 import Footer from "../components/Footer";
 import DesktopNav from "../components/DesktopNav";
-
-// const ExploreNav = dynamic(() => import("../components/ExploreNav"), {
-//   ssr: false,
-// });
-
-// const Footer = dynamic(() => import("../components/Footer"), {
-//   ssr: false,
-// });
 
 import {
   Card,
@@ -34,7 +26,7 @@ export default function Explore() {
     "error fetching properties"
   );
   const pathname = usePathname();
-
+// fetch all properties from supabase
   useEffect(() => {
     const fetchProperties = async () => {
       try {
