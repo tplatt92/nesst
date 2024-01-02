@@ -1,7 +1,9 @@
+//allows users to scroll through images of a property
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
+//animation for the smooth horizontal carousel transitions
 const slideVariants = {
   hiddenRight: {
     x: "100%",
@@ -26,10 +28,14 @@ const slideVariants = {
     },
   },
 };
+
+
+//string array for the image urls
 type CarouselImageProps = {
   images: string[];
 };
 
+//cycle through images
 const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState("left");
@@ -48,6 +54,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
 
   type index = number;
 
+  //dots can cylce through images in same way as arrows
   const handleDotClick = (index: index) => {
     setCurrentIndex(index);
     setDirection(index > currentIndex ? "right" : "left");
@@ -55,6 +62,8 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
   if (!images || images.length === 0) {
     return null;
   }
+
+  //svgs below for arrows
   return (
     <div className="carousel-images relative rounded-lg max-w-screen-md  overflow-hidden h-80">
       <AnimatePresence>
@@ -70,11 +79,13 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
         />
       </AnimatePresence>
 
+
       <div className="flex justify-between top-0 bottom-0 m-auto">
         <div
           className=" text-white p-2 rounded-full cursor-pointer absolute top-0 bottom-0 m-auto h-10 w-10 left-0"
           onClick={handlePrevious}
         >
+
           {
             <svg
               xmlns="http://www.w3.org/2000/svg"

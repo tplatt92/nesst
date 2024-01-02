@@ -1,3 +1,4 @@
+//from Supabase Auth Helpers: take in an image, upload it to Supabase Storage, and return the URL of the uploaded image.
 "use client";
 import React, { useEffect, useState } from "react";
 import { Database } from "@/types/supabase";

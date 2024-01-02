@@ -1,3 +1,4 @@
+//for first time user creates an account
 "use client";
 import { useEffect } from "react";
 import { Session } from "@supabase/auth-helpers-nextjs";
@@ -22,6 +23,7 @@ export default function CreateAccountForm({
     user?.id ?? ""
   );
 
+  //retrieving account associated email {one state object for all form data}
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -43,7 +45,7 @@ export default function CreateAccountForm({
     }));
   }, []); // eslint-disable-line
 
-  // call to update profile
+  // call to update profile with users session data
   const { updateProfile } = useUpdateProfile(session);
 
   return (
@@ -158,6 +160,7 @@ export default function CreateAccountForm({
       </div>
       <div className="w-5/6 pb-4 flex justify-between items-center">
         <label htmlFor="smoker">Do you Smoke?</label>
+        {/* shadcn component */}
         <Switch
           id="smoker"
           aria-label="smoker"

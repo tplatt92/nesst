@@ -1,3 +1,4 @@
+//can view the profile of other users by profile/username [and yourself if wanted]
 "use client";
 import React from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -75,6 +76,7 @@ const ViewUserProfile: React.FC<ProfileIdProps> = ({ params, session }) => {
     }
   }, []); // eslint-disable-line
 
+  //fetch profile data and map out; based on url pathname
   return (
     <>
       {profile?.map((profile) => (

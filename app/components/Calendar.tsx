@@ -1,3 +1,4 @@
+//combining shadcn components to create a calendar widget [open and closed state]
 "use client";
 import React from "react";
 import { CalendarIcon } from "@radix-ui/react-icons";

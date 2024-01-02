@@ -1,4 +1,4 @@
-// components/UserConnections.tsx
+// components/UserConnections.tsx  [for use in Nomads]
 import React from "react";
 import AvatarProfile from "./AvatarProfile";
 import Link from "next/link";

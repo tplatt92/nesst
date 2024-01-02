@@ -1,3 +1,4 @@
+//maps out the users liked properties
 "use client";
 import Footer from "../components/Footer";
 import { usePathname } from "next/navigation";
@@ -53,7 +54,7 @@ export default function Favourites() {
     fetchSession();
   }, []); // eslint-disable-line
 
-  // fetch data
+  // fetch profile information from supabase
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -1,3 +1,4 @@
+//function to sign out (looks for a session and if it exists, it signs out)
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'

@@ -1,3 +1,4 @@
+//ANOTHER VERSION OF of function to redirect to explore page after login (THIS ONE WORKS)
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'

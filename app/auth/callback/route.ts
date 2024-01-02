@@ -1,3 +1,4 @@
+//initial attempt of callback function to redirect to explore page after login (NOT IN USE) [see Supabase docs for more info]
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";

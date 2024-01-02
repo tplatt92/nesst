@@ -1,3 +1,4 @@
+//component to create custon input fields in account forms
 import { InputElementProps } from "@/types/types";
 
 const CustomInput: React.FC<InputElementProps> = ({
