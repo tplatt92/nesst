@@ -187,7 +187,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     fetchInNesstData();
-  }, [propertyId, isNessted, inNesst]); // eslint-disable-line
+  }, [propertyId, isNessted]); // eslint-disable-line
 
   const addToLikedColumn = async () => {
     try {
