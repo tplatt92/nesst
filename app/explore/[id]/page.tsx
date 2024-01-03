@@ -169,7 +169,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   }, [userId, propertyId]); // eslint-disable-line
 
   // handles nessting and unnesting on button click plus adding to liked column
-
+  const [nesstButtonClick, setNesstButtonClick] = useState(0);
   const handleClickNesst = () => {
     if (!isNessted && !isLiked) {
       addToNesstsTable();
@@ -181,6 +181,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       removeProfileFromNesstsTable();
     }
     setIsNessted((prev) => !prev);
+    setNesstButtonClick((prevCount) => prevCount + 1);
   };
 
   // fetch who is in a nesst
@@ -202,7 +203,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     fetchInNesstData();
-  }, [propertyId, handleClickNesst]); // eslint-disable-line
+  }, [propertyId, nesstButtonClick]); // eslint-disable-line
 
   const addToLikedColumn = async () => {
     try {
