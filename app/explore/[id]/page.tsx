@@ -168,6 +168,21 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     }
   }, [userId, propertyId]); // eslint-disable-line
 
+  // handles nessting and unnesting on button click plus adding to liked column
+
+  const handleClickNesst = () => {
+    if (!isNessted && !isLiked) {
+      addToNesstsTable();
+      addToLikedColumn();
+      setIsLiked(true);
+    } else if (!isNessted && isLiked) {
+      addToNesstsTable();
+    } else if (isNessted) {
+      removeProfileFromNesstsTable();
+    }
+    setIsNessted((prev) => !prev);
+  };
+
   // fetch who is in a nesst
   useEffect(() => {
     const fetchInNesstData = async () => {
@@ -277,21 +292,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     }
     setIsLiked((prev) => !prev);
   }
-
-  // handles nessting and unnesting on button click plus adding to liked column
-
-  const handleClickNesst = () => {
-    if (!isNessted && !isLiked) {
-      addToNesstsTable();
-      addToLikedColumn();
-      setIsLiked(true);
-    } else if (!isNessted && isLiked) {
-      addToNesstsTable();
-    } else if (isNessted) {
-      removeProfileFromNesstsTable();
-    }
-    setIsNessted((prev) => !prev);
-  };
 
   //responsive styling for images
   const [screenWidth, setScreenWidth] = useState<number>(
