@@ -19,6 +19,7 @@ describe("CustomTextarea", () => {
 
     const textareaElement = screen.getByRole("textbox");
 
+    
     expect(textareaElement).toBeInTheDocument();
     expect(textareaElement).toHaveAttribute("id", "textareaId");
     expect(textareaElement).toHaveAttribute("placeholder", "Type something...");

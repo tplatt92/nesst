@@ -25,7 +25,9 @@ export default function DesktopNav() {
         <div className="flex gap-2 lg:gap-10 lg:pr-8 text-sm lg:text-lg">
           <div
             className={`${
-              pathnameUrl === "/explore" ? "text-nesstDarkGrey" : "text-black"
+              pathnameUrl === "/explore"
+                ? "text-nesstDarkGrey underline"
+                : "text-nesstDarkGrey"
             } `}
           >
             <Link
@@ -51,7 +53,9 @@ export default function DesktopNav() {
           </div>
           <div
             className={`${
-              pathnameUrl === "/messages" ? "text-nesstDarkGrey" : "text-black"
+              pathnameUrl === "/messages"
+                ? "text-nesstDarkGrey underline"
+                : "text-nesstDarkGrey"
             } `}
           >
             <Link
@@ -63,7 +67,9 @@ export default function DesktopNav() {
           </div>
           <div
             className={`${
-              pathnameUrl === "/profile" ? "text-nesstDarkGrey" : "text-black"
+              pathnameUrl === "/profile"
+                ? "text-nesstDarkGrey underline"
+                : "text-nesstDarkGrey"
             } `}
           >
             <Link

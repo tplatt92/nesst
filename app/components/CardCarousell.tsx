@@ -71,7 +71,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
           key={currentIndex}
           src={images[currentIndex]}
           className="w-[540px] h-full object-cover rounded-lg"
-          alt={`Slide ${currentIndex + 1}`}
+          alt={`Property photo ${currentIndex + 1}`}
           variants={slideVariants}
           initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
           animate="visible"
@@ -94,6 +94,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
               strokeWidth="1.5"
               stroke="currentColor"
               className="w-6 h-6"
+              aria-label="left arrow"
             >
               <path
                 strokeLinecap="round"
@@ -115,6 +116,7 @@ const Carousel: React.FC<CarouselImageProps> = ({ images }) => {
               strokeWidth="1.5"
               stroke="white"
               className="w-6 h-6"
+              aria-label="right arrow"
             >
               <path
                 strokeLinecap="round"

@@ -168,6 +168,22 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     }
   }, [userId, propertyId]); // eslint-disable-line
 
+  // handles nessting and unnesting on button click plus adding to liked column
+  const [nesstButtonClick, setNesstButtonClick] = useState(0);
+  const handleClickNesst = () => {
+    if (!isNessted && !isLiked) {
+      addToNesstsTable();
+      addToLikedColumn();
+      setIsLiked(true);
+    } else if (!isNessted && isLiked) {
+      addToNesstsTable();
+    } else if (isNessted) {
+      removeProfileFromNesstsTable();
+    }
+    setIsNessted((prev) => !prev);
+    setNesstButtonClick((prevCount) => prevCount + 1);
+  };
+
   // fetch who is in a nesst
   useEffect(() => {
     const fetchInNesstData = async () => {
@@ -187,7 +203,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
       }
     };
     fetchInNesstData();
-  }, [propertyId]); // eslint-disable-line
+  }, [propertyId, nesstButtonClick]); // eslint-disable-line
 
   const addToLikedColumn = async () => {
     try {
@@ -278,21 +294,6 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
     setIsLiked((prev) => !prev);
   }
 
-  // handles nessting and unnesting on button click plus adding to liked column
-
-  function handleClickNesst() {
-    if (!isNessted && !isLiked) {
-      addToNesstsTable();
-      addToLikedColumn();
-      setIsLiked(true);
-    } else if (!isNessted && isLiked) {
-      addToNesstsTable();
-    } else if (isNessted) {
-      removeProfileFromNesstsTable();
-    }
-    setIsNessted((prev) => !prev);
-  }
-
   //responsive styling for images
   const [screenWidth, setScreenWidth] = useState<number>(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -313,7 +314,7 @@ const PropertyId: React.FC<PropertyIdProps> = ({ params }) => {
   // The useEffect hook takes two arguments: a callback function and a dependency array. The callback function is executed after the component renders and whenever any of the dependencies in the dependency array change. In this case, the dependency array is empty [], which means the effect will only run once when the component mounts.
 
   // The callback function sets up the event listener for the resize event using window.addEventListener. Whenever the resize event is triggered, the handleResize function is called, updating the screenWidth state variable.
-  
+
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);

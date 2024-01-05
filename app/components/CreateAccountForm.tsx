@@ -49,7 +49,7 @@ export default function CreateAccountForm({
   const { updateProfile } = useUpdateProfile(session);
 
   return (
-    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl">
+    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden mb-24 pb-24 overflow-y-scroll bg-black text-white md:text-xl">
       <div className="flex mt-16 pb-4">
         <Image
           src="/logos/emptyegg.png"
@@ -103,7 +103,6 @@ export default function CreateAccountForm({
           }
         />
       </div>
-
       <div className="w-5/6 pb-4">
         <label htmlFor="username">Username</label>
         <CustomInput
@@ -117,8 +116,25 @@ export default function CreateAccountForm({
               username: e.target.value,
             }))
           }
-          onError={(e) => alert("Username is required and must be at least 3 characters")}
-          required = {true}
+          onError={(e) =>
+            alert("Username is required and must be at least 3 characters")
+          }
+          required={true}
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="age">Age</label>
+        <CustomInput
+          id="age"
+          placeholder="age"
+          type="number"
+          value={formData.age || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              username: e.target.value,
+            }))
+          }
         />
       </div>
       <div className="w-5/6 pb-4">
@@ -158,7 +174,7 @@ export default function CreateAccountForm({
       </div>
       <div className="w-5/6 pb-4 flex justify-between items-center">
         <label htmlFor="smoker">Do you Smoke?</label>
-    {/* shadcn component */}
+        {/* shadcn component */}
         <Switch
           id="smoker"
           aria-label="smoker"
@@ -307,8 +323,8 @@ export default function CreateAccountForm({
           }
           disabled={loading}
         >
-          {loading ? "Loading ..." : "Submit"}         
-            </button>
+          {loading ? "Loading ..." : "Submit"}
+        </button>
       </div>
     </div>
   );
