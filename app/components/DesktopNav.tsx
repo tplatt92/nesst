@@ -32,7 +32,7 @@ export default function DesktopNav() {
               href="/explore"
               className="text-center hover:underline  hover:text-nesstYellow cursor-pointer "
             >
-              <p className=" text-md">Explore</p>
+              <p className="lg:text-md md:text-lg">Explore</p>
             </Link>
           </div>
           <div
@@ -46,7 +46,7 @@ export default function DesktopNav() {
               href="/favourites"
               className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
             >
-              <p className=" text-md">Favourites</p>
+              <p className="lg:text-md md:text-lg">Favourites</p>
             </Link>
           </div>
           <div
@@ -58,7 +58,7 @@ export default function DesktopNav() {
               href="/messages"
               className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
             >
-              <p className=" text-md">Messages</p>
+              <p className="lg:text-md md:text-lg ">Messages</p>
             </Link>
           </div>
           <div
@@ -70,7 +70,7 @@ export default function DesktopNav() {
               href="/profile"
               className="text-center hover:underline  hover:text-nesstYellow cursor-pointer"
             >
-              <p className=" text-md">Profile</p>
+              <p className="lg:text-md md:text-lg">Profile</p>
             </Link>
           </div>
         </div>
