@@ -137,7 +137,7 @@ const Messages: React.FC<ProfileIdProps> = () => {
       <header className="hidden md:block p-0">
         <DesktopNav />
       </header>
-      <div className="flex flex-col items-center w-screen overflow-y-auto">
+      <div className="flex flex-col items-center w-screen overflow-y-auto pb-16">
         <main className="px-4 pt-4 max-w-5xl w-full ">
           <h1 className=" text-center text-2xl font-bold py-4 md:py-8">
             Messages
