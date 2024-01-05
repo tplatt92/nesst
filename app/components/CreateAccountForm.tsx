@@ -103,7 +103,6 @@ export default function CreateAccountForm({
           }
         />
       </div>
-
       <div className="w-5/6 pb-4">
         <label htmlFor="username">Username</label>
         <CustomInput
@@ -121,6 +120,21 @@ export default function CreateAccountForm({
             alert("Username is required and must be at least 3 characters")
           }
           required={true}
+        />
+      </div>
+      <div className="w-5/6 pb-4">
+        <label htmlFor="age">Age</label>
+        <CustomInput
+          id="age"
+          placeholder="age"
+          type="number"
+          value={formData.age || ""}
+          onChange={(e) =>
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              username: e.target.value,
+            }))
+          }
         />
       </div>
       <div className="w-5/6 pb-4">
