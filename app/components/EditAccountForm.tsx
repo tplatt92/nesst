@@ -49,7 +49,7 @@ export default function EditAccountForm({
   const { updateProfile } = useUpdateProfile(session);
 
   return (
-    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl relative max-w-5xl">
+    <div className="form-widget flex flex-col items-center h-screen overflow-x-hidden overflow-y-scroll bg-black text-white md:text-xl relative ">
       <Link href="/profile">
         <div className="w-8 h-8 rounded-full flex items-center justify-center mb-2 bg-white m-4 absolute left-2 ">
           <svg
