@@ -79,7 +79,7 @@ export default function UserProfile({ session }: { session: Session | null }) {
           <div className="absolute right-8 md:right-20 lg:right-10 top-4 lg:top-4 z-50 w-6">
             {" "}
             <form action="/auth/signout" method="post">
-              <button className="button block" type="submit" name="Sign out">
+              <button className="button block pb-1" type="submit" name="Sign out">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="36"
