@@ -150,12 +150,12 @@ export default function EditAccountForm({
         <CustomInput
           id="age"
           placeholder="age"
-          type="number"
+          type="string"
           value={formData.age || ""}
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              username: e.target.value,
+              age: e.target.value,
             }))
           }
         />
