@@ -5,7 +5,7 @@ export type profileData = {
   first_name: string | null;
   last_name: string | null;
   username: string | null;
-  age: number | null;
+  age: string | null;
   bio: string | null;
   drinker: string | null;
   smoker: boolean;
