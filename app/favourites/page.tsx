@@ -115,7 +115,7 @@ export default function Favourites() {
         <h1 className=" text-center w-full text-2xl lg:text-3xl font-bold py-4 md:py-8 border-b">
           Favourites
         </h1>
-        <div className="flex min-h-screen flex-col items-between px-4 lg:px-8 pb-26 w-full max-w-5xl ">
+        <div className="flex min-h-screen flex-col items-between px-4 lg:px-8 pb-16 w-full max-w-5xl ">
           {likedProperties?.map((property) => (
             <Link key={property.id} href={`/explore/${property.id}`}>
               <LikedPropertiesItem
