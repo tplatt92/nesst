@@ -132,7 +132,7 @@ export default function CreateAccountForm({
           onChange={(e) =>
             setFormData((prevFormData) => ({
               ...prevFormData,
-              username: e.target.value,
+              age: e.target.value,
             }))
           }
         />
