@@ -49,7 +49,7 @@ export default function Login() {
             },
           }}
           showLinks={false}
-          providers={["google", "apple", "facebook"]}
+          // providers={["google", "apple", "facebook"]}
           redirectTo="https://nesst.vercel.app/auth/login"
         />
         <Link

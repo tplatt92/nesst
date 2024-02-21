@@ -40,7 +40,7 @@ export default function SignUp() {
               },
             }}
             showLinks={false}
-            providers={["google", "apple", "facebook"]}
+            // providers={["google", "apple", "facebook"]}
             redirectTo="https://nesst.vercel.app/auth/register"
             />
           <Link
